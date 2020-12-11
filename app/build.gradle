@@ -1,11 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+
+    buildFeatures{
+        dataBinding true
+    }
 
     defaultConfig {
         applicationId "com.linksofficial.links"
@@ -42,4 +50,79 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //Activity-KTX
+    implementation "androidx.activity:activity-ktx:1.1.0"
+
+    //Recyclerview
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
+
+    //Firebase dependencies
+    //Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+    //Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //Firebase Cloud Messaging
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
+    //Firebase Crashlytics
+//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    //Firebase Firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    //Firebase Authentication
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
+
+
+    //Koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+
+
+    //Coil
+    implementation("io.coil-kt:coil:1.0.0-rc3")
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+
+    //ViewModel-LiveData
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    //Annotaion Processor
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    //Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    //Location
+    implementation "com.google.android.gms:play-services-location:17.1.0"
+
+
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha02"
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
+
 }
