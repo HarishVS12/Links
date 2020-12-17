@@ -126,4 +126,10 @@ dependencies {
     //Lottie
     implementation "com.airbnb.android:lottie:$lottie_version"
 
+    //Play-services
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-base:17.5.0'
+    implementation 'com.google.android.gms:play-services-identity:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
+
 }
