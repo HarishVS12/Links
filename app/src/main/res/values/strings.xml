@@ -2,4 +2,19 @@
     <string name="app_name">Links</string>
     <string name="retry">RETRY</string>
     <string name="no_internet_connection">No Internet Connection</string>
+    <string name="login_desc">Find and submit all your favourite contents pulled from the internet</string>
+    
+<!--    <string name="google_login_client_id">462718902784-rcprbqj4jn5s94aelt0phmhhhk5qb0al.apps.googleusercontent.com</string>
+    <string name="client_id_google">462718902784-u12onkb2skcgfg9ktitq4fe4grf45497.apps.googleusercontent.com</string>
+    <string name="client_id">462718902784-rcprbqj4jn5s94aelt0phmhhhk5qb0al.apps.googleusercontent.com</string>
+    <string name="client_secret">V3duTeZDM0fy86q9wBIm79er</string>-->
+
+
+    <string name="client_id">4249091141-ujh4qvbr0upf04spdi4gdlobjsso93qb.apps.googleusercontent.com</string>
+    <string name="client_secret">Mr790GXVdigCCjvYyUr7K9Ao</string>
+
+    <string name="id_client">4249091141-jud3uselkue7j9ptmcdptaomo8h1g8o6.apps.googleusercontent.com</string>
+
+    <string name="google_login_id">4249091141-ujh4qvbr0upf04spdi4gdlobjsso93qb.apps.googleusercontent.com</string>
+
 </resources>

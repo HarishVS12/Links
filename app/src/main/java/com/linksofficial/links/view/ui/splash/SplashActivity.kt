@@ -9,14 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.ActivitySplashBinding
 import com.linksofficial.links.utils.NetworkHelper
-import com.linksofficial.links.view.ui.main.MainActivity
+import com.linksofficial.links.view.ui.main.LinkMainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,8 +40,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkInternetConnection() {
         if (NetworkHelper.isNetConnected(this@SplashActivity)) {
-            Toast.makeText(this@SplashActivity, "NetworkConnected", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, LinkMainActivity::class.java))
             finish()
         } else {
             showSnackbar()

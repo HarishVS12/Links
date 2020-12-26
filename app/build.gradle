@@ -61,7 +61,7 @@ dependencies {
 
     //Firebase dependencies
     //Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
     //Firebase Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'
     //Firebase Cloud Messaging
@@ -75,7 +75,8 @@ dependencies {
     //Firebase Authentication
     implementation 'com.google.firebase:firebase-auth-ktx'
 
-
+    //Play-Services auth
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
     //Koin
     implementation "org.koin:koin-android:$koin_version"
@@ -125,11 +126,5 @@ dependencies {
 
     //Lottie
     implementation "com.airbnb.android:lottie:$lottie_version"
-
-    //Play-services
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.android.gms:play-services-base:17.5.0'
-    implementation 'com.google.android.gms:play-services-identity:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
 
 }
