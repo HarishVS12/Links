@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Links">
         <activity android:name=".view.ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.main.LinkMainActivity">
+        <activity android:name=".view.ui.main.LinkMainActivity"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,9 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentLoginBinding
+import com.linksofficial.links.utils.ConstantsHelper
 import timber.log.Timber
-
-const val RC_SIGN_IN = 12
 
 
 class LoginFragment : Fragment() {
@@ -25,7 +24,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    private lateinit var auth:FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,27 +42,28 @@ class LoginFragment : Fragment() {
 
         binding.btnSignIn.setOnClickListener {
             signInIntent()
+            binding.cardProgress.visibility = View.VISIBLE
         }
 
     }
 
-    private fun signInRequest(){
+    private fun signInRequest() {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(),googleSignInOptions)
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
     }
 
     private fun signInIntent() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent, ConstantsHelper.RC_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == ConstantsHelper.RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -82,11 +82,20 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     var user = auth.currentUser
                     Timber.d("Current user: ${user?.displayName}")
+                    binding.cardProgress.visibility = View.GONE
+                    findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
                 }
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Timber.e("${it.message}")
             }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val auth = auth.currentUser
+        if (auth != null)
+            findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
     }
 
 }
