@@ -9,8 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.linksofficial.links.view.ui.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"
-        >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment"
@@ -23,6 +22,5 @@
         android:id="@+id/onboardingFragment"
         android:name="com.linksofficial.links.view.ui.onboarding.OnboardingFragment"
         android:label="OnboardingFragment"
-        tools:layout="@layout/container_onboarding"
-        />
+        tools:layout="@layout/container_onboarding" />
 </navigation>

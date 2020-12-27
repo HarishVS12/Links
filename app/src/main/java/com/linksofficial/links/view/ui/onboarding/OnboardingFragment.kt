@@ -1,14 +1,18 @@
 package com.linksofficial.links.view.ui.onboarding
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentOnboardingBinding
 import com.linksofficial.links.view.adapter.OnboardingAdapter
+import timber.log.Timber
 
 
 class OnboardingFragment : Fragment() {
@@ -27,6 +31,12 @@ class OnboardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initVP()
+        clickListeners()
+        handleBackPress()
+
+    }
+
+    private fun clickListeners(){
         binding.tvSkip.setOnClickListener { setCurrentPosition(2) }
         binding.tvNext.setOnClickListener { setCurrentPosition(binding.viewPager.currentItem + 1) }
     }
@@ -48,19 +58,37 @@ class OnboardingFragment : Fragment() {
                     0 -> {
                         updateUI(View.VISIBLE, View.GONE)
                         binding.ivSub.setImageResource(R.drawable.ic_onboarding_sub1)
+                        Timber.d("${findNavController().currentBackStackEntry?.destination}")
                     }
                     1 -> {
                         binding.ivSub.setImageResource(R.drawable.ic_onboarding_sub2)
                         updateUI(View.VISIBLE, View.GONE)
+                        Timber.d("${findNavController().currentBackStackEntry}")
                     }
-                    2 -> updateUI(View.GONE, View.VISIBLE)
+                    2 -> {
+                        updateUI(View.GONE, View.VISIBLE)
+                        Timber.d("${findNavController().currentBackStackEntry}")
+                    }
+
                 }
             }
         })
     }
 
+
     private fun setCurrentPosition(position: Int) {
         binding.viewPager.setCurrentItem(position, true)
+    }
+
+    private fun handleBackPress(){
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(binding.viewPager.currentItem==0)
+                    activity?.finish()
+                binding.viewPager.setCurrentItem(binding.viewPager.currentItem-1,true)
+            }
+        })
+
     }
 
 }
