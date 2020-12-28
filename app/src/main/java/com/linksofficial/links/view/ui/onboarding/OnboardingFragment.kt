@@ -6,18 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentOnboardingBinding
 import com.linksofficial.links.view.adapter.OnboardingAdapter
+import com.linksofficial.links.viewmodel.OnboardingVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
 class OnboardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnboardingBinding
+    private val onBoardingVM: OnboardingVM by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +43,17 @@ class OnboardingFragment : Fragment() {
     private fun clickListeners(){
         binding.tvSkip.setOnClickListener { setCurrentPosition(2) }
         binding.tvNext.setOnClickListener { setCurrentPosition(binding.viewPager.currentItem + 1) }
+        binding.btnProceed.setOnClickListener {
+            onBoardingVM.writeFirstAppOpen(true)
+            Toast.makeText(requireActivity(), "PROCEED TO FEED FRAGMENT", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        onBoardingVM.readFirstAppOpen().observe(this,{
+            Timber.d("IS APP OPENED ALREADY? : $it")
+        })
     }
 
     private fun updateUI(linearVisibility: Int, buttonVisibility: Int) {

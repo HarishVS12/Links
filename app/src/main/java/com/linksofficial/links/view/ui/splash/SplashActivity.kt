@@ -19,10 +19,12 @@ import com.linksofficial.links.view.ui.main.LinkMainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
+    private val networkHelper: NetworkHelper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkInternetConnection() {
-        if (NetworkHelper.isNetConnected(this@SplashActivity)) {
+        if (networkHelper.isNetConnected()) {
             startActivity(Intent(this@SplashActivity, LinkMainActivity::class.java))
             finish()
         } else {

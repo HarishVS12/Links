@@ -4,20 +4,16 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.widget.Toast
-import com.linksofficial.links.BuildConfig
 
-class NetworkHelper {
+class NetworkHelper(val context: Context) {
 
-    companion object {
-
-        private fun isNetworkConnected(context: Context): Boolean {
+        private fun isNetworkConnected(): Boolean {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = cm?.activeNetworkInfo
             return activeNetwork?.isConnectedOrConnecting == true
         }
 
-        fun isNetConnected(context: Context): Boolean {
+        fun isNetConnected(): Boolean {
             var c = false
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 val cm =
@@ -29,9 +25,9 @@ class NetworkHelper {
                             b!!.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
                 }
             } else {
-                c = isNetworkConnected(context)
+                c = isNetworkConnected()
             }
             return c
         }
-    }
+
 }
