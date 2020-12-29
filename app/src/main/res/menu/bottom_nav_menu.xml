@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/feedFragment"
+        android:title=""
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_menu_home_outline"
+        />
+
+    <item
+        android:id="@+id/myLinkFragment"
+        android:title=""
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_menu_link"/>
+
+    <item
+        android:id="@+id/myAccountFragment"
+        android:title=""
+        android:orderInCategory="3"
+        android:icon="@drawable/ic_menu_account"/>
+
+</menu>

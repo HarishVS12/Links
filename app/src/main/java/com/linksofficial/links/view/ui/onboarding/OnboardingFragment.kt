@@ -1,6 +1,5 @@
 package com.linksofficial.links.view.ui.onboarding
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -45,14 +44,15 @@ class OnboardingFragment : Fragment() {
         binding.tvNext.setOnClickListener { setCurrentPosition(binding.viewPager.currentItem + 1) }
         binding.btnProceed.setOnClickListener {
             onBoardingVM.writeFirstAppOpen(true)
-            Toast.makeText(requireActivity(), "PROCEED TO FEED FRAGMENT", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
         }
     }
 
     override fun onStart() {
         super.onStart()
         onBoardingVM.readFirstAppOpen().observe(this,{
-            Timber.d("IS APP OPENED ALREADY? : $it")
+            if(it)
+                findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
         })
     }
 
