@@ -95,7 +95,7 @@ class LoginFragment : Fragment() {
         super.onStart()
         val auth = auth.currentUser
         if (auth != null)
-            findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
     }
 
 }

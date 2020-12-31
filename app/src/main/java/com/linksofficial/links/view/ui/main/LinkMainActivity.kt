@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.ActivityMainBinding
-import com.linksofficial.links.databinding.ContainerOnboardingBinding
-import com.linksofficial.links.databinding.FragmentOnboardingBinding
 
 
 class LinkMainActivity : AppCompatActivity() {
