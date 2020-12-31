@@ -9,11 +9,7 @@
         android:id="@+id/feedFragment"
         android:name="com.linksofficial.links.view.ui.home.fragments.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" >
-        <action
-            android:id="@+id/action_feedFragment_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
-    </fragment>
+        tools:layout="@layout/fragment_feed" />
     <fragment
         android:id="@+id/myAccountFragment"
         android:name="com.linksofficial.links.view.ui.home.fragments.MyAccountFragment"
@@ -24,8 +20,4 @@
         android:name="com.linksofficial.links.view.ui.home.fragments.MyLinkFragment"
         android:label="fragment_my_link"
         tools:layout="@layout/fragment_my_link" />
-    <fragment
-        android:id="@+id/loginFragment2"
-        android:name="com.linksofficial.links.view.ui.login.LoginFragment"
-        android:label="LoginFragment" />
 </navigation>
