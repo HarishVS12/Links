@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.linksofficial.links.data.repository.MainRepository
 import kotlinx.coroutines.launch
 
-class OnboardingVM(private val mainRepo: MainRepository): ViewModel() {
+class LinkActivityVM(private val mainRepo: MainRepository): ViewModel() {
 
     fun readFirstAppOpen():LiveData<Boolean>{
         return mainRepo.readFirstAppOpen().asLiveData()

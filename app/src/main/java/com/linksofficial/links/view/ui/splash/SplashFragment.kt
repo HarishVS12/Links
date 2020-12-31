@@ -4,32 +4,46 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.linksofficial.links.R
-import com.linksofficial.links.databinding.ActivitySplashBinding
+import com.linksofficial.links.databinding.FragmentSplashBinding
 import com.linksofficial.links.utils.NetworkHelper
-import com.linksofficial.links.view.ui.main.LinkMainActivity
+import com.linksofficial.links.viewmodel.LinkActivityVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SplashActivity : AppCompatActivity() {
+class SplashFragment : Fragment() {
 
-    private lateinit var binding: ActivitySplashBinding
+    private lateinit var binding: FragmentSplashBinding
+    private val linkActivityVM: LinkActivityVM by viewModel()
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSplashBinding.inflate(inflater)
+        return binding.root
+    }
+
     private val networkHelper: NetworkHelper by inject()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         animateCard()
 
@@ -42,8 +56,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkInternetConnection() {
         if (networkHelper.isNetConnected()) {
-            startActivity(Intent(this@SplashActivity, LinkMainActivity::class.java))
-            finish()
+            checkMoreThings()
         } else {
             showSnackbar()
         }
@@ -61,10 +74,10 @@ class SplashActivity : AppCompatActivity() {
             .setActionTextColor(resources.getColor(R.color.white))
 
         val snackText = (mSnackbar.view).findViewById<TextView>(R.id.snackbar_text)
-        snackText.typeface = ResourcesCompat.getFont(this, R.font.lato_bold)
+        snackText.typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato_bold)
 
         val snackAction = (mSnackbar.view).findViewById<TextView>(R.id.snackbar_action)
-        snackAction.typeface = ResourcesCompat.getFont(this, R.font.lato_black)
+        snackAction.typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato_black)
         mSnackbar.show()
     }
 
@@ -87,4 +100,21 @@ class SplashActivity : AppCompatActivity() {
             duration = 1000
         }.start()
     }
+
+    private fun checkMoreThings(){
+        val auth = FirebaseAuth.getInstance().currentUser
+        if (auth != null) {
+            linkActivityVM.readFirstAppOpen().observe(viewLifecycleOwner,{
+                if(it) {
+                    findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+                }else{
+                    findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
+                }
+            })
+        }else{
+            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+        }
+
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.linksofficial.links.view.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -89,13 +90,6 @@ class LoginFragment : Fragment() {
             .addOnFailureListener {
                 Timber.e("${it.message}")
             }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val auth = auth.currentUser
-        if (auth != null)
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
     }
 
 }

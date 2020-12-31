@@ -5,14 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentOnboardingBinding
 import com.linksofficial.links.view.adapter.OnboardingAdapter
-import com.linksofficial.links.viewmodel.OnboardingVM
+import com.linksofficial.links.viewmodel.LinkActivityVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -20,7 +19,7 @@ import timber.log.Timber
 class OnboardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnboardingBinding
-    private val onBoardingVM: OnboardingVM by viewModel()
+    private val onBoardingVM: LinkActivityVM by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
