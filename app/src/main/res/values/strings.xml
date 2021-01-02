@@ -26,5 +26,11 @@
     <string name="onboard_sub_2">Share all your favorite contents to the world to see and learn.</string>
     <string name="onboard_sub_3">Save all your favorite websites in one account and in one area. Enjoy surfing!!</string>
     <string name="loremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</string>
+    <string name="my_account">My Account</string>
+    <string name="about_us">About us</string>
+    <string name="share_our_app">Share our app</string>
+    <string name="contact_us">Contact us</string>
+    <string name="rate_us">Rate us</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

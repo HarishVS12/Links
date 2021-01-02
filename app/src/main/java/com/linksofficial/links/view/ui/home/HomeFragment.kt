@@ -29,11 +29,28 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        onDestinationChange()
     }
 
     private fun init(){
         navController = findNavController(requireActivity(),R.id.home_nav_host)
         binding.bottomNav.setupWithNavController(navController)
+    }
+
+    private fun onDestinationChange(){
+        navController.addOnDestinationChangedListener {
+                controller, destination, arguments ->
+            when(destination.id){
+                R.id.feedFragment -> updateUI(View.VISIBLE)
+                R.id.myAccountFragment -> updateUI(View.VISIBLE)
+                R.id.myLinkFragment -> updateUI(View.VISIBLE)
+                R.id.editProfileFragment -> updateUI(View.GONE)
+            }
+        }
+    }
+
+    private fun updateUI(visibility:Int){
+        binding.bottomNav.visibility = visibility
     }
 
 }
