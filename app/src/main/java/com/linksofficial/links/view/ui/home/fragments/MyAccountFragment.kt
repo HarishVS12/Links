@@ -42,6 +42,10 @@ class MyAccountFragment() : Fragment() {
             findNavController().navigate(R.id.action_myAccountFragment_to_editProfileFragment)
         }
 
+        binding.ivLogout.setOnClickListener {
+            Firebase.auth.signOut()
+        }
+
     }
 
 }

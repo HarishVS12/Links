@@ -23,12 +23,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
-    private val linkActivityVM: LinkActivityVM by viewModel()
+    private val linkActivityVM: LinkActivityVM by sharedViewModel()
 
 
     override fun onCreateView(
@@ -56,7 +57,7 @@ class SplashFragment : Fragment() {
 
     private fun checkInternetConnection() {
         if (networkHelper.isNetConnected()) {
-            checkMoreThings()
+            checkIfAppAlreadyOpen()
         } else {
             showSnackbar()
         }
@@ -101,7 +102,7 @@ class SplashFragment : Fragment() {
         }.start()
     }
 
-    private fun checkMoreThings(){
+    private fun checkIfAppAlreadyOpen(){
         val auth = FirebaseAuth.getInstance().currentUser
         if (auth != null) {
             linkActivityVM.readFirstAppOpen().observe(viewLifecycleOwner,{

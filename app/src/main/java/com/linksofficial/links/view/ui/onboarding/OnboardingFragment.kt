@@ -12,14 +12,14 @@ import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentOnboardingBinding
 import com.linksofficial.links.view.adapter.OnboardingAdapter
 import com.linksofficial.links.viewmodel.LinkActivityVM
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 
 class OnboardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnboardingBinding
-    private val onBoardingVM: LinkActivityVM by viewModel()
+    private val onBoardingVM: LinkActivityVM by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
