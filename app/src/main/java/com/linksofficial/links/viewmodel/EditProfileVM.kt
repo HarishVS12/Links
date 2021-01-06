@@ -19,45 +19,14 @@ import timber.log.Timber
 
 class EditProfileVM(private val mainRepo: MainRepository) : ViewModel() {
 
-    private var username = MutableLiveData<String?>()
-    val _username: LiveData<String?>
-        get() = username
+    var _userDetails = MutableLiveData<User?>()
+    val userDetails: LiveData<User?>
+        get() = _userDetails
 
-    private var bio = MutableLiveData<String?>()
-    val _bio: LiveData<String?>
-        get() = bio
-
-    private var tags = MutableLiveData<String?>()
-    val _tags: LiveData<String?>
-        get() = tags
-
-    private var image_url = MutableLiveData<String?>()
-    val _image_url: LiveData<String?>
-        get() = image_url
-
-    fun updateUserDetails(map:HashMap<String,Any?>){
-        mainRepo.updateUserDetails(Firebase.auth.currentUser?.uid,map)
+    fun updateUserDetails(map: HashMap<String, Any?>) {
+        mainRepo.updateUserDetails(Firebase.auth.currentUser?.uid, map)
     }
 
-
-    fun getUserDetails(uniqueId: String?) {
-        val database = Firebase.firestore
-        var user: User? = null
-        database.collection(ConstantsHelper.USER)
-            .document(uniqueId.toString())
-            .get()
-            .addOnSuccessListener { doc ->
-                user = doc.toObject<User>()
-                username.postValue(user?.username)
-                bio.postValue(user?.bio)
-                tags.postValue(user?.favorite_tags)
-                image_url.postValue(user?.photo_url)
-                Timber.i(user?.photo_url)
-            }
-            .addOnFailureListener {
-                Timber.e(it.printStackTrace().toString())
-            }
-    }
 
     companion object {
         @JvmStatic

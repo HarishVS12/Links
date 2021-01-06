@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.linksofficial.links.viewmodel.MyAccountVM" />
+
+        <import type="com.linksofficial.links.utils.BindingAdapters" />
+
+        <import type="android.view.View"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,12 +93,12 @@
 
                     <ImageView
                         android:id="@+id/iv_profile_image"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_gravity="start"
                         android:layout_marginStart="@dimen/margin_16"
                         android:layout_marginTop="@dimen/margin_16"
-                        android:src="@drawable/ic_links_round_icon_toolbar" />
+                        app:setImage="@{vm.userDetails.photo_url}" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -104,7 +112,9 @@
                             android:layout_marginStart="@dimen/margin_16"
                             android:layout_marginTop="@dimen/margin_24"
                             android:fontFamily="@font/lato_bold"
-                            android:text="HARISH. V"
+                            android:text="@{vm.userDetails.username}"
+                            android:padding="@dimen/margin_8"
+                            android:background="@drawable/ic_background_text"
                             android:textColor="@color/black"
                             android:textSize="20sp" />
 
@@ -114,8 +124,10 @@
                             android:layout_marginStart="@dimen/margin_16"
                             android:layout_marginTop="@dimen/margin_8"
                             android:fontFamily="@font/lato_regular"
-                            android:text="harishv783@gmailc.com"
+                            android:text="@{vm.userDetails.email}"
                             android:textColor="@color/black"
+                            android:padding="@dimen/margin_8"
+                            android:background="@drawable/ic_background_text"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -123,39 +135,44 @@
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:layout_marginEnd="@dimen/margin_16"
                     android:fontFamily="@font/lato_regular"
-                    android:gravity="center"
-                    android:text="@string/loremIpsum"
+                    android:gravity="start"
+                    android:text="@{vm.userDetails.bio}"
+                    android:visibility="@{vm.userDetails.bio==null ? View.GONE : View.VISIBLE}"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
-                <com.google.android.material.button.MaterialButton
+                <TextView
                     android:id="@+id/btn_edit_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/margin_16"
-                    android:backgroundTint="@color/secondaryColor"
+                    android:padding="@dimen/margin_8"
                     android:text="EDIT PROFILE"
+                    android:background="@drawable/ic_background_button"
                     android:textAlignment="center"
-                    app:cornerRadius="10dp"
+                    app:cornerRadius="@dimen/margin_8"
+                    android:fontFamily="@font/lato_bold"
+                    android:textColor="@color/black"
                     app:elevation="6dp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="1.5dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin_16"
                     android:layout_marginTop="@dimen/margin_8"
-                    android:layout_marginBottom="@dimen/margin_8"
                     android:layout_marginEnd="@dimen/margin_16"
-                    android:background="#C4C4C4" />
+                    android:layout_marginBottom="@dimen/margin_8"
+                    android:background="#C4C4C4"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,6 +186,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="true"
+                        android:padding="8dp"
+                        android:background="@drawable/ic_background_text"
                         android:orientation="horizontal">
 
                         <TextView
@@ -177,13 +196,11 @@
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_info"
                             android:drawablePadding="@dimen/margin_16"
-                            android:fontFamily="@font/lato_regular"
+                            android:fontFamily="@font/muli"
                             android:gravity="start|center"
-                            android:letterSpacing="0.1"
                             android:text="@string/about_us"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp"/>
 
                         <ImageView
                             android:layout_width="18dp"
@@ -198,8 +215,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16"
                         android:clickable="true"
-                        android:layout_marginTop="@dimen/margin_24"
+                        android:padding="@dimen/margin_8"
+                        android:background="@drawable/ic_background_text"
                         android:orientation="horizontal">
 
                         <TextView
@@ -208,13 +227,11 @@
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_share"
                             android:drawablePadding="@dimen/margin_16"
-                            android:fontFamily="@font/lato_regular"
+                            android:fontFamily="@font/muli"
                             android:gravity="start|center"
-                            android:letterSpacing="0.1"
                             android:text="@string/share_our_app"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
 
                         <ImageView
                             android:layout_width="18dp"
@@ -229,8 +246,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16"
                         android:clickable="true"
-                        android:layout_marginTop="@dimen/margin_24"
+                        android:padding="@dimen/margin_8"
+                        android:background="@drawable/ic_background_text"
                         android:orientation="horizontal">
 
                         <TextView
@@ -239,13 +258,11 @@
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_contact_us"
                             android:drawablePadding="@dimen/margin_16"
-                            android:fontFamily="@font/lato_regular"
+                            android:fontFamily="@font/muli"
                             android:gravity="start|center"
-                            android:letterSpacing="0.1"
                             android:text="@string/contact_us"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp"/>
 
                         <ImageView
                             android:layout_width="18dp"
@@ -260,8 +277,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16"
                         android:clickable="true"
-                        android:layout_marginTop="@dimen/margin_24"
+                        android:padding="@dimen/margin_8"
+                        android:background="@drawable/ic_background_text"
                         android:orientation="horizontal">
 
                         <TextView
@@ -270,13 +289,11 @@
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_rate_us"
                             android:drawablePadding="@dimen/margin_16"
-                            android:fontFamily="@font/lato_regular"
                             android:gravity="start|center"
-                            android:letterSpacing="0.1"
                             android:text="@string/rate_us"
+                            android:fontFamily="@font/muli"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
 
                         <ImageView
                             android:layout_width="18dp"

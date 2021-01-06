@@ -11,12 +11,17 @@ import coil.transform.CircleCropTransformation
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.linksofficial.links.R
+import com.linksofficial.links.data.model.User
 import com.linksofficial.links.databinding.FragmentMyAccountBinding
+import com.linksofficial.links.viewmodel.MyAccountVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MyAccountFragment() : Fragment() {
 
     private lateinit var binding: FragmentMyAccountBinding
+    private val myAccountVM: MyAccountVM by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +34,12 @@ class MyAccountFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myAccountVM.getUserDetails(Firebase.auth.currentUser?.uid)
+
+        binding.apply {
+            vm = myAccountVM
+            lifecycleOwner = this@MyAccountFragment
+        }
 
         val auth = Firebase.auth
         val link = auth.currentUser?.photoUrl
@@ -39,7 +50,10 @@ class MyAccountFragment() : Fragment() {
         }
 
         binding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_myAccountFragment_to_editProfileFragment)
+            myAccountVM.userDetails?.observe(viewLifecycleOwner,{
+                val action = MyAccountFragmentDirections.actionMyAccountFragmentToEditProfileFragment(it)
+                findNavController().navigate(action)
+            })
         }
 
         binding.ivLogout.setOnClickListener {

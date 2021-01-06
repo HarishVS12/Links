@@ -82,7 +82,7 @@
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:layout_marginTop="@dimen/margin_16"
-                            app:setImage="@{vm._image_url}"
+                            app:setImage="@{vm.userDetails.photo_url}"
                             />
 
                         <ImageView
@@ -119,7 +119,7 @@
                             android:id="@+id/et_username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{vm._username}"
+                            android:text="@{vm.userDetails.username}"
                             android:textSize="18sp"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="@font/lato_regular"
@@ -148,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
                             android:fontFamily="@font/lato_regular"
-                            android:text="@{vm._bio}"
+                            android:text="@{vm.userDetails.bio}"
                             android:textColorHint="@color/primaryColor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -172,7 +172,7 @@
                             android:id="@+id/et_tags"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{vm._tags}"
+                            android:text="@{vm.userDetails.favorite_tags}"
                             android:textSize="18sp"
                             android:fontFamily="@font/lato_regular"
                             android:textColorHint="@color/primaryColor" />

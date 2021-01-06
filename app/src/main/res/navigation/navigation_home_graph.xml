@@ -14,14 +14,24 @@
         android:id="@+id/myAccountFragment"
         android:name="com.linksofficial.links.view.ui.home.fragments.MyAccountFragment"
         android:label="fragment_my_account"
-        tools:layout="@layout/fragment_my_account" >
+        tools:layout="@layout/fragment_my_account">
+
+        <argument
+            android:name="userDetails"
+            android:defaultValue="@null"
+            app:argType="com.linksofficial.links.data.model.User"
+            app:nullable="true" />
+
         <action
             android:id="@+id/action_myAccountFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_open_exit" />
+            app:destination="@id/editProfileFragment">
+
+            <argument
+                android:name="userDetails"
+                android:defaultValue="@null"
+                app:argType="com.linksofficial.links.data.model.User"
+                app:nullable="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/myLinkFragment"

@@ -1,6 +1,7 @@
 package com.linksofficial.links.data.model
 
 import com.google.firebase.Timestamp
+import java.io.Serializable
 
 data class User(
     val user_id:String? = null,
@@ -10,4 +11,4 @@ data class User(
     val created_at:Timestamp? = null,
     val bio: String? = null,
     val favorite_tags:String? = null
-)
+):Serializable
