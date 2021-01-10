@@ -82,6 +82,7 @@
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:layout_marginTop="@dimen/margin_16"
+                            progressbar="@{progressBar}"
                             app:setImage="@{vm.userDetails.photo_url}"
                             />
 
@@ -100,6 +101,14 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/margin_16"
                             android:src="@drawable/ic_camera" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            />
+
                     </FrameLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -107,12 +116,14 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="@dimen/margin_20"
                         android:hint="Username"
                         app:startIconDrawable="@drawable/ic_username"
                         app:boxStrokeColor="@color/text_input_color"
                         app:hintEnabled="true"
                         app:boxStrokeWidth="2dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="15"
                         app:boxStrokeWidthFocused="3dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -120,7 +131,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@{vm.userDetails.username}"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
+                            android:maxLength="15"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="@font/lato_regular"
                             android:textColorHint="@color/primaryColor" />
@@ -132,12 +144,14 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="@dimen/margin_20"
                         app:startIconDrawable="@drawable/ic_bio"
                         android:hint="Bio"
                         app:boxStrokeColor="@color/text_input_color"
                         app:endIconMode="clear_text"
                         app:hintEnabled="true"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="150"
                         app:hintTextColor="@color/primaryColor"
                         app:boxStrokeWidth="2dp"
                         app:boxStrokeWidthFocused="3dp">
@@ -146,7 +160,8 @@
                             android:id="@+id/et_bio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
+                            android:maxLength="150"
                             android:fontFamily="@font/lato_regular"
                             android:text="@{vm.userDetails.bio}"
                             android:textColorHint="@color/primaryColor" />
@@ -158,7 +173,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="@dimen/margin_20"
                         app:startIconDrawable="@drawable/ic_tags"
                         app:boxStrokeColor="@color/text_input_color"
                         app:hintEnabled="true"
@@ -173,7 +188,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@{vm.userDetails.favorite_tags}"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:fontFamily="@font/lato_regular"
                             android:textColorHint="@color/primaryColor" />
 
@@ -184,7 +199,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="@dimen/margin_24"
                         android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/secondaryColor"
                         android:elevation="6dp"

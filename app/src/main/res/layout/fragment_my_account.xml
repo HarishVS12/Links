@@ -11,7 +11,7 @@
 
         <import type="com.linksofficial.links.utils.BindingAdapters" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
     </data>
 
@@ -91,14 +91,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/iv_profile_image"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="start"
-                        android:layout_marginStart="@dimen/margin_16"
-                        android:layout_marginTop="@dimen/margin_16"
-                        app:setImage="@{vm.userDetails.photo_url}" />
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+
+                        <ImageView
+                            android:id="@+id/iv_profile_image"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            progressbar="@{progressBar}"
+                            app:setImage="@{vm._userImageUrl}" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="visible"
+                            />
+
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -112,23 +129,21 @@
                             android:layout_marginStart="@dimen/margin_16"
                             android:layout_marginTop="@dimen/margin_24"
                             android:fontFamily="@font/lato_bold"
-                            android:text="@{vm.userDetails.username}"
-                            android:padding="@dimen/margin_8"
-                            android:background="@drawable/ic_background_text"
+                            android:text="@{vm._username}"
                             android:textColor="@color/black"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            tools:text="HarishVS12" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16"
-                            android:layout_marginTop="@dimen/margin_8"
+                            android:layout_marginTop="6dp"
                             android:fontFamily="@font/lato_regular"
-                            android:text="@{vm.userDetails.email}"
+                            android:text="@{vm._usermail}"
                             android:textColor="@color/black"
-                            android:padding="@dimen/margin_8"
-                            android:background="@drawable/ic_background_text"
-                            android:textSize="14sp" />
+                            android:textSize="12sp"
+                            tools:text="harishv783@gmail.com" />
 
                     </LinearLayout>
 
@@ -142,38 +157,44 @@
                     android:layout_marginTop="@dimen/margin_8"
                     android:layout_marginEnd="@dimen/margin_16"
                     android:fontFamily="@font/lato_regular"
-                    android:gravity="start"
-                    android:text="@{vm.userDetails.bio}"
-                    android:visibility="@{vm.userDetails.bio==null ? View.GONE : View.VISIBLE}"
+                    android:gravity="center"
+                    android:text="@{vm._userBio}"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="@{vm._userBio==null ? View.GONE : View.VISIBLE}" />
 
-                <TextView
-                    android:id="@+id/btn_edit_profile"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_margin="@dimen/margin_16"
-                    android:padding="@dimen/margin_8"
-                    android:text="EDIT PROFILE"
-                    android:background="@drawable/ic_background_button"
-                    android:textAlignment="center"
-                    app:cornerRadius="@dimen/margin_8"
-                    android:fontFamily="@font/lato_bold"
-                    android:textColor="@color/black"
-                    app:elevation="6dp" />
+                    android:background="@drawable/ic_background_button">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_8"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:background="#C4C4C4"
-                    />
+                    <Button
+                        android:id="@+id/btn_edit_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="EDIT PROFILE"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        app:cornerRadius="@dimen/margin_24"
+                        app:elevation="6dp" />
 
+                </FrameLayout>
+
+                <!--    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:layout_marginBottom="@dimen/margin_8"
+                        android:background="#C4C4C4" />
+    -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -182,128 +203,154 @@
                     android:layout_marginEnd="@dimen/margin_16"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:padding="8dp"
-                        android:background="@drawable/ic_background_text"
-                        android:orientation="horizontal">
+                        android:background="@drawable/ic_background_text">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/linear_about"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_info"
-                            android:drawablePadding="@dimen/margin_16"
-                            android:fontFamily="@font/muli"
-                            android:gravity="start|center"
-                            android:text="@string/about_us"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"/>
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="@dimen/margin_16"
-                            android:src="@drawable/ic_arrow_forward" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_info"
+                                android:drawablePadding="@dimen/margin_16"
+                                android:fontFamily="@font/muli"
+                                android:gravity="start|center"
+                                android:text="@string/about_us"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_16"
-                        android:clickable="true"
-                        android:padding="@dimen/margin_8"
-                        android:background="@drawable/ic_background_text"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_share"
-                            android:drawablePadding="@dimen/margin_16"
-                            android:fontFamily="@font/muli"
-                            android:gravity="start|center"
-                            android:text="@string/share_our_app"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="@dimen/margin_16"
-                            android:src="@drawable/ic_arrow_forward" />
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="@dimen/margin_16"
+                                android:src="@drawable/ic_arrow_forward" />
 
 
-                    </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_16"
-                        android:clickable="true"
-                        android:padding="@dimen/margin_8"
-                        android:background="@drawable/ic_background_text"
-                        android:orientation="horizontal">
+                        android:background="@drawable/ic_background_text">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_contact_us"
-                            android:drawablePadding="@dimen/margin_16"
-                            android:fontFamily="@font/muli"
-                            android:gravity="start|center"
-                            android:text="@string/contact_us"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"/>
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/margin_8">
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="@dimen/margin_16"
-                            android:src="@drawable/ic_arrow_forward" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_share"
+                                android:drawablePadding="@dimen/margin_16"
+                                android:fontFamily="@font/muli"
+                                android:gravity="start|center"
+                                android:text="@string/share_our_app"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="@dimen/margin_16"
+                                android:src="@drawable/ic_arrow_forward" />
 
 
-                    </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
 
-                    <LinearLayout
+
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_16"
-                        android:clickable="true"
-                        android:padding="@dimen/margin_8"
-                        android:background="@drawable/ic_background_text"
-                        android:orientation="horizontal">
+                        android:background="@drawable/ic_background_text">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_rate_us"
-                            android:drawablePadding="@dimen/margin_16"
-                            android:gravity="start|center"
-                            android:text="@string/rate_us"
-                            android:fontFamily="@font/muli"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/margin_8">
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="@dimen/margin_16"
-                            android:src="@drawable/ic_arrow_forward" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_contact_us"
+                                android:drawablePadding="@dimen/margin_16"
+                                android:fontFamily="@font/muli"
+                                android:gravity="start|center"
+                                android:text="@string/contact_us"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="@dimen/margin_16"
+                                android:src="@drawable/ic_arrow_forward" />
 
 
-                    </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@drawable/ic_background_text">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/margin_8">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_rate_us"
+                                android:drawablePadding="@dimen/margin_16"
+                                android:fontFamily="@font/muli"
+                                android:gravity="start|center"
+                                android:text="@string/rate_us"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="@dimen/margin_16"
+                                android:src="@drawable/ic_arrow_forward" />
+
+
+                        </LinearLayout>
+                    </FrameLayout>
 
 
                 </LinearLayout>

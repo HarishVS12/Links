@@ -1,8 +1,6 @@
 package com.linksofficial.links.data.repository
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.data.preferences.Prefs
@@ -22,6 +20,15 @@ class MainRepository(private val prefs: Prefs) {
         prefs.writeFirstAppOpen(isFirstAppOpen)
     }
 
+    suspend fun writeUserDetails(user: User) {
+        prefs.writeUserDetails(user)
+    }
+
+    fun readUserDetails(userInfo: String): Flow<String> {
+        return prefs.readUserDetail(userInfo)
+    }
+
+
     //Firestore writes and reads
     fun writeUserLogin(user: User, uniqueId: String?) {
         val database = Firebase.firestore
@@ -40,20 +47,19 @@ class MainRepository(private val prefs: Prefs) {
     }
 
     //Update User data
-    fun updateUserDetails(uniqueId: String?,userData:HashMap<String,Any?>){
+    fun updateUserDetails(uniqueId: String?, userData: HashMap<String, Any?>) {
         val database = Firebase.firestore
         database.collection(ConstantsHelper.USER)
             .document(uniqueId.toString())
             .update(userData)
             .addOnCompleteListener {
-                if(it.isSuccessful)
+                if (it.isSuccessful)
                     Timber.i("Updated User data successfully")
             }
             .addOnFailureListener {
                 Timber.e(it)
             }
     }
-
 
 
 }

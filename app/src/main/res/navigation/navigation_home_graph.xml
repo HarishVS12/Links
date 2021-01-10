@@ -18,7 +18,6 @@
 
         <argument
             android:name="userDetails"
-            android:defaultValue="@null"
             app:argType="com.linksofficial.links.data.model.User"
             app:nullable="true" />
 
@@ -38,9 +37,18 @@
         android:name="com.linksofficial.links.view.ui.home.fragments.MyLinkFragment"
         android:label="fragment_my_link"
         tools:layout="@layout/fragment_my_link" />
-    <fragment
+     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.linksofficial.links.view.ui.editProfile.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <argument
+            android:name="userDetails"
+            android:defaultValue="@null"
+            app:argType="com.linksofficial.links.data.model.User"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_myAccountFragment"
+            app:destination="@id/myAccountFragment" />
+    </fragment>
 </navigation>

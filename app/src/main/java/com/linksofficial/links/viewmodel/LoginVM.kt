@@ -11,7 +11,18 @@ import kotlinx.coroutines.launch
 class LoginVM(private val mainRepo: MainRepository) : ViewModel() {
 
     fun writeUserLogin(user: User, uniqueId: String?) {
-            mainRepo.writeUserLogin(user, uniqueId)
+        mainRepo.writeUserLogin(user, uniqueId)
     }
+
+    fun writeUserDetail(user: User) {
+        viewModelScope.launch {
+            mainRepo.writeUserDetails(user)
+        }
+    }
+
+    fun readUserDetail(userInfo: String): LiveData<String> {
+        return mainRepo.readUserDetails(userInfo).asLiveData()
+    }
+
 
 }

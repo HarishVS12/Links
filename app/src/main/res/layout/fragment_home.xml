@@ -37,9 +37,10 @@
             android:elevation="16dp"
             app:elevation="16dp"
             app:itemIconSize="28dp"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="labeled"
             android:visibility="visible"
             android:layout_gravity="bottom"
+            app:itemBackground="@drawable/bottom_nav_indicator"
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             />
 

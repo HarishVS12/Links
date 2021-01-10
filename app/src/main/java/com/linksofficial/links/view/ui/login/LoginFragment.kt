@@ -15,9 +15,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.linksofficial.links.R
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.databinding.FragmentLoginBinding
@@ -118,11 +115,16 @@ class LoginFragment : Fragment() {
         linkActivityVM.readFirstAppOpen().observe(viewLifecycleOwner, {
             if (it == false) {
                 loginVM.writeUserLogin(createUser(uniqueId, currentUser), uniqueId)
+                writeUserDetails(createUser(uniqueId,currentUser))
                 findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
             }else{
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         })
+    }
+
+    private fun writeUserDetails(user:User){
+        loginVM.writeUserDetail(user)
     }
 
 }
