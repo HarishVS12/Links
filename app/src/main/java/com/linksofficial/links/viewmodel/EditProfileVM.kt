@@ -1,7 +1,10 @@
 package com.linksofficial.links.viewmodel
 
 import android.net.Uri
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -12,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class EditProfileVM(private val mainRepo: MainRepository) : ViewModel() {
 
-    var _userDetails = MutableLiveData<User?>()
+    private var _userDetails = MutableLiveData<User?>()
     val userDetails: LiveData<User?>
         get() = _userDetails
 
@@ -26,17 +29,18 @@ class EditProfileVM(private val mainRepo: MainRepository) : ViewModel() {
         }
     }
 
-    fun readUserDetail(userInfo: String): LiveData<String> {
-        return mainRepo.readUserDetails(userInfo).asLiveData()
+    fun updateUserLD(user:User?){
+        _userDetails.value = user!!
     }
 
 
-     fun uploadImageToStorage(
+    fun uploadImageToStorage(
         currentUser: FirebaseUser,
         imageURI: Uri?
     ) {
         viewModelScope.launch {
-            val imageRef = Firebase.storage.reference.child(currentUser.uid ?: "NoUID").child(currentUser?.email.toString())
+            val imageRef = Firebase.storage.reference.child(currentUser.uid ?: "NoUID")
+                .child(currentUser?.email.toString())
             var uploadTask = imageRef.putFile(imageURI!!)
 
             uploadTask.continueWithTask {

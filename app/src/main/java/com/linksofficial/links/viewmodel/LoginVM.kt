@@ -1,8 +1,6 @@
 package com.linksofficial.links.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.data.repository.MainRepository
@@ -18,10 +16,6 @@ class LoginVM(private val mainRepo: MainRepository) : ViewModel() {
         viewModelScope.launch {
             mainRepo.writeUserDetails(user)
         }
-    }
-
-    fun readUserDetail(userInfo: String): LiveData<String> {
-        return mainRepo.readUserDetails(userInfo).asLiveData()
     }
 
 

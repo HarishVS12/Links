@@ -16,6 +16,7 @@ import com.linksofficial.links.data.preferences.Prefs.PreferencesKeys.UNIQUE_ID
 import com.linksofficial.links.data.preferences.Prefs.PreferencesKeys.USERNAME
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 
 class Prefs(private val context: Context) {
 
@@ -67,6 +68,7 @@ class Prefs(private val context: Context) {
     }
 
     suspend fun writeUserDetails(user: User){
+        Timber.d("WRITE USER: $user")
         createDataStore().edit {
             it[USERNAME] = user.username?:it[USERNAME].orEmpty()
             it[UNIQUE_ID] = user.user_id?:it[UNIQUE_ID].orEmpty()
@@ -77,10 +79,16 @@ class Prefs(private val context: Context) {
         }
     }
 
-    fun readUserDetail(userInfo:String):Flow<String>{
-        val userPrefKey = preferencesKey<String>(userInfo)
+    fun readUserDetail():Flow<User>{
         return createDataStore().data.map {
-            it[userPrefKey]?:""
+            User(
+                user_id = it[UNIQUE_ID]?:"",
+                username = it[USERNAME]?:"",
+                email = it[EMAIL]?:"",
+                photo_url = it[PHOTO_URL]?:"",
+                bio = it[BIO]?:"",
+                favorite_tags = it[FAV_TAGS]?:"",
+            )
         }
     }
 

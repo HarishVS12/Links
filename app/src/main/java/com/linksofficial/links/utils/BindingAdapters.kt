@@ -4,23 +4,23 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
-import coil.load
-import coil.transform.CircleCropTransformation
+import com.bumptech.glide.Glide
 import timber.log.Timber
 
 class BindingAdapters {
 
-    companion object{
+    companion object {
 
         @JvmStatic
-        @BindingAdapter("app:setImage","progressbar")
-        fun setImage(view: ImageView, imageUrl: String?, progressBar:ProgressBar) {
+        @BindingAdapter("app:setImage", "progressbar")
+        fun setImage(view: ImageView, imageUrl: String?, progressBar: ProgressBar) {
             Timber.i("ImageUrl: $imageUrl")
-            view.load(imageUrl) {
-                crossfade(true)
-                transformations(CircleCropTransformation())
-                progressBar.visibility = View.GONE
-            }
+            Glide
+                .with(view.context)
+                .load(imageUrl)
+                .circleCrop()
+                .into(view)
+            progressBar.visibility = View.GONE
         }
 
     }

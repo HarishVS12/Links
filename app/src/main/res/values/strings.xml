@@ -34,5 +34,6 @@
     <string name="edit_profile">Edit Profile</string>
 
     <string name="bio_desc">Please update your bio by clicking on the edit profile button.</string>
+    <string name="add_link">Add Link</string>
 
 </resources>

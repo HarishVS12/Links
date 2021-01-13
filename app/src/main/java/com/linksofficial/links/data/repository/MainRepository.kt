@@ -24,8 +24,8 @@ class MainRepository(private val prefs: Prefs) {
         prefs.writeUserDetails(user)
     }
 
-    fun readUserDetails(userInfo: String): Flow<String> {
-        return prefs.readUserDetail(userInfo)
+    fun readUserDetails(): Flow<User> {
+        return prefs.readUserDetail()
     }
 
 

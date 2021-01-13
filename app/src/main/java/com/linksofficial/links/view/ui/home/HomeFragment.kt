@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
                 R.id.myAccountFragment -> updateUI(View.VISIBLE)
                 R.id.myLinkFragment -> updateUI(View.VISIBLE)
                 R.id.editProfileFragment -> updateUI(View.GONE)
+                R.id.addPostFragment -> updateUI(View.GONE)
             }
         }
     }

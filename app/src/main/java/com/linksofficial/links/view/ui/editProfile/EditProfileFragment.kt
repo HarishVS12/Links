@@ -23,7 +23,6 @@ import com.linksofficial.links.databinding.FragmentEditProfileBinding
 import com.linksofficial.links.view.ui.home.fragments.MyAccountFragmentArgs
 import com.linksofficial.links.viewmodel.EditProfileVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 
 class EditProfileFragment : Fragment() {
@@ -87,16 +86,18 @@ class EditProfileFragment : Fragment() {
             }
 
             args.apply {
-                editProfileVm._userDetails.value = this.userDetails
+                editProfileVm.updateUserLD(this.userDetails)
             }
 
             btnSaveProfile.setOnClickListener {
-                Timber.d("BOYS: ${imageURI}")
+
                 if (imageURI != null) {
                     editProfileVm.uploadImageToStorage(currentUser!!, imageURI)
                     editProfileVm.writeUserDetail(createUser(currentUser?.uid, currentUser))
+                    findNavController().previousBackStackEntry?.savedStateHandle?.set("userModel",createUser(currentUser?.uid, currentUser))
                 } else {
                     editProfileVm.writeUserDetail(createUserWOphURL(currentUser?.uid, currentUser))
+                    findNavController().previousBackStackEntry?.savedStateHandle?.set("userModel",createUserWOphURL(currentUser?.uid, currentUser)  )
                 }
                 updateUserDetails()
                 findNavController().popBackStack()
