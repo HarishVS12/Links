@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.FragmentAddPostBinding
 import com.linksofficial.links.view.adapter.TagsAddPostAdapter
@@ -44,6 +45,10 @@ class AddPostFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext()).apply {
                 this.orientation = LinearLayoutManager.HORIZONTAL
             }
+        }
+
+        binding.cardStatus.setOnClickListener {
+            findNavController().navigate(R.id.action_addPostFragment_to_postVisibilityBottomSheet)
         }
 
         binding.ivBack.setOnClickListener {

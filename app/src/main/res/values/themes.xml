@@ -18,6 +18,15 @@
 
     </style>
 
+    <!--BottomSheet Background Style-->
+    <style name="BottomSheetBgTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetBg</item>
+    </style>
+
+    <style name="BottomSheetBg" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/card_background_round</item>
+    </style>
+
 
 
 </resources>

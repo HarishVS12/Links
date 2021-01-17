@@ -14,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.ui.home.fragments.FeedFragment">
+            tools:context=".view.ui.addPost.AddPostFragment">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
@@ -101,18 +101,31 @@
                             app:layout_constraintStart_toStartOf="@id/tv_username"
                             app:layout_constraintTop_toBottomOf="@id/tv_username">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/ic_add_link_public"
-                                android:drawablePadding="8dp"
-                                android:fontFamily="@font/lato_bold"
-                                android:gravity="center"
                                 android:paddingHorizontal="@dimen/margin_8"
                                 android:paddingVertical="4dp"
-                                android:text="Public - Share your link as post"
-                                android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                >
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_add_link_private" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/lato_bold"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/margin_8"
+                                    android:text="Public - Share your link as post"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 

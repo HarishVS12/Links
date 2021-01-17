@@ -59,5 +59,14 @@
         android:id="@+id/addPostFragment"
         android:name="com.linksofficial.links.view.ui.addPost.AddPostFragment"
         android:label="fragment_add_post"
-        tools:layout="@layout/fragment_add_post" />
+        tools:layout="@layout/fragment_add_post" >
+        <action
+            android:id="@+id/action_addPostFragment_to_postVisibilityBottomSheet"
+            app:destination="@id/postVisibilityBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/postVisibilityBottomSheet"
+        android:name="com.linksofficial.links.view.ui.addPost.PostVisibilityBottomSheet"
+        android:label="fragment_post_visibility_bottom_sheet"
+        tools:layout="@layout/fragment_post_visibility_bottom_sheet" />
 </navigation>
