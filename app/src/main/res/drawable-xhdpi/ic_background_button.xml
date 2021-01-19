@@ -14,6 +14,9 @@
                 android:width="0.5dp"
                 android:color="#ff207d94" />
 
+
+            <corners
+                android:radius="6dp"/>
         </shape>
     </item>
     <item
@@ -24,12 +27,13 @@
         >
         <shape android:shape="rectangle" >
             <solid android:color="@color/white" />
+
+            <corners
+                android:radius="6dp"/>
         </shape>
 
 
-        <corners
-            android:radius="@dimen/margin_8"
-            />
     </item>
+
 
 </layer-list>

@@ -1,15 +1,20 @@
 package com.linksofficial.links.data.repository
 
+import android.content.Context
+import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.data.preferences.Prefs
 import com.linksofficial.links.utils.ConstantsHelper
+import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 
 class MainRepository(private val prefs: Prefs) {
 
+    val database = Firebase.firestore
 
     //Preferences
     fun readFirstAppOpen(): Flow<Boolean> {
@@ -31,7 +36,6 @@ class MainRepository(private val prefs: Prefs) {
 
     //Firestore writes and reads
     fun writeUserLogin(user: User, uniqueId: String?) {
-        val database = Firebase.firestore
         database.collection(ConstantsHelper.USER)
             .document(uniqueId.toString())
             .set(user)
@@ -48,7 +52,6 @@ class MainRepository(private val prefs: Prefs) {
 
     //Update User data
     fun updateUserDetails(uniqueId: String?, userData: HashMap<String, Any?>) {
-        val database = Firebase.firestore
         database.collection(ConstantsHelper.USER)
             .document(uniqueId.toString())
             .update(userData)
@@ -58,6 +61,23 @@ class MainRepository(private val prefs: Prefs) {
             }
             .addOnFailureListener {
                 Timber.e(it)
+            }
+    }
+
+    //Post Link
+    suspend fun postLink(context:Context,uniqueId: String?, post: Post) {
+        database.collection(ConstantsHelper.POST)
+            .document("${uniqueId.toString()}_${post.created_at?.seconds.toString()}")
+            .set(post)
+            .addOnCompleteListener {
+                if (it.isSuccessful)
+                    Timber.i("Posted link post successfully")
+                    Toasty.success(context, "Link posted successfully!", Toast.LENGTH_LONG, true)
+                        .show()
+            }
+            .addOnFailureListener {
+                Timber.e(it)
+                Toasty.error(context, "Link post failed. Please try again later!", Toast.LENGTH_LONG, true).show()
             }
     }
 

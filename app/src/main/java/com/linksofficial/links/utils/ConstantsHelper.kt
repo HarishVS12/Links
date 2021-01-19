@@ -6,5 +6,9 @@ object ConstantsHelper {
 
     //Firestore Collections
     const val USER = "User"
+    const val POST = "Post"
+
+    //SavedStateHandlerKeys
+    const val POST_STATUS = "post_status"
 
 }

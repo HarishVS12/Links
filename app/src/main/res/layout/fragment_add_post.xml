@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.linksofficial.links.viewmodel.AddPostVM" />
+
+        <variable
+            name="post"
+            type="com.linksofficial.links.data.model.Post" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -67,15 +75,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/iv_profile_image"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="start"
+                        <FrameLayout
+                            android:id="@+id/frame_profile_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_16"
-                            android:src="@drawable/ic_links_round_icon_toolbar"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/iv_profile_image"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="start"
+                                progressbar="@{progressBar}"
+                                app:setImage="@{vm.userDetails.photo_url}" />
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center" />
+
+
+                        </FrameLayout>
 
                         <TextView
                             android:id="@+id/tv_username"
@@ -83,10 +106,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16"
                             android:fontFamily="@font/lato_bold"
-                            android:text="Harish. V"
+                            android:text="@{vm.userDetails.username}"
                             android:textColor="@color/black"
-                            app:layout_constraintStart_toEndOf="@id/iv_profile_image"
-                            app:layout_constraintTop_toTopOf="@id/iv_profile_image" />
+                            app:layout_constraintStart_toEndOf="@id/frame_profile_image"
+                            app:layout_constraintTop_toTopOf="@id/frame_profile_image" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/card_status"
@@ -97,7 +120,7 @@
                             android:padding="4dp"
                             app:cardBackgroundColor="#EBF6FF"
                             app:cardCornerRadius="4dp"
-                            app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
+                            app:layout_constraintBottom_toBottomOf="@id/frame_profile_image"
                             app:layout_constraintStart_toStartOf="@id/tv_username"
                             app:layout_constraintTop_toBottomOf="@id/tv_username">
 
@@ -105,23 +128,24 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingHorizontal="@dimen/margin_8"
-                                android:paddingVertical="4dp"
-                                >
+                                android:paddingVertical="4dp">
 
                                 <ImageView
+                                    android:id="@+id/iv_status"
                                     android:layout_width="20dp"
                                     android:layout_height="24dp"
-                                    android:src="@drawable/ic_add_link_private" />
+                                    android:src="@drawable/ic_add_link_public" />
 
                                 <TextView
+                                    android:id="@+id/tv_post_status"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/margin_8"
                                     android:drawablePadding="8dp"
                                     android:fontFamily="@font/lato_bold"
                                     android:gravity="center"
-                                    android:layout_gravity="center"
-                                    android:layout_marginStart="@dimen/margin_8"
-                                    android:text="Public - Share your link as post"
+                                    android:text="@string/status_public"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
 
@@ -142,6 +166,7 @@
                         app:boxStrokeWidth="2dp"
                         app:boxStrokeWidthFocused="3dp"
                         app:hintEnabled="true"
+                        app:errorEnabled="true"
                         app:layout_constraintTop_toBottomOf="@id/card_status"
                         app:startIconDrawable="@drawable/ic_insert_link">
 
@@ -156,6 +181,37 @@
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textinput_title"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:hint="Title"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:boxStrokeWidth="2dp"
+                        app:boxStrokeWidthFocused="3dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="24"
+                        app:hintEnabled="true"
+                        app:layout_constraintTop_toBottomOf="@id/textinput_link"
+                        app:startIconDrawable="@drawable/ic_title">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lato_regular"
+                            android:maxLength="24"
+                            android:padding="@dimen/margin_20"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textColorHint="@color/primaryColor"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textinput_caption"
@@ -208,7 +264,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/margin_20"
                                 android:fontFamily="@font/lato_bold"
-                                android:text="Choose a tag"
+                                android:text="Choose a tag*"
                                 android:textColor="@color/black"
                                 android:textSize="16sp" />
 
@@ -234,7 +290,7 @@
                         app:layout_constraintTop_toBottomOf="@id/card_tag">
 
                         <Button
-                            android:id="@+id/btn_edit_profile"
+                            android:id="@+id/btn_add_post"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

@@ -8,22 +8,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.ContainerTagsBinding
-import com.linksofficial.links.viewmodel.SelectTagVM
+import com.linksofficial.links.viewmodel.AddPostVM
 
-class TagsAddPostAdapter :
+class TagsAddPostAdapter(private val addPostViewModel: AddPostVM) :
     ListAdapter<Tags, TagsAddPostAdapter.TagsAddPostViewHolder>(TagDiffUtil()) {
 
-    private var selectedPosition: Int = -1
+    private var selectedPosition: Int = 0
 
     inner class TagsAddPostViewHolder(val binding: ContainerTagsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         val text = binding.tvTags
-        val vm = SelectTagVM()
-
-        init {
-            binding.vm = vm
-        }
 
         fun bind(tag: Tags) {
             //Set Name of the Tag
@@ -47,7 +42,7 @@ class TagsAddPostAdapter :
                 }
 
             }
-
+            addPostViewModel.postPosition(selectedPosition)
         }
 
     }

@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.linksofficial.links.viewmodel.SelectTagVM" />
+            type="com.linksofficial.links.viewmodel.AddPostVM" />
 
         <import type="android.view.View" />
 
@@ -15,8 +15,7 @@
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
 
         <FrameLayout
@@ -27,7 +26,7 @@
             android:background="@drawable/ic_background_alter"
             android:clickable="true">
 
-<!--            android:onClick="@{(v) -> vm.selected(v)}"-->
+            <!--            android:onClick="@{(v) -> vm.selected(v)}"-->
 
             <TextView
                 android:id="@+id/tv_tags"
@@ -51,8 +50,7 @@
             android:layout_height="24dp"
             android:layout_gravity="end"
             android:elevation="10dp"
-            android:src="@drawable/ic_selected"
-            android:visibility="@{vm.selectTag.selected? View.VISIBLE: View.INVISIBLE}" />
+            android:src="@drawable/ic_selected" />
 
     </FrameLayout>
 

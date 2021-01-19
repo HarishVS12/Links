@@ -1,6 +1,8 @@
 package com.linksofficial.links.di
 
+import android.app.Application
 import com.linksofficial.links.viewmodel.*
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -17,7 +19,12 @@ val viewModelModule = module {
     viewModel {
         MyAccountVM(get())
     }
+
     viewModel {
-        SelectTagVM()
+        AddPostVM(androidContext() as Application,get())
+    }
+
+    viewModel {
+        PostVisibilityVM()
     }
 }
