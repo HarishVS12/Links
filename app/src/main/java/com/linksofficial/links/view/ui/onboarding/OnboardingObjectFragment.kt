@@ -9,7 +9,7 @@ import com.linksofficial.links.R
 import com.linksofficial.links.databinding.ContainerOnboardingBinding
 import com.linksofficial.links.utils.ConstantsHelper
 
-class OnboardingObjectFragment(): Fragment() {
+class   OnboardingObjectFragment(): Fragment() {
 
     private lateinit var binding: ContainerOnboardingBinding
 

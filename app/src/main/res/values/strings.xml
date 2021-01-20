@@ -37,5 +37,7 @@
     <string name="add_link">Add Link</string>
     <string name="status_public">Public - Share your link as post</string>
     <string name="status_private">Private - Only you could see this post</string>
+    <string name="tab1_label">My Links</string>
+    <string name="tab2_label">Saved Links</string>
 
 </resources>
