@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.linksofficial.links.utils.ConstantsHelper
-import com.linksofficial.links.view.ui.onboarding.OnboardingFragment
 import com.linksofficial.links.view.ui.onboarding.OnboardingObjectFragment
 
 class OnboardingAdapter(fragments: Fragment): FragmentStateAdapter(fragments) {

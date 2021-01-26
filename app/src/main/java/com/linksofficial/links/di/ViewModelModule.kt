@@ -27,4 +27,8 @@ val viewModelModule = module {
     viewModel {
         PostVisibilityVM()
     }
+
+    viewModel {
+        MyLinkVM(get())
+    }
 }

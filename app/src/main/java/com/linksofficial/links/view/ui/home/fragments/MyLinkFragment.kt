@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentMyLinkBinding
-import com.linksofficial.links.view.adapter.MyLinkFragAdapter
+import com.linksofficial.links.view.adapter.MyLinkVPAdapter
+import com.linksofficial.links.viewmodel.MyLinkVM
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class MyLinkFragment : Fragment() {
 
     private lateinit var binding: FragmentMyLinkBinding
+    private val viewModel: MyLinkVM by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +29,8 @@ class MyLinkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        viewModel.getAllPosts()
         attachTabLayout()
-
     }
 
     private fun attachTabLayout(){
@@ -41,7 +44,7 @@ class MyLinkFragment : Fragment() {
     }
 
     private fun init() {
-        binding.viewPager.adapter = MyLinkFragAdapter(this)
+        binding.viewPager.adapter = MyLinkVPAdapter(this)
     }
 
 }

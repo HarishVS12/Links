@@ -45,6 +45,8 @@ class LinkActivityVM(private val mainRepo: MainRepository) : ViewModel() {
             .addOnFailureListener {
                 Timber.e(it.printStackTrace().toString())
             }
+
     }
+
 
 }

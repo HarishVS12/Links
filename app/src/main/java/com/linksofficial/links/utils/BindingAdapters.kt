@@ -15,6 +15,7 @@ class BindingAdapters {
         @BindingAdapter("app:setImage", "progressbar")
         fun setImage(view: ImageView, imageUrl: String?, progressBar: ProgressBar) {
             Timber.i("ImageUrl: $imageUrl")
+
             Glide
                 .with(view.context)
                 .load(imageUrl)
@@ -23,6 +24,16 @@ class BindingAdapters {
             progressBar.visibility = View.GONE
         }
 
+        @JvmStatic
+        @BindingAdapter("app:putImage")
+        fun putImage(view: ImageView, imageUrl: String?) {
+
+            Timber.d("imURL(binding): $imageUrl")
+            Glide
+                .with(view.context)
+                .load(imageUrl)
+                .into(view)
+        }
     }
 
 }

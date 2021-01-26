@@ -1,4 +1,4 @@
-package com.linksofficial.links.view.ui.main
+package com.linksofficial.links.view.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

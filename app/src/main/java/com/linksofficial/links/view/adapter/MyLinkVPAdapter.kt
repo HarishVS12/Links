@@ -5,7 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.linksofficial.links.view.ui.tabs.TabMyLinkFragment
 import com.linksofficial.links.view.ui.tabs.TabSavedLinkFragment
 
-class MyLinkFragAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+class MyLinkVPAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 

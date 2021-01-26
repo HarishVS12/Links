@@ -64,7 +64,7 @@
                 android:layout_height="0dp"
                 android:paddingStart="@dimen/margin_20"
                 android:paddingEnd="@dimen/margin_20"
-                app:layout_constraintBottom_toTopOf="@id/frame_btn_add"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/app_bar">
 
                 <LinearLayout
@@ -86,10 +86,10 @@
 
                             <ImageView
                                 android:id="@+id/iv_profile_image"
+                                progressbar="@{progressBar}"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="start"
-                                progressbar="@{progressBar}"
                                 app:setImage="@{vm.userDetails.photo_url}" />
 
                             <ProgressBar
@@ -148,7 +148,7 @@
                                     android:gravity="center"
                                     android:text="@string/status_public"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textSize="10sp" />
 
                             </LinearLayout>
 
@@ -161,13 +161,13 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="@dimen/margin_24"
                         android:hint="Link"
                         app:boxStrokeColor="@color/text_input_color"
                         app:boxStrokeWidth="2dp"
                         app:boxStrokeWidthFocused="3dp"
-                        app:hintEnabled="true"
                         app:errorEnabled="true"
+                        app:hintEnabled="true"
                         app:layout_constraintTop_toBottomOf="@id/card_status"
                         app:startIconDrawable="@drawable/ic_insert_link">
 
@@ -176,10 +176,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
-                            android:padding="@dimen/margin_20"
+                            android:padding="14dp"
                             android:textColor="?attr/colorOnSurface"
                             android:textColorHint="@color/primaryColor"
-                            android:textSize="14sp" />
+                            android:textSize="10sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -188,7 +188,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginTop="14dp"
                         android:hint="Title"
                         app:boxStrokeColor="@color/text_input_color"
                         app:boxStrokeWidth="2dp"
@@ -205,13 +205,12 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
                             android:maxLength="24"
-                            android:padding="@dimen/margin_20"
+                            android:padding="14dp"
                             android:textColor="?attr/colorOnSurface"
                             android:textColorHint="@color/primaryColor"
-                            android:textSize="14sp" />
+                            android:textSize="10sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
-
 
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -219,7 +218,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginTop="14dp"
                         android:hint="Caption"
                         app:boxStrokeColor="@color/text_input_color"
                         app:boxStrokeWidth="2dp"
@@ -236,10 +235,10 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
                             android:maxLength="500"
-                            android:padding="@dimen/margin_20"
+                            android:padding="14dp"
                             android:textColor="?attr/colorOnSurface"
                             android:textColorHint="@color/primaryColor"
-                            android:textSize="14sp" />
+                            android:textSize="10sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,7 +246,7 @@
                         android:id="@+id/card_tag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginTop="14dp"
                         app:cardBackgroundColor="#EBF6FF"
                         app:cardCornerRadius="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -267,7 +266,7 @@
                                 android:fontFamily="@font/lato_bold"
                                 android:text="Choose a tag*"
                                 android:textColor="@color/black"
-                                android:textSize="16sp" />
+                                android:textSize="14sp" />
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rv_tags"
@@ -282,62 +281,33 @@
 
                     </androidx.cardview.widget.CardView>
 
-                 <!--   <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginBottom="@dimen/margin_16"
-                        android:background="@drawable/ic_background_button"
-                        app:layout_constraintTop_toBottomOf="@id/card_tag">
+                       <FrameLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="32dp"
+                           android:layout_marginBottom="@dimen/margin_16"
+                           android:background="@drawable/ic_background_button"
+                           app:layout_constraintTop_toBottomOf="@id/card_tag">
 
-                        <Button
-                            android:id="@+id/btn_add_post"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="?attr/selectableItemBackground"
-                            android:elevation="10dp"
-                            android:fontFamily="@font/lato_bold"
-                            android:text="POST LINK"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textStyle="bold"
-                            app:cornerRadius="@dimen/margin_24"
-                            app:elevation="6dp" />
+                           <Button
+                               android:id="@+id/btn_add_post"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_gravity="center"
+                               android:background="?attr/selectableItemBackground"
+                               android:elevation="10dp"
+                               android:fontFamily="@font/lato_bold"
+                               android:text="POST LINK"
+                               android:textAlignment="center"
+                               android:textColor="@android:color/black"
+                               android:textStyle="bold"
+                               app:cornerRadius="@dimen/margin_24"
+                               app:elevation="6dp" />
 
-                    </FrameLayout>-->
+                       </FrameLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
-            <FrameLayout
-                android:id="@+id/frame_btn_add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:background="@drawable/ic_background_button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nested_scroll_view"
-                android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginEnd="@dimen/margin_20"
-                >
-
-                <Button
-                    android:id="@+id/btn_add_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="?attr/selectableItemBackground"
-                    android:elevation="10dp"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="POST LINK"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    app:cornerRadius="@dimen/margin_24"
-                    app:elevation="6dp" />
-
-            </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

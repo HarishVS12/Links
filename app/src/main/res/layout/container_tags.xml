@@ -36,18 +36,18 @@
                 android:clickable="true"
                 android:fontFamily="@font/lato_regular"
                 android:paddingHorizontal="@dimen/margin_16"
-                android:paddingVertical="12dp"
+                android:paddingVertical="10dp"
                 android:text="Technology"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
         </FrameLayout>
 
         <ImageView
             android:id="@+id/iv_selected"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/margin_16"
+            android:layout_height="@dimen/margin_16"
             android:layout_gravity="end"
             android:elevation="10dp"
             android:src="@drawable/ic_selected" />
