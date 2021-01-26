@@ -42,9 +42,17 @@
                         android:layout_gravity="center"
                         />
 
-
-
                 </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/container_feed_tags"
+                    tools:orientation="horizontal"
+                    />
 
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -59,7 +67,9 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
         android:src="@drawable/ic_fab_add"
+        app:tint="@color/white"
         app:elevation="8dp"
+        android:backgroundTint="@color/primaryColor"
         android:layout_gravity="end|bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
