@@ -32,25 +32,21 @@ class HomeFragment : Fragment() {
         onDestinationChange()
     }
 
-    private fun init(){
-        navController = findNavController(requireActivity(),R.id.home_nav_host)
+    private fun init() {
+        navController = findNavController(requireActivity(), R.id.home_nav_host)
         binding.bottomNav.setupWithNavController(navController)
     }
 
-    private fun onDestinationChange(){
-        navController.addOnDestinationChangedListener {
-                controller, destination, arguments ->
-            when(destination.id){
-                R.id.feedFragment -> updateUI(View.VISIBLE)
-                R.id.myAccountFragment -> updateUI(View.VISIBLE)
-                R.id.myLinkFragment -> updateUI(View.VISIBLE)
-                R.id.editProfileFragment -> updateUI(View.GONE)
-                R.id.addPostFragment -> updateUI(View.GONE)
+    private fun onDestinationChange() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.feedFragment, R.id.myAccountFragment, R.id.myLinkFragment -> updateUI(View.VISIBLE)
+                R.id.editProfileFragment, R.id.addPostFragment -> updateUI(View.GONE)
             }
         }
     }
 
-    private fun updateUI(visibility:Int){
+    private fun updateUI(visibility: Int) {
         binding.bottomNav.visibility = visibility
     }
 
