@@ -44,7 +44,7 @@ class FeedFragment : Fragment() {
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.rvTags.layoutManager = layoutManager
 
-        adapter = TagsFeedAdapter()
+        adapter = TagsFeedAdapter(requireActivity())
         binding.rvTags.adapter = adapter
 
         list = mutableListOf(

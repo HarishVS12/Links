@@ -39,7 +39,7 @@
                 android:paddingVertical="10dp"
                 android:text="Technology"
                 android:textSize="12sp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold"/>
 <!--            android:textColor="@color/color_feed_text_selector"-->
 
