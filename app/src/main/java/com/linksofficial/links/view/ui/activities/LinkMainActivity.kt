@@ -1,6 +1,9 @@
 package com.linksofficial.links.view.ui.activities
 
+import android.app.KeyguardManager
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.ktx.auth
@@ -18,10 +21,27 @@ class LinkMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setWindow()
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         linkActivityVM.getUserDetails(Firebase.auth.currentUser?.uid)
 
+    }
+
+
+    private fun setWindow(){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O_MR1){
+            setTurnScreenOn(true)
+            setShowWhenLocked(true)
+            val keyguardManager = getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+            keyguardManager.requestDismissKeyguard(this,null)
+        }else{
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            )
+        }
     }
 
 }
