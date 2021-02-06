@@ -23,7 +23,9 @@ class TagsFeedAdapter() :
             binding.vm = vm
         }
 
-        val text = binding.tvTags
+        fun bind(tags:Tags){
+            binding.tvTags.text = tags.tagName
+        }
 
     }
 
@@ -36,10 +38,7 @@ class TagsFeedAdapter() :
     override fun onBindViewHolder(holder: TagsAddPostViewHolder, position: Int) {
         val tag = getItem(position)
         getItem(position)?.let {
-            if (position == 0 && isFirstTimeCreated) {
-                isFirstTimeCreated = false
-                holder.vm.isTagFocused.set(true)
-            }
+            holder.bind(tag)
         }
     }
 

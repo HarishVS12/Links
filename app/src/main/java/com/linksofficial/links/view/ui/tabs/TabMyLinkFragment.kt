@@ -31,6 +31,7 @@ class TabMyLinkFragment : Fragment() {
         adapter = MyLinkTabAdapter(myLinkVM)
         binding.rvMyLink.adapter  = adapter
         binding.rvMyLink.layoutManager = LinearLayoutManager(requireContext())
+
         myLinkVM.postDetails.observe(viewLifecycleOwner, { it ->
             adapter.submitList(it)
         })

@@ -20,7 +20,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.databinding.FragmentEditProfileBinding
-import com.linksofficial.links.view.ui.home.fragments.MyAccountFragmentArgs
+import com.linksofficial.links.view.ui.home.bottomNav.MyAccountFragmentArgs
 import com.linksofficial.links.viewmodel.EditProfileVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

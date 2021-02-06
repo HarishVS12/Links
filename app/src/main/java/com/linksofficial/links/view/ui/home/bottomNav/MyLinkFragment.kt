@@ -1,4 +1,4 @@
-package com.linksofficial.links.view.ui.home.fragments
+package com.linksofficial.links.view.ui.home.bottomNav
 
 import android.os.Bundle
 import android.view.LayoutInflater

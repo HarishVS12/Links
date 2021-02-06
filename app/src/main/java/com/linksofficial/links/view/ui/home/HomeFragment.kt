@@ -35,6 +35,8 @@ class HomeFragment : Fragment() {
     private fun init() {
         navController = findNavController(requireActivity(), R.id.home_nav_host)
         binding.bottomNav.setupWithNavController(navController)
+
+
     }
 
     private fun onDestinationChange() {

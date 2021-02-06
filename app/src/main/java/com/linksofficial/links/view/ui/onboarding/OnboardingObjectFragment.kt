@@ -23,8 +23,8 @@ class   OnboardingObjectFragment(): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf { it.containsKey(ConstantsHelper.ONBOARDING_ARG) }.apply {
-            when (this?.getInt(ConstantsHelper.ONBOARDING_ARG)) {
+        arguments?.takeIf { it.containsKey(ConstantsHelper.ONBOARDING_VP_ARG) }.apply {
+            when (this?.getInt(ConstantsHelper.ONBOARDING_VP_ARG)) {
                 1 -> updateUI(getString(R.string.onboard_main_1),getString(R.string.loremIpsum),
                         R.drawable.ic_onboarding_main1)
 

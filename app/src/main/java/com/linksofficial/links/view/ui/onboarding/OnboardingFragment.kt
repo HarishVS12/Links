@@ -1,16 +1,16 @@
 package com.linksofficial.links.view.ui.onboarding
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentOnboardingBinding
-import com.linksofficial.links.view.adapter.OnboardingAdapter
+import com.linksofficial.links.view.adapter.OnboardingVPAdapter
 import com.linksofficial.links.viewmodel.LinkActivityVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -61,7 +61,8 @@ class OnboardingFragment : Fragment() {
     }
 
     private fun initVP() {
-        binding.viewPager.adapter = OnboardingAdapter(this)
+        binding.viewPager.adapter = OnboardingVPAdapter(this)
+        binding.viewPager.offscreenPageLimit = 2
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(

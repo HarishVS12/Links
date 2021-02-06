@@ -35,11 +35,11 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:fontFamily="@font/lato_regular"
-                android:paddingHorizontal="4dp"
+                android:paddingHorizontal="8dp"
                 android:paddingVertical="10dp"
                 android:text="Technology"
                 android:textSize="12sp"
-                android:textColor="@{vm.isTagFocused? @color/white : @color/black, default=@color/white}"
+                android:textColor="@color/white"
                 android:textStyle="bold"/>
 <!--            android:textColor="@color/color_feed_text_selector"-->
 

@@ -1,21 +1,24 @@
-package com.linksofficial.links.view.ui.home.fragments
+package com.linksofficial.links.view.ui.home.bottomNav
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.FragmentFeedBinding
+import com.linksofficial.links.view.adapter.FeedVPAdapter
 import com.linksofficial.links.view.adapter.TagsFeedAdapter
 
 
 class FeedFragment : Fragment() {
 
-    private lateinit var binding: FragmentFeedBinding
+    lateinit var binding: FragmentFeedBinding
     private lateinit var list: MutableList<Tags>
 
     private lateinit var adapter: TagsFeedAdapter
@@ -29,6 +32,7 @@ class FeedFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,9 +53,23 @@ class FeedFragment : Fragment() {
             Tags("Space"),
             Tags("Politics"),
             Tags("Sports"),
+            Tags("Cinema"),
+            Tags("Entertainment"),
+            Tags("Music"),
+            Tags("Cricket")
         )
 
         adapter.submitList(list)
+
+        binding.viewPager.adapter = FeedVPAdapter(this)
+
+        binding.nestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if(scrollY>oldScrollY){
+                binding.fab.hide()
+            }else{
+                binding.fab.show()
+            }
+        }
 
     }
 }
