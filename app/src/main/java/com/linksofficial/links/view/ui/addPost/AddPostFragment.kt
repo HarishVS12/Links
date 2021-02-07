@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Timestamp
 import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
-import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.FragmentAddPostBinding
 import com.linksofficial.links.utils.ConstantsHelper
 import com.linksofficial.links.utils.NetworkHelper
@@ -27,7 +26,6 @@ class AddPostFragment : Fragment() {
     private lateinit var tagAdapter: TagsAddPostAdapter
 
     private val addPostViewModel: AddPostVM by viewModel()
-    private lateinit var list: MutableList<Tags>
 
     private var isPublic = true
 
@@ -49,14 +47,6 @@ class AddPostFragment : Fragment() {
         }
 
         tagAdapter = TagsAddPostAdapter(addPostViewModel)
-
-        list = mutableListOf(
-            Tags("Technology"),
-            Tags("Science"),
-            Tags("Space"),
-            Tags("Politics"),
-            Tags("Sports"),
-        )
 
         binding.rvTags.apply {
             adapter = tagAdapter
@@ -81,7 +71,7 @@ class AddPostFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        tagAdapter.submitList(list)
+        tagAdapter.submitList(ConstantsHelper.getTagList())
 
         observePostStatus()
 
@@ -116,7 +106,7 @@ class AddPostFragment : Fragment() {
     private fun postLink(etLink: CharSequence?, etTitle: String, etCaption: String? = null) {
         val post = Post(
             link = etLink.toString().toLowerCase(),
-            tag = list[addPostViewModel.tagPosition.value!!].tagName,
+            tag = ConstantsHelper.getTagList()[addPostViewModel.tagPosition.value!!].tagName,
             title = etTitle,
             caption = etCaption,
             created_at = Timestamp.now(),

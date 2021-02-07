@@ -1,5 +1,7 @@
 package com.linksofficial.links.utils
 
+import com.linksofficial.links.data.model.Tags
+
 object ConstantsHelper {
     const val RC_SIGN_IN = 12
 
@@ -13,5 +15,19 @@ object ConstantsHelper {
 
     //SavedStateHandlerKeys
     const val POST_STATUS = "post_status"
+
+    //Get tag list
+    fun getTagList() =
+        mutableListOf(
+            Tags("Technology"),
+            Tags("Science"),
+            Tags("Space"),
+            Tags("Politics"),
+            Tags("Sports"),
+            Tags("Cinema"),
+            Tags("Entertainment"),
+            Tags("Music"),
+            Tags("Cricket")
+        )
 
 }

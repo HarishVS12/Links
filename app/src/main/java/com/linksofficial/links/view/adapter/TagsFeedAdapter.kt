@@ -12,18 +12,14 @@ import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.ContainerFeedTagsBinding
 import com.linksofficial.links.viewmodel.FeedVM
 
-class TagsFeedAdapter(val context:Context) :
+class TagsFeedAdapter(val context:Context, val viewModel: FeedVM) :
     ListAdapter<Tags, TagsFeedAdapter.TagsAddPostViewHolder>(TagFeedDiffUtil()) {
 
     private var selectedPosition: Int = 0
 
     inner class TagsAddPostViewHolder(val binding: ContainerFeedTagsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val vm = FeedVM()
 
-        init {
-            binding.vm = vm
-        }
 
         fun bind(tags:Tags){
             binding.tvTags.text = tags.tagName
@@ -42,7 +38,9 @@ class TagsFeedAdapter(val context:Context) :
                     notifyItemChanged(selectedPosition)
                     selectedPosition = adapterPosition
                 }
+                viewModel.setTagPosition(adapterPosition)
             }
+
         }
 
     }

@@ -3,15 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="vm"
-            type="com.linksofficial.links.viewmodel.FeedVM" />
-
-        <import type="android.view.View" />
-
-    </data>
 
     <FrameLayout
         android:id="@+id/frame"
@@ -38,10 +29,10 @@
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="10dp"
                 android:text="Technology"
-                android:textSize="12sp"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
-<!--            android:textColor="@color/color_feed_text_selector"-->
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            <!--            android:textColor="@color/color_feed_text_selector"-->
 
         </FrameLayout>
 

@@ -1,11 +1,18 @@
 package com.linksofficial.links.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class FeedVM: ViewModel() {
+class FeedVM : ViewModel() {
 
-    var isTagFocused = ObservableField<Boolean>(false)
+    private var _focusTagPosition = MutableLiveData<Int>()
+    val focusTagPosition: LiveData<Int>
+        get() = _focusTagPosition
 
+
+    fun setTagPosition(position: Int){
+        _focusTagPosition.postValue(position)
+    }
 
 }

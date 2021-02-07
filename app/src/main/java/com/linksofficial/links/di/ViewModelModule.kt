@@ -31,4 +31,8 @@ val viewModelModule = module {
     viewModel {
         MyLinkVM(get())
     }
+
+    viewModel{
+        FeedVM()
+    }
 }

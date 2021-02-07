@@ -10,18 +10,21 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.linksofficial.links.R
-import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.FragmentFeedBinding
+import com.linksofficial.links.utils.ConstantsHelper
 import com.linksofficial.links.view.adapter.FeedVPAdapter
 import com.linksofficial.links.view.adapter.TagsFeedAdapter
+import com.linksofficial.links.viewmodel.FeedVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FeedFragment : Fragment() {
 
     lateinit var binding: FragmentFeedBinding
-    private lateinit var list: MutableList<Tags>
 
     private lateinit var adapter: TagsFeedAdapter
+
+    private val feedViewModel: FeedVM by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,32 +47,27 @@ class FeedFragment : Fragment() {
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.rvTags.layoutManager = layoutManager
 
-        adapter = TagsFeedAdapter(requireActivity())
+        adapter = TagsFeedAdapter(requireActivity(), feedViewModel)
         binding.rvTags.adapter = adapter
 
-        list = mutableListOf(
-            Tags("Technology"),
-            Tags("Science"),
-            Tags("Space"),
-            Tags("Politics"),
-            Tags("Sports"),
-            Tags("Cinema"),
-            Tags("Entertainment"),
-            Tags("Music"),
-            Tags("Cricket")
-        )
 
-        adapter.submitList(list)
+        adapter.submitList(ConstantsHelper.getTagList())
 
+        binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = FeedVPAdapter(this)
 
         binding.nestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if(scrollY>oldScrollY){
+            if (scrollY > oldScrollY) {
                 binding.fab.hide()
-            }else{
+            } else {
                 binding.fab.show()
             }
         }
+
+
+        feedViewModel.focusTagPosition.observe(viewLifecycleOwner, {
+            binding.viewPager.setCurrentItem(it, true)
+        })
 
     }
 }
