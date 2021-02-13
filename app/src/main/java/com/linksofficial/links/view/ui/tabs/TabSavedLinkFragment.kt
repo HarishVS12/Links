@@ -4,45 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.linksofficial.links.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.linksofficial.links.databinding.FragmentTabSavedLinkBinding
+import com.linksofficial.links.view.adapter.MySavedLinkTabAdapter
+import com.linksofficial.links.viewmodel.MyLinkVM
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 
 class TabSavedLinkFragment : Fragment() {
 
-    private lateinit var imageView: ImageView
+    private lateinit var binding:FragmentTabSavedLinkBinding
+    private val mySavedLinkVM: MyLinkVM by sharedViewModel()
+    private lateinit var mySavedLinkTabAdapter: MySavedLinkTabAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_saved_link, container, false)
+        binding = FragmentTabSavedLinkBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imageView = view.findViewById<ImageView>(R.id.image)
+        mySavedLinkTabAdapter = MySavedLinkTabAdapter(mySavedLinkVM)
+        binding.rvMySavedLink.apply{
+            adapter = mySavedLinkTabAdapter
+            layoutManager = LinearLayoutManager(requireActivity())
+        }
 
-        getImageFromURL()
-    }
-
-
-    fun getImageFromURL() {
-
-        /*lifecycleScope.launch(Dispatchers.IO) {
-            val getImageUrl =
-                LinkPreview(
-                    "https://www.youtube.com/watch?v=5XmGuQHLjoI&list=RD2lxScNFuCA0&index=5"
-                ).getImageUrl()
-            withContext(Dispatchers.Main) {
-                Glide
-                    .with(this@TabSavedLinkFragment)
-                    .load(getImageUrl)
-                    .into(imageView)
-            }
-        }*/
+        mySavedLinkVM.readAllLocalPosts.observe(viewLifecycleOwner,{
+            Timber.d(it.toString())
+            mySavedLinkTabAdapter.submitList(it)
+        })
 
     }
 

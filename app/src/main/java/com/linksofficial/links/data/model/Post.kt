@@ -7,6 +7,8 @@ import com.google.firebase.Timestamp
 data class Post(
     var id: String? = null,
     var user_id: String? = null,
+    var user_name: String? = null,
+    var user_photo_url: String? = null,
     var link: String? = null,
     var title: String? = null,
     var caption: String? = null,
@@ -14,8 +16,10 @@ data class Post(
     var tag: String? = null,
     var likes_count: Int? = 0,
     var created_at: Timestamp? = null
-) : Parcelable {
+): Parcelable{
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -31,6 +35,8 @@ data class Post(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(user_id)
+        parcel.writeString(user_name)
+        parcel.writeString(user_photo_url)
         parcel.writeString(link)
         parcel.writeString(title)
         parcel.writeString(caption)

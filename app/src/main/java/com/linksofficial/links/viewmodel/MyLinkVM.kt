@@ -1,10 +1,7 @@
 package com.linksofficial.links.viewmodel
 
 import android.widget.ImageView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -23,7 +20,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class MyLinkVM(val mainRepo: MainRepository) : ViewModel() {
+class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
+
 
     private var _postDetails = MutableLiveData<MutableList<Post>>()
     val postDetails: LiveData<MutableList<Post>>
@@ -32,6 +30,10 @@ class MyLinkVM(val mainRepo: MainRepository) : ViewModel() {
     private var _imageURL = MutableLiveData<String>()
     val imageURL: LiveData<String>
         get() = _imageURL
+
+
+    val readAllLocalPosts = mainRepo.readAllLocalPosts.asLiveData()
+
 
 
     //Get Link

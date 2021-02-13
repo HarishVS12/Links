@@ -1,5 +1,6 @@
 package com.linksofficial.links.viewmodel
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class FeedVM : ViewModel() {
+class FeedVM() : ViewModel() {
 
     private var _postItem = MutableLiveData<Post>()
     val postItem: LiveData<Post>
@@ -64,8 +65,7 @@ class FeedVM : ViewModel() {
                 getImageUrl = LinkPreview(url).getImageUrl()
                 Timber.d("imURL: $getImageUrl")
             } catch (exception: Exception) {
-                /*Toast.makeText(v.context, "Couldn't pick thumbnail image", Toast.LENGTH_SHORT)
-                    .show()*/
+                Log.d("Exception", "getImageFromURL: $exception")
             }
             withContext(Dispatchers.Main) {
                 if (getImageUrl.isNullOrBlank()) {

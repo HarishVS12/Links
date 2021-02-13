@@ -36,7 +36,7 @@
                 android:clickable="true"
                 android:fontFamily="@font/lato_regular"
                 android:paddingHorizontal="@dimen/margin_16"
-                android:paddingVertical="10dp"
+                android:paddingVertical="12dp"
                 android:text="Technology"
                 android:textColor="@color/black"
                 android:textSize="12sp"

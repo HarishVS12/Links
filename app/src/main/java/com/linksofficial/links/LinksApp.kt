@@ -2,6 +2,7 @@ package com.linksofficial.links
 
 import android.app.Application
 import com.linksofficial.links.di.appModule
+import com.linksofficial.links.di.databaseModule
 import com.linksofficial.links.di.repositoryModule
 import com.linksofficial.links.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -18,8 +19,9 @@ class LinksApp: Application() {
 
     private fun initializeKoin(){
         startKoin {
+//            androidLogger()
             androidContext(this@LinksApp)
-            modules(listOf(appModule,repositoryModule, viewModelModule))
+            modules(listOf(appModule,repositoryModule,viewModelModule,databaseModule))
         }
     }
 

@@ -28,6 +28,9 @@ class AddPostFragment : Fragment() {
     private val addPostViewModel: AddPostVM by viewModel()
 
     private var isPublic = true
+    
+    private var userName = ""
+    private var userPhotoURL = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,7 @@ class AddPostFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        readUserDetails()
         binding.apply {
             vm = addPostViewModel
             lifecycleOwner = viewLifecycleOwner
@@ -76,6 +80,13 @@ class AddPostFragment : Fragment() {
         observePostStatus()
 
     }
+    
+    private fun readUserDetails(){
+        addPostViewModel.userDetails.observe(viewLifecycleOwner,{
+            userName = it.username?:""
+            userPhotoURL = it.photo_url?:""
+        })
+    }
 
     fun checkSubmission(v: View) {
         val etLink = binding.etLink.text
@@ -105,6 +116,8 @@ class AddPostFragment : Fragment() {
 
     private fun postLink(etLink: CharSequence?, etTitle: String, etCaption: String? = null) {
         val post = Post(
+            user_name = userName,
+            user_photo_url = userPhotoURL,
             link = etLink.toString().toLowerCase(),
             tag = ConstantsHelper.getTagList()[addPostViewModel.tagPosition.value!!].tagName,
             title = etTitle,

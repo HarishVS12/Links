@@ -7,6 +7,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
+
     viewModel {
         LinkActivityVM(get())
     }
@@ -35,4 +36,9 @@ val viewModelModule = module {
     viewModel{
         FeedVM()
     }
+
+    viewModel {
+        MySavedLinkTabVM(get())
+    }
+
 }

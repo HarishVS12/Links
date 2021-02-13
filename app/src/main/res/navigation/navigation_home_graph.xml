@@ -9,10 +9,13 @@
         android:id="@+id/feedFragment"
         android:name="com.linksofficial.links.view.ui.home.bottomNav.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" >
+        tools:layout="@layout/fragment_feed">
         <action
             android:id="@+id/action_feedFragment_to_addPostFragment"
             app:destination="@id/addPostFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_feedPropBottomSheet"
+            app:destination="@id/feedPropBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/myAccountFragment"
@@ -41,11 +44,11 @@
         android:name="com.linksofficial.links.view.ui.home.bottomNav.MyLinkFragment"
         android:label="fragment_my_link"
         tools:layout="@layout/fragment_my_link" />
-     <fragment
+    <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.linksofficial.links.view.ui.editProfile.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
+        tools:layout="@layout/fragment_edit_profile">
         <argument
             android:name="userDetails"
             android:defaultValue="@null"
@@ -59,7 +62,7 @@
         android:id="@+id/addPostFragment"
         android:name="com.linksofficial.links.view.ui.addPost.AddPostFragment"
         android:label="fragment_add_post"
-        tools:layout="@layout/fragment_add_post" >
+        tools:layout="@layout/fragment_add_post">
         <action
             android:id="@+id/action_addPostFragment_to_postVisibilityBottomSheet"
             app:destination="@id/postVisibilityBottomSheet" />
@@ -69,4 +72,15 @@
         android:name="com.linksofficial.links.view.ui.addPost.PostVisibilityBottomSheet"
         android:label="fragment_post_visibility_bottom_sheet"
         tools:layout="@layout/fragment_post_visibility_bottom_sheet" />
+    <dialog
+        android:id="@+id/feedPropBottomSheet"
+        android:name="com.linksofficial.links.view.ui.feed.bottomSheet.FeedPropBottomSheet"
+        android:label="FeedPropBottomSheet"
+        tools:layout="@layout/fragment_feed_prop_bottom_sheet" >
+        <argument
+            android:name="post"
+            app:argType="com.linksofficial.links.data.model.Post"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
 </navigation>
