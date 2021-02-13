@@ -245,6 +245,7 @@
                         android:background="@drawable/ic_background_text">
 
                         <LinearLayout
+                            android:id="@+id/linear_share"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
@@ -283,6 +284,7 @@
                         android:background="@drawable/ic_background_text">
 
                         <LinearLayout
+                            android:id="@+id/linear_contact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
@@ -320,6 +322,7 @@
                         android:background="@drawable/ic_background_text">
 
                         <LinearLayout
+                            android:id="@+id/linear_rate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"

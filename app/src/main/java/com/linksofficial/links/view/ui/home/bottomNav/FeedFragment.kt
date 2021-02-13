@@ -16,6 +16,7 @@ import com.linksofficial.links.view.adapter.FeedVPAdapter
 import com.linksofficial.links.view.adapter.TagsFeedAdapter
 import com.linksofficial.links.viewmodel.FeedVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class FeedFragment : Fragment() {
@@ -66,6 +67,7 @@ class FeedFragment : Fragment() {
 
 
         feedViewModel.focusTagPosition.observe(viewLifecycleOwner, {
+            Timber.d("Posts:(POS_VM) = $it")
             binding.viewPager.setCurrentItem(it, true)
         })
 

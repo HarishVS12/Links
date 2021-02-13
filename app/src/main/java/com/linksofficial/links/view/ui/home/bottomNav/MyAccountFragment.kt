@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.linksofficial.links.R
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.databinding.FragmentMyAccountBinding
+import com.linksofficial.links.utils.Share
 import com.linksofficial.links.viewmodel.MyAccountVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -66,6 +67,18 @@ class MyAccountFragment() : Fragment() {
         binding.ivLogout.setOnClickListener {
             Firebase.auth.signOut()
             requireActivity().findNavController(R.id.nav_host_frag).navigate(R.id.action_homeFragment_to_loginFragment)
+        }
+
+        binding.linearShare.setOnClickListener {
+            Share.shareApp(requireActivity())
+        }
+
+        binding.linearContact.setOnClickListener {
+            Share.contactUs(requireActivity())
+        }
+
+        binding.linearRate.setOnClickListener {
+            Share.rateApp(requireActivity())
         }
     }
 

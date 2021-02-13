@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
@@ -54,18 +56,29 @@ class MyLinkVM(val mainRepo: MainRepository) : ViewModel() {
             }
     }
 
+    //TODO: Try catching the error
     fun getImageFromURL(v: ImageView, url: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val getImageUrl = LinkPreview(url).getImageUrl()
-            Timber.d("imURL: $getImageUrl")
-
-            withContext(Dispatchers.Main) {
-                if(getImageUrl==""){
-                    v.setImageResource(R.drawable.ic_icon_links)
-                }
-                else
-                    v.load(getImageUrl)
+            var getImageUrl = ""
+            try {
+                getImageUrl = LinkPreview(url).getImageUrl()
+                Timber.d("imURL: $getImageUrl")
+            } catch (exception: Exception) {
+                /*Toast.makeText(v.context, "Couldn't pick thumbnail image", Toast.LENGTH_SHORT)
+                    .show()*/
             }
+            withContext(Dispatchers.Main) {
+                if (getImageUrl.isNullOrBlank()) {
+                    v.setImageResource(R.drawable.ic_icon_links)
+                } else {
+//                    v.load(getImageUrl)
+                    Glide.with(v.context)
+                        .load(getImageUrl)
+                        .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+                        .into(v)
+                }
+            }
+
         }
     }
 

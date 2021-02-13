@@ -9,7 +9,7 @@ import com.linksofficial.links.view.ui.feed.FeedObjectFragment
 class FeedVPAdapter(fragments: Fragment): FragmentStateAdapter(fragments) {
 
 
-    override fun getItemCount(): Int = 9
+    override fun getItemCount(): Int = ConstantsHelper.getTagList().size
 
     override fun createFragment(position: Int): Fragment {
         val fragment = FeedObjectFragment()

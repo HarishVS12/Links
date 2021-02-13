@@ -2,6 +2,7 @@ package com.linksofficial.links.view.ui.activities
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ class WebViewActivity : AppCompatActivity() {
             settings.apply {
                 javaScriptEnabled = true
                 supportZoom()
+                cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
             }
             webViewClient = MyWebViewClient()
         }

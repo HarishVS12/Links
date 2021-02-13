@@ -1,198 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_8"
-    android:layout_marginVertical="@dimen/margin_16"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="2dp"
-    app:cardElevation="2dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="vm"
+            type="com.linksofficial.links.viewmodel.FeedVM" />
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_16">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:id="@+id/frame_profile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_profile_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="start"
-                android:src="@drawable/ic_icon_links" />
-
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:fontFamily="@font/lato_regular"
-            android:maxLength="18"
-            android:text="Harish. V"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/frame_profile_image"
-            app:layout_constraintStart_toEndOf="@id/frame_profile_image"
-            app:layout_constraintTop_toTopOf="@id/frame_profile_image" />
-
-        <FrameLayout
-            android:id="@+id/card_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_24"
-            android:background="@drawable/ic_background_feed"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@id/frame_profile_image"
-            app:layout_constraintStart_toEndOf="@id/tv_username"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tv_tags"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:fontFamily="@font/lato_regular"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:text="Technology"
-                android:textColor="@color/white"
-                android:textSize="8sp"
-                android:textStyle="bold" />
-
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/lato_regular"
-            android:gravity="center_vertical"
-            android:text="Today"
-            android:textColor="#817373"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/frame_profile_image"
-            app:layout_constraintEnd_toStartOf="@+id/frame_options"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <FrameLayout
-            android:id="@+id/frame_options"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_options"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="start"
-                android:src="@drawable/ic_options" />
-
-        </FrameLayout>
-
-        <ImageView
-            android:id="@+id/iv_post_image"
-            android:layout_width="200dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_icon_links"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline2" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/iv_post_image"
-            app:layout_constraintTop_toTopOf="@id/iv_post_image"
-            app:layout_constraintStart_toEndOf="@id/iv_post_image"
-            android:fontFamily="@font/lato_bold"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginStart="4dp"
-            android:gravity="center"
-            android:maxLength="80"
-            android:text="Apple Announces $549 AirPods Max Noise-Canceling Headphones, Coming December 15"
-            />
-
-
-        <TextView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/guideline3"
-            android:fontFamily="@font/lato_regular"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:maxLength="160"
-            android:text="@string/loremIpsum"
-            />
+            android:layout_marginHorizontal="@dimen/margin_8"
+            android:layout_marginVertical="@dimen/margin_8"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_like"
-            android:layout_width="@dimen/margin_24"
-            android:layout_height="@dimen/margin_24"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/guideline4"
-            android:src="@drawable/ic_like_outline"
-            />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_16">
 
-        <TextView
-            android:id="@+id/tv_like_count"
-            android:layout_width="@dimen/margin_24"
-            android:layout_height="@dimen/margin_24"
-            app:layout_constraintStart_toEndOf="@id/iv_like"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toTopOf="@id/iv_like"
-            android:text="14"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/lato_regular"
-            />
+                <FrameLayout
+                    android:id="@+id/frame_profile_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="@dimen/margin_24"
-            android:layout_height="@dimen/margin_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline4"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="@dimen/margin_8"
-            android:src="@drawable/ic_whatsapp"
-            />
+                    <ImageView
+                        android:id="@+id/iv_profile_image"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        android:src="@drawable/ic_icon_links" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="164dp" />
+                </FrameLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="39dp" />
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:maxLength="18"
+                    android:text="Harish. V"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/frame_profile_image"
+                    app:layout_constraintStart_toEndOf="@id/frame_profile_image"
+                    app:layout_constraintTop_toTopOf="@id/frame_profile_image" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="216dp" />
+                <FrameLayout
+                    android:id="@+id/card_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_24"
+                    android:background="@drawable/ic_background_feed"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="@id/frame_profile_image"
+                    app:layout_constraintStart_toEndOf="@id/tv_username"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_tags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:fontFamily="@font/lato_regular"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:text="@{vm.postItem.tag}"
+                        android:textColor="@color/black"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_vertical"
+                    android:text="Today"
+                    android:textColor="#817373"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/frame_profile_image"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_options"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintStart_toEndOf="@+id/card_tag"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_options"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/ic_options"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--                app:putImage="@{vm.postItem.link}"-->
+                <LinearLayout
+                    android:id="@+id/linear_middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/frame_profile_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_post_image"
+                        android:layout_width="200dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:src="@drawable/ic_icon_links"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_title"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/frame_profile_image" />
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/lato_bold"
+                        android:gravity="center"
+                        android:maxLength="80"
+                        android:layout_weight="1"
+                        android:text="@{vm.postItem.title}"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_post_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_post_image"
+                        app:layout_constraintTop_toBottomOf="@id/iv_options" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_caption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:maxLength="160"
+                    android:text="@{vm.postItem.caption}"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear_middle"
+                    tools:text="asdihasdhasasldasld" />
+
+                <ImageView
+                    android:id="@+id/iv_like"
+                    android:layout_width="@dimen/margin_24"
+                    android:layout_height="@dimen/margin_24"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_like_outline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_caption" />
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    android:layout_width="@dimen/margin_24"
+                    android:layout_height="@dimen/margin_24"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/iv_like"
+                    app:layout_constraintTop_toTopOf="@id/iv_like" />
+
+                <ImageView
+                    android:layout_width="@dimen/margin_24"
+                    android:layout_height="@dimen/margin_24"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:src="@drawable/ic_whatsapp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!--
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:id="@+id/guideline3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintGuide_percent="0.6653226" />
+
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:id="@+id/guideline2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintGuide_begin="39dp" />
+
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:id="@+id/guideline4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintGuide_begin="216dp" />
+
+                -->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

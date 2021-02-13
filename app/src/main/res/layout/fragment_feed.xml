@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/margin_20"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            android:paddingTop="@dimen/margin_20">
+            android:paddingTop="@dimen/margin_20"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <LinearLayout
                 android:layout_width="match_parent"

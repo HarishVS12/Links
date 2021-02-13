@@ -24,7 +24,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
 
@@ -102,17 +101,17 @@ class SplashFragment : Fragment() {
         }.start()
     }
 
-    private fun checkIfAppAlreadyOpen(){
+    private fun checkIfAppAlreadyOpen() {
         val auth = FirebaseAuth.getInstance().currentUser
         if (auth != null) {
-            linkActivityVM.readFirstAppOpen().observe(viewLifecycleOwner,{
-                if(it) {
+            linkActivityVM.readFirstAppOpen().observe(viewLifecycleOwner, {
+                if (it) {
                     findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
-                }else{
+                } else {
                     findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
                 }
             })
-        }else{
+        } else {
             findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
         }
 

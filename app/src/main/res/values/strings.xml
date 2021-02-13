@@ -39,5 +39,7 @@
     <string name="status_private">Private - Only you could see this post</string>
     <string name="tab1_label">My Links</string>
     <string name="tab2_label">Saved Links</string>
+    <string name="links_feedback_subject">Feedback for Links App</string>
+    <string name="dev_mail">linksofficial28@gmail.com</string>
 
 </resources>
