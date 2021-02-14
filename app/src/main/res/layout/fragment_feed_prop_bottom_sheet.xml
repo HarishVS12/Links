@@ -38,8 +38,8 @@
             android:paddingStart="@dimen/margin_24">
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/ic_share_black" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:fontFamily="@font/muli"
                 android:text="Share"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -69,8 +69,8 @@
             android:paddingStart="@dimen/margin_24">
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/ic_file_copy" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:fontFamily="@font/muli"
                 android:text="Copy Link"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -100,8 +100,8 @@
             android:paddingStart="28dp">
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/ic_save_link" />
 
             <TextView
@@ -112,7 +112,7 @@
                 android:fontFamily="@font/muli"
                 android:text="Save Link to My Links"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 

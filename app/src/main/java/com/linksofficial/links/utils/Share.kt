@@ -16,9 +16,10 @@ class Share {
 
         @JvmStatic
         fun shareApp(context: Context) {
+            val link = "https://links-official.herokuapp.com/"
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_TEXT, "Dummy Text")
+            intent.putExtra(Intent.EXTRA_TEXT, "Hey! I would like you to try this new app which allows you to find exciting links. Download the app here\n\n\uD83D\uDC49\uD83C\uDFFC $link")
             try {
                 context.startActivity(Intent.createChooser(intent, "Share using"))
             } catch (e: ActivityNotFoundException) {
@@ -28,13 +29,13 @@ class Share {
 
         @JvmStatic
         fun shareLink(context: Context, link: String) {
-            val playLink = "https://play.google.com/store/apps/details?id=com.linksofficial.links"
+            val playLink = "https://links-official.herokuapp.com/"
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.putExtra(
                 Intent.EXTRA_TEXT,
                 "Hi! I would like to share the link to you which I found interesting. \n\n \uD83D\uDC49\uD83C\uDFFC $link\n\n"
-                        + "You can find more such links in the Links App. Download it in play store.\n\n \uD83D\uDC49\uD83C\uDFFC $playLink"
+                        + "You can find more such links in the Links App. Download it here.\n\n \uD83D\uDC49\uD83C\uDFFC $playLink"
             )
             try {
                 context.startActivity(Intent.createChooser(intent, "Share using"))

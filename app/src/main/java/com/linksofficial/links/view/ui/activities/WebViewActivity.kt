@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.ActivityWebViewBinding
+import com.linksofficial.links.utils.Share
 import timber.log.Timber
 
 class WebViewActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class WebViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_web_view)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_web_view)
 
         val url = intent.getStringExtra("url")
         Timber.d("UrlForWeb: $url")
@@ -25,7 +26,7 @@ class WebViewActivity : AppCompatActivity() {
             binding.webView.loadUrl(url)
         }
 
-        binding.webView.apply{
+        binding.webView.apply {
             settings.apply {
                 javaScriptEnabled = true
                 supportZoom()
@@ -38,10 +39,14 @@ class WebViewActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.ivShare.setOnClickListener {
+            Share.shareLink(this, url!!)
+        }
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(keyCode==KeyEvent.KEYCODE_BACK && binding.webView.canGoBack()){
+        if (keyCode == KeyEvent.KEYCODE_BACK && binding.webView.canGoBack()) {
             binding.webView.goBack()
             return true
         }
@@ -49,7 +54,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 }
 
-private class MyWebViewClient(): WebViewClient(){
+private class MyWebViewClient() : WebViewClient() {
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         return false
