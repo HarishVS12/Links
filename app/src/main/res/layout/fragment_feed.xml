@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#23C4C4C4">
 
     <!--  <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
@@ -24,18 +25,23 @@
             android:paddingTop="@dimen/margin_20"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/ic_icon_app"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_links_round_icon_toolbar" />
+                    android:src="@drawable/ic_links_round_icon_toolbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -43,9 +49,22 @@
                     android:fontFamily="@font/lato_black"
                     android:text="@string/app_name"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_icon_app"
+                    app:layout_constraintStart_toEndOf="@id/ic_icon_app"
+                    app:layout_constraintTop_toTopOf="@id/ic_icon_app" />
 
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_filter"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_filter"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_icon_app"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ic_icon_app" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.Toolbar>
 

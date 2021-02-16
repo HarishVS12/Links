@@ -17,172 +17,176 @@
         android:orientation="vertical"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        >
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
 
-        <FrameLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_background_button"
-            android:layout_margin="@dimen/margin_8">
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_main"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:paddingBottom="@dimen/margin_8"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_margin="@dimen/margin_8">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_thumb"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_main"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="6dp"
-                    android:layout_marginTop="@dimen/margin_8"
-                    android:layout_marginBottom="@dimen/margin_16"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/iv_thumbnail"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:src="#C4C4C4" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_thumb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/iv_thumbnail"
+                            android:layout_width="100dp"
+                            android:layout_height="70dp"
+                            android:scaleType="centerCrop"
+                            android:src="#C4C4C4" />
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_8"
-                    android:fontFamily="@font/lato_bold"
-                    android:gravity="start"
-                    android:text="Title asdha asdhw qwert"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="@id/guideline"
-                    app:layout_constraintStart_toEndOf="@id/card_thumb"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_caption"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/lato_regular"
-                    android:gravity="start"
-                    android:maxLength="90"
-                    android:text="sdfa ojsdf das;foj aspdfojasd sd;ofji sdafoijsd dsofajdfiodfjad sof asfdasf afsa df dsda fdasfsdafsd sadfsad asdasdasassdasdasdsadasdasa"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="@id/card_thumb"
-                    app:layout_constraintEnd_toStartOf="@id/guideline"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintVertical_bias="0.1"
-                    app:layout_constraintStart_toStartOf="@id/tv_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-                <TextView
-                    android:id="@+id/tv_link"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_8"
-                    android:fontFamily="@font/lato_bold"
-                    android:gravity="start"
-                    android:maxLength="90"
-                    tools:text="&#8226;   https://google.com"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/guideline"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintVertical_bias="0"
-                    app:layout_constraintStart_toStartOf="@id/tv_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_caption" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_link"
-                    app:layout_constraintStart_toStartOf="@id/tv_link"
-                    app:layout_constraintEnd_toStartOf="@id/guideline"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
-                    >
-
-                    <ImageView
-                        android:id="@+id/iv_user_photo"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_icon_links"
-                        />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tv_user_name"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_title"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Posted by Harish.V"
-                        android:paddingStart="@dimen/margin_8"
-                        android:textSize="12sp"
-                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:fontFamily="@font/lato_bold"
+                        android:gravity="start"
+                        android:text="Title asdha asdhw qwert"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="@id/guideline"
+                        app:layout_constraintStart_toEndOf="@id/card_thumb"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_caption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="end"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/lato_regular"
+                        android:freezesText="true"
+                        android:gravity="start"
+                        android:maxLines="2"
+                        android:scrollHorizontally="true"
+                        android:text="sdfa ojsdf das;foj aspdfojasd sd;ofji sdafoijsd dsofajdfiodfjad sof asfdasf afsa df dsda fdasfsdafsd sadfsad asdasdasassdasdasdsadasdasa"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toStartOf="@id/guideline"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@id/tv_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+                    <TextView
+                        android:id="@+id/tv_link"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/lato_regular"
+                        android:freezesText="true"
+                        android:gravity="start"
+                        android:maxLength="90"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
                         android:textColor="@color/primaryColor"
-                        android:fontFamily="@font/muli"
-                        android:textStyle="bold"
-                        />
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toStartOf="@id/guideline"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@id/tv_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_caption"
+                        tools:text="&#8226;   https://google.com" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/margin_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guideline"
+                        app:layout_constraintStart_toStartOf="@id/tv_link"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_link">
+
+                        <ImageView
+                            android:id="@+id/iv_user_photo"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_icon_links" />
+
+                        <TextView
+                            android:id="@+id/tv_user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/muli"
+                            android:paddingStart="@dimen/margin_8"
+                            android:text="Posted by Harish.V"
+                            android:textColor="@color/primaryColor"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:src="@drawable/ic_arrow_forward"
-                    app:layout_constraintBottom_toBottomOf="@id/card_thumb"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="@id/card_thumb" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_8"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_arrow_forward"
+                        app:layout_constraintBottom_toBottomOf="@id/card_thumb"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="@id/card_thumb" />
 
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_end="5dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:src="@drawable/ic_arrow_forward"
-                    app:layout_constraintBottom_toBottomOf="@id/card_thumb"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="@id/card_thumb" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_end="32dp" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <!-- <View
-                 android:id="@+id/view"
-                 android:layout_width="match_parent"
-                 android:layout_height="1dp"
-                 android:layout_below="@id/constraint_main"
-                 android:layout_marginTop="@dimen/margin_8"
-                 android:layout_marginStart="@dimen/margin_16"
-                 android:layout_marginEnd="@dimen/margin_16"
-                 android:background="#C4C4C4"/>-->
+                <!-- <View
+                     android:id="@+id/view"
+                     android:layout_width="match_parent"
+                     android:layout_height="1dp"
+                     android:layout_below="@id/constraint_main"
+                     android:layout_marginTop="@dimen/margin_8"
+                     android:layout_marginStart="@dimen/margin_16"
+                     android:layout_marginEnd="@dimen/margin_16"
+                     android:background="#C4C4C4"/>-->
 
-        </FrameLayout>
+            </FrameLayout>
 
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </layout>

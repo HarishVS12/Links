@@ -29,8 +29,9 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
             binding.apply {
                 tvTitle.text = post.postTitle
                 tvCaption.text = post.postCaption
-                tvLink.text = "\u2022 ${post.postLink}"
                 tvUserName.text = "Posted by ${post.userName}"
+                tvLink.text = "\u2022 ${post.postLink}"
+
 
                 Glide.with(ivUserPhoto.context)
                     .load(post.userPhotoUrl)
@@ -41,7 +42,7 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
 
             binding.constraintMain.setOnClickListener {
                 val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
-                intent.putExtra("url",post.postLink!!)
+                intent.putExtra("url", post.postLink!!)
                 Timber.d("UrlForWeb: ${post.postLink!!}")
                 it.context.startActivity(intent)
             }
