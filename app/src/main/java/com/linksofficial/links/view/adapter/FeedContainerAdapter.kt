@@ -31,7 +31,7 @@ class FeedContainerAdapter() :
 
         fun bind(post: Post) {
             vm.setPostItem(post)
-            vm.getImageFromURL(binding.ivPostImage, post.link ?: "")
+            vm.getImageFromURL(binding.ivThumbnail  , post.link ?: "")
 
             binding.cardPost.setOnClickListener {
                 val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)

@@ -29,9 +29,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_16">
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="@dimen/margin_8">
 
                 <FrameLayout
                     android:id="@+id/frame_profile_image"
@@ -115,43 +114,93 @@
 
 
                 <!--                app:putImage="@{vm.postItem.link}"-->
-                <LinearLayout
+              <!--  <LinearLayout
                     android:id="@+id/linear_middle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/frame_profile_image">
-
+-->
+<!--
                     <ImageView
                         android:id="@+id/iv_post_image"
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
                         android:layout_marginTop="@dimen/margin_8"
                         android:src="@drawable/ic_icon_links"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_title"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/frame_profile_image" />
+-->
 
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/lato_bold"
-                        android:gravity="center"
-                        android:maxLength="80"
-                        android:text="@{vm.postItem.title}"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_post_image"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_post_image"
-                        app:layout_constraintTop_toBottomOf="@id/iv_options" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/iv_post_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="6dp"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frame_profile_image" >
 
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_thumbnail"
+                    android:layout_width="110dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_icon_links"
+                    />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="start"
+                    android:maxLength="80"
+                    android:text="@{vm.postItem.title}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_post_image"
+                    app:layout_constraintTop_toTopOf="@+id/iv_post_image" />
+
+<!--                </LinearLayout>-->
+
+                <TextView
+                    android:id="@+id/tv_link"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:layout_weight="1"
+                    android:text="@{vm.postItem.link}"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="10sp"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/lato_regular"
+                    android:freezesText="true"
+                    android:gravity="start"
+                    android:maxLength="90"
+                    android:minLines="2"
+                    android:scrollHorizontally="true"
+                    android:singleLine="false"
+                    android:maxLines="2"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_post_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_post_image"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
 
                 <TextView
                     android:id="@+id/tv_caption"
@@ -167,7 +216,7 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_middle"
+                    app:layout_constraintTop_toBottomOf="@id/iv_post_image"
                     tools:text="asdihasdhasasldasld" />
 
                 <ImageView
@@ -176,7 +225,7 @@
                     android:layout_height="@dimen/margin_24"
                     android:layout_marginTop="4dp"
                     android:src="@drawable/ic_like_outline"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_caption" />
@@ -190,7 +239,7 @@
                     android:fontFamily="@font/lato_regular"
                     android:text="0"
                     android:textColor="@color/black"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintStart_toEndOf="@id/iv_like"
                     app:layout_constraintTop_toTopOf="@id/iv_like" />
 
@@ -201,7 +250,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="@dimen/margin_8"
                     android:src="@drawable/ic_whatsapp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_caption" />
