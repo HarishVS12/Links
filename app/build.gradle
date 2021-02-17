@@ -11,7 +11,7 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
-    buildFeatures{
+    buildFeatures {
         dataBinding true
         viewBinding true
     }
@@ -146,6 +146,8 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'io.github.ponnamkarthik:richlinkpreview:1.0.9'
 
+    //Custom tabs
+    implementation "androidx.browser:browser:1.3.0"
 
 
 }

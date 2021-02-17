@@ -1,8 +1,9 @@
 package com.linksofficial.links.view.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,10 +13,8 @@ import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.databinding.ContainerFeedPostBinding
 import com.linksofficial.links.utils.Share
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
-import com.linksofficial.links.view.ui.activities.WebViewActivity
 import com.linksofficial.links.view.ui.home.bottomNav.FeedFragmentDirections
 import com.linksofficial.links.viewmodel.FeedVM
-import timber.log.Timber
 
 class FeedContainerAdapter() :
     ListAdapter<Post, FeedContainerAdapter.FeedContainerVH>(FeedContainerDiffUTIL()) {
@@ -34,10 +33,16 @@ class FeedContainerAdapter() :
             vm.getImageFromURL(binding.ivThumbnail  , post.link ?: "")
 
             binding.cardPost.setOnClickListener {
-                val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
+                /*val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
                 intent.putExtra("url", post.link!!)
-                Timber.d("UrlForWeb: ${post.link!!}")
-                it.context.startActivity(intent)
+                Timber.d("UrlForWeb: ${post.link!!}")*/
+
+                val url = post.link
+                val builder = CustomTabsIntent.Builder()
+                builder.setUrlBarHidingEnabled(true)
+                val customTabsIntent = builder.build()
+                customTabsIntent.launchUrl(it.context,url!!.toUri())
+//                it.context.startActivity(intent)
             }
 
             binding.ivShare.setOnClickListener {
