@@ -1,8 +1,10 @@
 package com.linksofficial.links.di
 
+import android.app.Application
 import androidx.room.Room
 import com.linksofficial.links.data.local.PostLocalDatabase
 import com.linksofficial.links.data.local.dao.PostLocalDao
+import com.linksofficial.links.utils.ConstantsHelper
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -15,15 +17,17 @@ val databaseModule = module {
         return database.postLocalDao()
     }
 
+    fun provideDatabase(application: Application) =
+        Room.databaseBuilder(
+            application,
+            PostLocalDatabase::class.java,
+            ConstantsHelper.POST_DB
+        ).fallbackToDestructiveMigration()
+            .build()
+
 
     single {
-        Room.databaseBuilder(
-            androidApplication(),
-            PostLocalDatabase::class.java,
-            "post_local_database"
-        )
-            .fallbackToDestructiveMigration()
-            .build()
+        provideDatabase(androidApplication())
     }
 
     single {

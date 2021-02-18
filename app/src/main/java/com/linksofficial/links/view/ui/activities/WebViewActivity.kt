@@ -3,6 +3,7 @@ package com.linksofficial.links.view.ui.activities
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -34,7 +35,7 @@ class WebViewActivity : AppCompatActivity() {
         binding.webView.apply {
             settings.apply {
                 javaScriptEnabled = true
-                setSupportZoom(true)
+                setSupportZoom(false)
                 builtInZoomControls = true
                 domStorageEnabled = true
                 cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
@@ -61,69 +62,75 @@ class WebViewActivity : AppCompatActivity() {
         }
         return super.onKeyDown(keyCode, event)
     }
+
+    inner class MyWebViewClient() : WebViewClient() {
+
+        override fun shouldInterceptRequest(
+            view: WebView?,
+            request: WebResourceRequest?
+        ): WebResourceResponse? {
+            return super.shouldInterceptRequest(view, request)
+        }
+
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+            binding.progressBar.visibility = View.GONE
+        }
+
+        override fun shouldInterceptRequest(view: WebView?, url: String?): WebResourceResponse? {
+            if (url == null) {
+                return super.shouldInterceptRequest(view, url as String)
+            }
+            return if (url.toLowerCase(Locale.ROOT).contains("jpg") || url.toLowerCase(Locale.ROOT)
+                    .contains("jpeg")
+            ) {
+                val bitmap =
+                    Glide.with(view!!).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).load(url)
+                        .submit().get()
+                WebResourceResponse(
+                    "image/jpg",
+                    "UTF-8",
+                    getBitmapInputStream(bitmap, Bitmap.CompressFormat.JPEG)
+                )
+            } else if (url.toLowerCase(Locale.ROOT).contains(".png")) {
+                val bitmap =
+                    Glide.with(view!!).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).load(url)
+                        .submit().get()
+                WebResourceResponse(
+                    "image/png", "UTF-8", getBitmapInputStream(
+                        bitmap,
+                        Bitmap.CompressFormat.PNG
+                    )
+                )
+            } else if (url.toLowerCase(Locale.ROOT).contains(".webp")) {
+                val bitmap =
+                    Glide.with(view!!).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).load(url)
+                        .submit().get()
+                WebResourceResponse(
+                    "image/webp", "UTF-8", getBitmapInputStream(
+                        bitmap,
+                        Bitmap.CompressFormat.WEBP_LOSSY
+                    )
+                )
+            } else {
+                super.shouldInterceptRequest(view, url)
+            }
+        }
+
+        private fun getBitmapInputStream(
+            bitmap: Bitmap,
+            compressFormat: Bitmap.CompressFormat
+        ): InputStream {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(compressFormat, 80, byteArrayOutputStream)
+            val bitmapData: ByteArray = byteArrayOutputStream.toByteArray()
+            return ByteArrayInputStream(bitmapData)
+        }
+
+        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+            return false
+        }
+
+    }
 }
 
-private class MyWebViewClient() : WebViewClient() {
-
-    override fun shouldInterceptRequest(
-        view: WebView?,
-        request: WebResourceRequest?
-    ): WebResourceResponse? {
-        return super.shouldInterceptRequest(view, request)
-    }
-
-    override fun shouldInterceptRequest(view: WebView?, url: String?): WebResourceResponse? {
-        if (url == null) {
-            return super.shouldInterceptRequest(view, url as String)
-        }
-        return if (url.toLowerCase(Locale.ROOT).contains("jpg") || url.toLowerCase(Locale.ROOT)
-                .contains("jpeg")
-        ) {
-            val bitmap =
-                Glide.with(view!!).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).load(url)
-                    .submit().get()
-            WebResourceResponse(
-                "image/jpg",
-                "UTF-8",
-                getBitmapInputStream(bitmap, Bitmap.CompressFormat.JPEG)
-            )
-        } else if (url.toLowerCase(Locale.ROOT).contains(".png")) {
-            val bitmap =
-                Glide.with(view!!).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).load(url)
-                    .submit().get()
-            WebResourceResponse(
-                "image/png", "UTF-8", getBitmapInputStream(
-                    bitmap,
-                    Bitmap.CompressFormat.PNG
-                )
-            )
-        } else if (url.toLowerCase(Locale.ROOT).contains(".webp")) {
-            val bitmap =
-                Glide.with(view!!).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).load(url)
-                    .submit().get()
-            WebResourceResponse(
-                "image/webp", "UTF-8", getBitmapInputStream(
-                    bitmap,
-                    Bitmap.CompressFormat.WEBP_LOSSY
-                )
-            )
-        } else {
-            super.shouldInterceptRequest(view, url)
-        }
-    }
-
-    private fun getBitmapInputStream(
-        bitmap: Bitmap,
-        compressFormat: Bitmap.CompressFormat
-    ): InputStream {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(compressFormat, 80, byteArrayOutputStream)
-        val bitmapData: ByteArray = byteArrayOutputStream.toByteArray()
-        return ByteArrayInputStream(bitmapData)
-    }
-
-    override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-        return false
-    }
-
-}

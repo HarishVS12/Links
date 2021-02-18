@@ -13,6 +13,9 @@ object ConstantsHelper {
     const val USER = "User"
     const val POST = "Post"
 
+    //Database
+    const val POST_DB = "post_local_database"
+
     //SavedStateHandlerKeys
     const val POST_STATUS = "post_status"
 

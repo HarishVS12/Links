@@ -29,7 +29,7 @@ class EditProfileVM(private val mainRepo: MainRepository) : ViewModel() {
         }
     }
 
-    fun updateUserLD(user:User?){
+    fun updateUserLD(user: User?) {
         _userDetails.value = user!!
     }
 

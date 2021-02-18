@@ -13,7 +13,7 @@ import com.linksofficial.links.utils.ConstantsHelper
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class LinkActivityVM(private val mainRepo: MainRepository) : ViewModel() {
+open class LinkActivityVM(private val mainRepo: MainRepository) : ViewModel() {
 
     fun readFirstAppOpen(): LiveData<Boolean> {
         return mainRepo.readFirstAppOpen().asLiveData()
