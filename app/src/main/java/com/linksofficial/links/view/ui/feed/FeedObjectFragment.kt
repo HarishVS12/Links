@@ -25,11 +25,16 @@ class FeedObjectFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ContainerFeedBinding.inflate(inflater)
+        adapter = FeedContainerAdapter(feedVM)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = FeedContainerAdapter()
+
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+
 
         arguments?.takeIf { it.containsKey(ConstantsHelper.FEED_VP_ARG) }.apply {
             this?.getInt(ConstantsHelper.FEED_VP_ARG)?.let {
@@ -40,11 +45,7 @@ class FeedObjectFragment() : Fragment() {
 
         }
 
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-
-        feedVM.postList.observe(viewLifecycleOwner,{
+        feedVM.postList.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
 
@@ -53,7 +54,6 @@ class FeedObjectFragment() : Fragment() {
 
     private fun updateUI(tagText: String) {
         Timber.d("Posts:(TEXT) = $tagText")
-//        binding.tvTag.text = tagText
         feedVM.getPostFromRemote(tagText)
     }
 

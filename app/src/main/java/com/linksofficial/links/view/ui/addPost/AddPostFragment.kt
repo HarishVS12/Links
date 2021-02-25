@@ -28,7 +28,7 @@ class AddPostFragment : Fragment() {
     private val addPostViewModel: AddPostVM by viewModel()
 
     private var isPublic = true
-    
+
     private var userName = ""
     private var userPhotoURL = ""
 
@@ -60,15 +60,15 @@ class AddPostFragment : Fragment() {
         }
 
         binding.btnAddPost.setOnClickListener {
-            if(NetworkHelper(requireActivity()).isNetConnected())
+            if (NetworkHelper(requireActivity()).isNetConnected())
                 checkSubmission(it)
             else
-                Toasty.error(requireActivity(),"Please switch on your internet",Toasty.LENGTH_LONG)
+                Toasty.error(
+                    requireActivity(),
+                    "Please switch on your internet",
+                    Toasty.LENGTH_LONG
+                )
                     .show()
-        }
-
-        binding.cardStatus.setOnClickListener {
-            findNavController().navigate(R.id.action_addPostFragment_to_postVisibilityBottomSheet)
         }
 
         binding.ivBack.setOnClickListener {
@@ -80,28 +80,28 @@ class AddPostFragment : Fragment() {
         observePostStatus()
 
     }
-    
-    private fun readUserDetails(){
-        addPostViewModel.userDetails.observe(viewLifecycleOwner,{
-            userName = it.username?:""
-            userPhotoURL = it.photo_url?:""
+
+    private fun readUserDetails() {
+        addPostViewModel.userDetails.observe(viewLifecycleOwner, {
+            userName = it.username ?: ""
+            userPhotoURL = it.photo_url ?: ""
         })
     }
 
-    fun checkSubmission(v: View) {
+    private fun checkSubmission(v: View) {
         val etLink = binding.etLink.text
         val etTitle = binding.etTitle.text.toString()
         val etCaption = binding.etCaption.text.toString()
 
         if (!Patterns.WEB_URL.matcher(etLink).matches() && etTitle.isNullOrBlank()) {
-            binding.textinputTitle.error = "Please enter the title"
-            binding.textinputLink.error = "Please enter a valid URL"
-        }else {
+            binding.textinputTitle.error = getString(R.string.enter_title)
+            binding.textinputLink.error = getString(R.string.enter_url)
+        } else {
 
             if (Patterns.WEB_URL.matcher(etLink).matches()) {
                 binding.textinputLink.error = null
                 if (etTitle.isNullOrEmpty()) {
-                    binding.textinputTitle.error = "Please enter the title"
+                    binding.textinputTitle.error = getString(R.string.enter_title)
                 } else {
                     binding.textinputTitle.error = null
                     postLink(etLink, etTitle, etCaption)
@@ -109,7 +109,7 @@ class AddPostFragment : Fragment() {
 
             } else {
                 binding.textinputTitle.error = null
-                binding.textinputLink.error = "Please enter a valid URL"
+                binding.textinputLink.error = getString(R.string.enter_url)
             }
         }
     }
@@ -130,7 +130,7 @@ class AddPostFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-
+    // region ObservePostStatus
     private fun observePostStatus() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
             ConstantsHelper.POST_STATUS
@@ -151,5 +151,6 @@ class AddPostFragment : Fragment() {
             ivStatus.setImageResource(imageStatus)
         }
     }
+    //endregion
 
 }

@@ -1,9 +1,8 @@
 package com.linksofficial.links.view.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,45 +12,51 @@ import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.databinding.ContainerFeedPostBinding
 import com.linksofficial.links.utils.Share
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
+import com.linksofficial.links.view.ui.activities.WebViewActivity
 import com.linksofficial.links.view.ui.home.bottomNav.FeedFragmentDirections
 import com.linksofficial.links.viewmodel.FeedVM
+import timber.log.Timber
 
-class FeedContainerAdapter() :
+class FeedContainerAdapter(private val feedVM: FeedVM) :
     ListAdapter<Post, FeedContainerAdapter.FeedContainerVH>(FeedContainerDiffUTIL()) {
 
 
-    class FeedContainerVH(val binding: ContainerFeedPostBinding) :
+    inner class FeedContainerVH(val binding: ContainerFeedPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val vm = FeedVM()
+
+        private val vms = feedVM
 
         init {
-            binding.vm = vm
+            binding.vm = vms
         }
 
         fun bind(post: Post) {
-            vm.setPostItem(post)
-            vm.getImageFromURL(binding.ivThumbnail  , post.link ?: "")
+            vms.setPostItem(post)
+            vms.getImageFromURL(post.link ?: "", binding.ivThumbnail)
 
             binding.cardPost.setOnClickListener {
-                /*val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
+                val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
                 intent.putExtra("url", post.link!!)
-                Timber.d("UrlForWeb: ${post.link!!}")*/
+                Timber.d("UrlForWeb: ${post.link!!}")
 
-                val url = post.link
+/*              val url = post.link
                 val builder = CustomTabsIntent.Builder()
                 builder.setUrlBarHidingEnabled(true)
                 val customTabsIntent = builder.build()
-                customTabsIntent.launchUrl(it.context,url!!.toUri())
-//                it.context.startActivity(intent)
+                customTabsIntent.launchUrl(it.context, url!!.toUri())
+*/
+                it.context.startActivity(intent)
             }
 
             binding.ivShare.setOnClickListener {
-                Share.shareLink(it.context,post.link!!)
+                Share.shareLink(it.context, post.link!!)
             }
 
             binding.ivOptions.setOnClickListener {
-                val postDirections = FeedFragmentDirections.actionFeedFragmentToFeedPropBottomSheet(post)
-                (it.context as LinkMainActivity).findNavController(R.id.home_nav_host).navigate(postDirections)
+                val postDirections =
+                    FeedFragmentDirections.actionFeedFragmentToFeedPropBottomSheet(post)
+                (it.context as LinkMainActivity).findNavController(R.id.home_nav_host)
+                    .navigate(postDirections)
             }
 
         }
@@ -71,6 +76,7 @@ class FeedContainerAdapter() :
     override fun onBindViewHolder(holder: FeedContainerAdapter.FeedContainerVH, position: Int) {
         val postItem = getItem(position)
         holder.bind(postItem)
+        holder.binding.executePendingBindings()
     }
 
 }

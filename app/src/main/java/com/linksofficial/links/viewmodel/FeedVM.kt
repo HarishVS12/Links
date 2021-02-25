@@ -1,6 +1,5 @@
 package com.linksofficial.links.viewmodel
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,14 +12,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
+import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.ConstantsHelper
-import com.linksofficial.links.utils.LinkPreview
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class FeedVM() : ViewModel() {
+class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
 
     private var _postItem = MutableLiveData<Post>()
     val postItem: LiveData<Post>
@@ -31,7 +30,8 @@ class FeedVM() : ViewModel() {
         get() = _focusTagPosition
 
     fun setPostItem(postItem: Post) {
-        _postItem.setValue(postItem)
+        Timber.d("postBro : $postItem")
+        _postItem.value = postItem
     }
 
     fun setTagPosition(position: Int) {
@@ -58,27 +58,20 @@ class FeedVM() : ViewModel() {
             }
     }
 
-    fun getImageFromURL(v: ImageView, url: String) {
+    fun getImageFromURL(url: String, v: ImageView) {
         viewModelScope.launch(Dispatchers.IO) {
-            var getImageUrl = ""
-            try {
-                getImageUrl = LinkPreview(url).getImageUrl()
-                Timber.d("imURL: $getImageUrl")
-            } catch (exception: Exception) {
-                Log.d("Exception", "getImageFromURL: $exception")
-            }
+            var imageURL = mainRepository?.getImageFromURL(url)
             withContext(Dispatchers.Main) {
-                if (getImageUrl.isNullOrBlank()) {
+                if (imageURL.isNullOrBlank()) {
                     v.setImageResource(R.drawable.ic_icon_links)
                 } else {
-//                    v.load(getImageUrl)
                     Glide.with(v.context)
-                        .load(getImageUrl)
+                        .load(imageURL)
+                        .thumbnail(0.5f)
                         .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(v)
                 }
             }
-
         }
     }
 

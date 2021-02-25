@@ -1,17 +1,24 @@
 package com.linksofficial.links.viewmodel
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
+import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.data.repository.MainRepository
+import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddPostVM(val context: Application, private val mainRepo: MainRepository) :
     AndroidViewModel(context) {
+
+    var getUserDetails = MutableLiveData<Post>()
+
 
     private var _userDetails = MutableLiveData<User>()
     val userDetails: LiveData<User>
@@ -41,5 +48,9 @@ class AddPostVM(val context: Application, private val mainRepo: MainRepository) 
         }
     }
 
+    fun goToPostVis(v: View) {
+        (v.context as LinkMainActivity).findNavController(R.id.home_nav_host)
+            .navigate(R.id.action_addPostFragment_to_postVisibilityBottomSheet)
+    }
 
 }

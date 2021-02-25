@@ -40,9 +40,8 @@ class TagsAddPostAdapter(private val addPostViewModel: AddPostVM) :
                     notifyItemChanged(selectedPosition)
                     selectedPosition = adapterPosition
                 }
-
+                addPostViewModel.postPosition(selectedPosition)
             }
-            addPostViewModel.postPosition(selectedPosition)
         }
 
     }

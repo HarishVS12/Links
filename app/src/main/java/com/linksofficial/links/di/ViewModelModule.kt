@@ -22,7 +22,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        AddPostVM(androidContext() as Application,get())
+        AddPostVM(androidContext() as Application, get())
     }
 
     viewModel {
@@ -33,8 +33,8 @@ val viewModelModule = module {
         MyLinkVM(get())
     }
 
-    viewModel{
-        FeedVM()
+    viewModel {
+        FeedVM(get())
     }
 
     viewModel {

@@ -35,10 +35,8 @@ class PostVisibilityBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         postVisibilityVM.postStatus.observe(viewLifecycleOwner, {
-
             findNavController().previousBackStackEntry?.savedStateHandle?.set(ConstantsHelper.POST_STATUS,it)
             findNavController().popBackStack()
-
         })
     }
 

@@ -121,6 +121,7 @@
                             android:padding="4dp"
                             app:cardBackgroundColor="#EBF6FF"
                             app:cardCornerRadius="4dp"
+                            android:onClick="@{(v)-> vm.goToPostVis(v)}"
                             app:layout_constraintBottom_toBottomOf="@id/frame_profile_image"
                             app:layout_constraintStart_toStartOf="@id/tv_username"
                             app:layout_constraintTop_toBottomOf="@id/tv_username">
@@ -177,6 +178,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
                             android:padding="14dp"
+                            android:text="@={vm.getUserDetails.link}"
                             android:textColor="?attr/colorOnSurface"
                             android:textColorHint="@color/primaryColor"
                             android:textSize="14sp" />
@@ -206,6 +208,7 @@
                             android:fontFamily="@font/lato_regular"
                             android:maxLength="24"
                             android:padding="14dp"
+                            android:text="@={vm.getUserDetails.title}"
                             android:textColor="?attr/colorOnSurface"
                             android:textColorHint="@color/primaryColor"
                             android:textSize="14sp" />
@@ -236,6 +239,7 @@
                             android:fontFamily="@font/lato_regular"
                             android:maxLength="500"
                             android:padding="14dp"
+                            android:text="@={vm.getUserDetails.caption}"
                             android:textColor="?attr/colorOnSurface"
                             android:textColorHint="@color/primaryColor"
                             android:textSize="14sp" />
