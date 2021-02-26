@@ -147,19 +147,39 @@
 
                 </LinearLayout>
 
-                <TextView
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin_16"
                     android:layout_marginTop="@dimen/margin_16"
                     android:layout_marginEnd="@dimen/margin_16"
-                    android:fontFamily="@font/lato_regular"
-                    android:gravity="center"
-                    android:text="@{vm.userDetails.bio}"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:visibility="@{vm.userDetails.bio==null ? View.GONE : View.VISIBLE}" />
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/lato_regular"
+                        android:gravity="center"
+                        android:text="@{vm.userDetails.bio}"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:visibility="@{vm.userDetails.bio==null ? View.GONE : View.VISIBLE}" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/lato_bold"
+                        android:gravity="center"
+                        android:text="Add Bio"
+                        android:onClick="@{(v) -> vm.gotoEditProfile(v)}"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="15sp"
+                        android:visibility="@{vm.userDetails.bio==null||vm.userDetails.bio==`` ? View.VISIBLE : View.GONE}" />
+
+
+                </FrameLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -175,6 +195,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:fontFamily="@font/lato_bold"
                         android:text="EDIT PROFILE"
+                        android:onClick="@{(v)->vm.gotoEditProfile(v)}"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
@@ -250,6 +271,7 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
+                            android:onClick="@{(v)->vm.shareCommon(v,0)}"
                             android:orientation="horizontal"
                             android:padding="@dimen/margin_8">
 
@@ -289,6 +311,7 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
+                            android:onClick="@{(v)->vm.shareCommon(v,1)}"
                             android:orientation="horizontal"
                             android:padding="@dimen/margin_8">
 
@@ -327,6 +350,7 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
+                            android:onClick="@{(v)->vm.shareCommon(v,2)}"
                             android:orientation="horizontal"
                             android:padding="@dimen/margin_8">
 

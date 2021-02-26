@@ -33,10 +33,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun init() {
-        navController = findNavController(requireActivity(),R.id.home_nav_host)
+        navController = findNavController(requireActivity(), R.id.home_nav_host)
         binding.bottomNav.setupWithNavController(navController)
-
-
+        
+        binding.bottomNav.setOnNavigationItemReselectedListener { }
     }
 
     private fun onDestinationChange() {

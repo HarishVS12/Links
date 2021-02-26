@@ -79,6 +79,9 @@ class EditProfileFragment : Fragment() {
         binding.apply {
             vm = editProfileVm
 
+            etUsername.requestFocus()
+
+
             lifecycleOwner = this@EditProfileFragment
 
             ivBack.setOnClickListener {
@@ -94,10 +97,8 @@ class EditProfileFragment : Fragment() {
                 if (imageURI != null) {
                     editProfileVm.uploadImageToStorage(currentUser!!, imageURI)
                     editProfileVm.writeUserDetail(createUser(currentUser?.uid, currentUser))
-                    findNavController().previousBackStackEntry?.savedStateHandle?.set("userModel",createUser(currentUser?.uid, currentUser))
                 } else {
                     editProfileVm.writeUserDetail(createUserWOphURL(currentUser?.uid, currentUser))
-                    findNavController().previousBackStackEntry?.savedStateHandle?.set("userModel",createUserWOphURL(currentUser?.uid, currentUser)  )
                 }
                 updateUserDetails()
                 findNavController().popBackStack()
