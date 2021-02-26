@@ -20,7 +20,9 @@ class EditProfileVM(private val mainRepo: MainRepository) : ViewModel() {
         get() = _userDetails
 
     fun updateUserDetails(map: HashMap<String, Any?>) {
-        mainRepo.updateUserDetails(Firebase.auth.currentUser?.uid, map)
+        viewModelScope.launch {
+            mainRepo.updateUserDetails(Firebase.auth.currentUser?.uid, map)
+        }
     }
 
     fun writeUserDetail(user: User) {

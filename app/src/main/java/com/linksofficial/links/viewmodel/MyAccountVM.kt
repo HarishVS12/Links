@@ -1,7 +1,10 @@
 package com.linksofficial.links.viewmodel
 
 import android.view.View
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.navigation.findNavController
 import com.linksofficial.links.R
 import com.linksofficial.links.data.model.User
@@ -9,7 +12,6 @@ import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.Share
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import com.linksofficial.links.view.ui.home.bottomNav.MyAccountFragmentDirections
-import kotlinx.coroutines.launch
 
 class MyAccountVM(private val mainRepo: MainRepository) : ViewModel() {
 
@@ -17,12 +19,6 @@ class MyAccountVM(private val mainRepo: MainRepository) : ViewModel() {
     private var _userDetails = MutableLiveData<User>()
     val userDetails: LiveData<User>
         get() = _userDetails
-
-    fun writeUserDetail(user: User) {
-        viewModelScope.launch {
-            mainRepo.writeUserDetails(user)
-        }
-    }
 
     fun readUserDetail(): LiveData<User> =
         mainRepo.readUserDetails().asLiveData()

@@ -64,7 +64,7 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
     }
 
     //Update User data
-    fun updateUserDetails(uniqueId: String?, userData: HashMap<String, Any?>) {
+    suspend fun updateUserDetails(uniqueId: String?, userData: HashMap<String, Any?>) {
         database.collection(ConstantsHelper.USER)
             .document(uniqueId.toString())
             .update(userData)

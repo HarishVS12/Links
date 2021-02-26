@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -30,10 +29,8 @@ class EditProfileFragment : Fragment() {
     private lateinit var binding: FragmentEditProfileBinding
     private val editProfileVm: EditProfileVM by viewModel()
 
-
     private val args: MyAccountFragmentArgs by navArgs()
 
-    private var auth: FirebaseAuth? = null
     private var uid: String? = null
     private var currentUser: FirebaseUser? = null
 
@@ -56,13 +53,31 @@ class EditProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initFirebase()
+        getContentFromResult()
+    }
 
-        auth = Firebase.auth
-        currentUser = auth?.currentUser
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            vm = editProfileVm
+            lifecycleOwner = this@EditProfileFragment
+        }
+
+        args.apply {
+            editProfileVm.updateUserLD(this.userDetails)
+        }
+        onClicks()
+    }
+
+    private fun initFirebase() {
+        currentUser = Firebase.auth?.currentUser
         uid = currentUser?.uid.toString()
-
         storageReference = Firebase.storage.reference.child(uid ?: "NoUID")
+    }
 
+    private fun getContentFromResult() {
         getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             imageURI = uri
             binding.ivProfileImage.load(uri) {
@@ -71,32 +86,19 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
+    private fun onClicks() {
         binding.apply {
-            vm = editProfileVm
-
-            etUsername.requestFocus()
-
-
-            lifecycleOwner = this@EditProfileFragment
-
             ivBack.setOnClickListener {
                 findNavController().popBackStack()
-            }
-
-            args.apply {
-                editProfileVm.updateUserLD(this.userDetails)
             }
 
             btnSaveProfile.setOnClickListener {
 
                 if (imageURI != null) {
-                    editProfileVm.uploadImageToStorage(currentUser!!, imageURI)
-                    editProfileVm.writeUserDetail(createUser(currentUser?.uid, currentUser))
+                    editProfileVm.apply {
+                        uploadImageToStorage(currentUser!!, imageURI)
+                        writeUserDetail(createUser(currentUser?.uid, currentUser))
+                    }
                 } else {
                     editProfileVm.writeUserDetail(createUserWOphURL(currentUser?.uid, currentUser))
                 }
@@ -107,7 +109,6 @@ class EditProfileFragment : Fragment() {
             ivProfileImage.setOnClickListener {
                 getContent.launch("image/*")
             }
-
         }
     }
 

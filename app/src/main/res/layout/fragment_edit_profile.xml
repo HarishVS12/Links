@@ -135,7 +135,9 @@
                             android:maxLength="15"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="@font/lato_regular"
-                            android:textColorHint="@color/primaryColor" />
+                            android:textColorHint="@color/primaryColor">
+                            <requestFocus/>
+                        </com.google.android.material.textfield.TextInputEditText>
 
                     </com.google.android.material.textfield.TextInputLayout>
 

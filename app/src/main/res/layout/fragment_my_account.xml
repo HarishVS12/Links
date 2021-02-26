@@ -172,7 +172,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/lato_bold"
                         android:gravity="center"
-                        android:text="Add Bio"
+                        android:text="Add Bio to look cool"
                         android:onClick="@{(v) -> vm.gotoEditProfile(v)}"
                         android:textColor="@color/primaryColor"
                         android:textSize="15sp"
