@@ -18,13 +18,12 @@ class AddPostVM(val context: Application, private val mainRepo: MainRepository) 
     AndroidViewModel(context) {
 
     var getUserDetails = MutableLiveData<Post>()
-
-
+    
     private var _userDetails = MutableLiveData<User>()
     val userDetails: LiveData<User>
         get() = _userDetails
 
-    private var _tagPosition = MutableLiveData<Int>()
+    private var _tagPosition = MutableLiveData(0)
     val tagPosition: LiveData<Int>
         get() = _tagPosition
 

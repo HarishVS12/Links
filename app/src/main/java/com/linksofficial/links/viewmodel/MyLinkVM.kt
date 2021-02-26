@@ -14,7 +14,6 @@ import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.ConstantsHelper
-import com.linksofficial.links.utils.LinkPreview
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +32,6 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
 
 
     val readAllLocalPosts = mainRepo.readAllLocalPosts.asLiveData()
-
 
 
     //Get Link
@@ -61,26 +59,18 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
     //TODO: Try catching the error
     fun getImageFromURL(v: ImageView, url: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            var getImageUrl = ""
-            try {
-                getImageUrl = LinkPreview(url).getImageUrl()
-                Timber.d("imURL: $getImageUrl")
-            } catch (exception: Exception) {
-                /*Toast.makeText(v.context, "Couldn't pick thumbnail image", Toast.LENGTH_SHORT)
-                    .show()*/
-            }
+            var imageURL = mainRepo?.getImageFromURL(url)
             withContext(Dispatchers.Main) {
-                if (getImageUrl.isNullOrBlank()) {
+                if (imageURL.isNullOrBlank()) {
                     v.setImageResource(R.drawable.ic_icon_links)
                 } else {
-//                    v.load(getImageUrl)
                     Glide.with(v.context)
-                        .load(getImageUrl)
+                        .load(imageURL)
+                        .thumbnail(0.5f)
                         .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(v)
                 }
             }
-
         }
     }
 
