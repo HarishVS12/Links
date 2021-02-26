@@ -17,6 +17,11 @@ import kotlinx.coroutines.launch
 class AddPostVM(val context: Application, private val mainRepo: MainRepository) :
     AndroidViewModel(context) {
 
+
+    init{
+        readUserDetail()
+    }
+
     var getUserDetails = MutableLiveData<Post>()
     
     private var _userDetails = MutableLiveData<User>()
