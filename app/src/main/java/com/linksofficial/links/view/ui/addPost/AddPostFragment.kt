@@ -38,7 +38,7 @@ class AddPostFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentAddPostBinding.inflate(inflater)
-//        addPostViewModel.readUserDetail()
+        addPostViewModel.readUserDetail()
         return binding.root
     }
 
