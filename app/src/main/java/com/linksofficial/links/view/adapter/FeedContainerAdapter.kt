@@ -24,15 +24,13 @@ class FeedContainerAdapter(private val feedVM: FeedVM) :
     inner class FeedContainerVH(val binding: ContainerFeedPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val vms = feedVM
-
         init {
-            binding.vm = vms
+            binding.vm = feedVM
         }
 
         fun bind(post: Post) {
-            vms.setPostItem(post)
-            vms.getImageFromURL(post.link ?: "", binding.ivThumbnail)
+            feedVM.setPostItem(post)
+            feedVM.getImageFromURL(post.link ?: "", binding.ivThumbnail)
 
             binding.cardPost.setOnClickListener {
                 val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)

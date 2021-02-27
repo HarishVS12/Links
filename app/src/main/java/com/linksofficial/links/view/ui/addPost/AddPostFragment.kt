@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Timestamp
@@ -17,8 +18,9 @@ import com.linksofficial.links.utils.NetworkHelper
 import com.linksofficial.links.view.adapter.TagsAddPostAdapter
 import com.linksofficial.links.viewmodel.AddPostVM
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class AddPostFragment : Fragment() {
 
@@ -60,16 +62,13 @@ class AddPostFragment : Fragment() {
         }
 
         binding.btnAddPost.setOnClickListener {
-            if (NetworkHelper(requireActivity()).isNetConnected())
-                checkSubmission(it)
-            else
-                Toasty.error(
-                    requireActivity(),
-                    "Please switch on your internet",
-                    Toasty.LENGTH_LONG
-                )
-                    .show()
+            addPost(it)
         }
+        binding.ivCheckPost.setOnClickListener {
+            addPost(it)
+        }
+
+
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
@@ -78,8 +77,38 @@ class AddPostFragment : Fragment() {
         tagAdapter.submitList(ConstantsHelper.getTagList())
 
         observePostStatus()
-
+        checkBoxInit()
     }
+
+    private fun checkBoxInit() {
+        updateCheckBox(false)
+        binding.checkbox.isChecked = false
+        binding.checkbox.setOnCheckedChangeListener { _, isChecked ->
+            if (!isChecked) updateCheckBox(false) else updateCheckBox(true)
+        }
+    }
+
+    private fun updateCheckBox(isEnabled: Boolean) {
+        binding.apply {
+            textinputTitle.isEnabled = isEnabled
+            etTitle.isEnabled = isEnabled
+            textinputCaption.isEnabled = isEnabled
+            etCaption.isEnabled = isEnabled
+        }
+    }
+
+    private fun addPost(v:View){
+        if (NetworkHelper(requireActivity()).isNetConnected())
+            checkSubmission(v)
+        else
+            Toasty.error(
+                requireActivity(),
+                "Please switch on your internet",
+                Toasty.LENGTH_LONG
+            )
+                .show()
+    }
+
 
     private fun readUserDetails() {
         addPostViewModel.userDetails.observe(viewLifecycleOwner, {
@@ -93,24 +122,38 @@ class AddPostFragment : Fragment() {
         val etTitle = binding.etTitle.text.toString()
         val etCaption = binding.etCaption.text.toString()
 
-        if (!Patterns.WEB_URL.matcher(etLink).matches() && etTitle.isNullOrBlank()) {
+        if (!Patterns.WEB_URL.matcher(etLink).matches() && etTitle.isNullOrBlank() && binding.etTitle.isEnabled ) {
             binding.textinputTitle.error = getString(R.string.enter_title)
             binding.textinputLink.error = getString(R.string.enter_url)
         } else {
 
             if (Patterns.WEB_URL.matcher(etLink).matches()) {
                 binding.textinputLink.error = null
-                if (etTitle.isNullOrEmpty()) {
+                if (etTitle.isNullOrEmpty() && binding.etTitle.isEnabled) {
                     binding.textinputTitle.error = getString(R.string.enter_title)
                 } else {
                     binding.textinputTitle.error = null
-                    postLink(etLink, etTitle, etCaption)
+                    if(!binding.etTitle.isEnabled){
+                        fetchTitleAndCaption(etLink.toString())
+                    }else{
+                        postLink(etLink, etTitle, etCaption)
+                    }
                 }
 
             } else {
                 binding.textinputTitle.error = null
                 binding.textinputLink.error = getString(R.string.enter_url)
             }
+        }
+    }
+
+    private fun fetchTitleAndCaption(url:String){
+        addPostViewModel.getTitleAndCaption(url)
+        lifecycleScope.launch {
+            delay(timeMillis = 500)
+            addPostViewModel.linkProperties.observe(viewLifecycleOwner,{
+                postLink(url,it.title?:"",it.description)
+            })
         }
     }
 

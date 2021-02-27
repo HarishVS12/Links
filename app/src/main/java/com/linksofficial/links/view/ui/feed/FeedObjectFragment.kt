@@ -25,11 +25,11 @@ class FeedObjectFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ContainerFeedBinding.inflate(inflater)
-        adapter = FeedContainerAdapter(feedVM)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        adapter = FeedContainerAdapter(feedVM)
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

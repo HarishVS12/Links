@@ -50,10 +50,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/margin_16"
+                        android:layout_weight="1"
                         android:fontFamily="@font/lato_black"
                         android:text="@string/add_link"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_check_post"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="end"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_check_post" />
                 </LinearLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -118,10 +127,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:clickable="true"
+                            android:onClick="@{(v)-> vm.goToPostVis(v)}"
                             android:padding="4dp"
                             app:cardBackgroundColor="#EBF6FF"
                             app:cardCornerRadius="4dp"
-                            android:onClick="@{(v)-> vm.goToPostVis(v)}"
                             app:layout_constraintBottom_toBottomOf="@id/frame_profile_image"
                             app:layout_constraintStart_toStartOf="@id/tv_username"
                             app:layout_constraintTop_toBottomOf="@id/tv_username">
@@ -157,12 +166,24 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <CheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:paddingStart="@dimen/margin_8"
+                        android:text="Custom title and caption"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textinput_link"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_24"
+                        android:layout_marginTop="@dimen/margin_8"
                         android:hint="Link"
                         app:boxStrokeColor="@color/color_text_input_color"
                         app:boxStrokeWidth="2dp"
@@ -190,13 +211,13 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="@dimen/margin_8"
                         android:hint="Title"
                         app:boxStrokeColor="@color/color_text_input_color"
                         app:boxStrokeWidth="2dp"
                         app:boxStrokeWidthFocused="3dp"
                         app:counterEnabled="true"
-                        app:counterMaxLength="24"
+                        app:counterMaxLength="48"
                         app:hintEnabled="true"
                         app:layout_constraintTop_toBottomOf="@id/textinput_link"
                         app:startIconDrawable="@drawable/ic_title">
@@ -206,7 +227,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
-                            android:maxLength="24"
+                            android:maxLength="48"
                             android:padding="14dp"
                             android:text="@={vm.getUserDetails.title}"
                             android:textColor="?attr/colorOnSurface"
@@ -221,13 +242,13 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="@dimen/margin_8"
                         android:hint="Caption"
                         app:boxStrokeColor="@color/color_text_input_color"
                         app:boxStrokeWidth="2dp"
                         app:boxStrokeWidthFocused="3dp"
                         app:counterEnabled="true"
-                        app:counterMaxLength="500"
+                        app:counterMaxLength="100"
                         app:hintEnabled="true"
                         app:layout_constraintTop_toBottomOf="@id/textinput_link"
                         app:startIconDrawable="@drawable/ic_caption">
@@ -237,7 +258,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
-                            android:maxLength="500"
+                            android:maxLength="100"
                             android:padding="14dp"
                             android:text="@={vm.getUserDetails.caption}"
                             android:textColor="?attr/colorOnSurface"
@@ -250,7 +271,7 @@
                         android:id="@+id/card_tag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="@dimen/margin_8"
                         app:cardBackgroundColor="#EBF6FF"
                         app:cardCornerRadius="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -285,30 +306,31 @@
 
                     </androidx.cardview.widget.CardView>
 
-                       <FrameLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="32dp"
-                           android:layout_marginBottom="@dimen/margin_16"
-                           android:background="@drawable/ic_background_button"
-                           app:layout_constraintTop_toBottomOf="@id/card_tag">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="@dimen/margin_16"
+                        android:background="@drawable/ic_background_button"
+                        app:layout_constraintTop_toBottomOf="@id/card_tag">
 
-                           <Button
-                               android:id="@+id/btn_add_post"
-                               android:layout_width="match_parent"
-                               android:layout_height="wrap_content"
-                               android:layout_gravity="center"
-                               android:background="?attr/selectableItemBackground"
-                               android:elevation="10dp"
-                               android:fontFamily="@font/lato_bold"
-                               android:text="POST LINK"
-                               android:textAlignment="center"
-                               android:textColor="@android:color/black"
-                               android:textStyle="bold"
-                               app:cornerRadius="@dimen/margin_24"
-                               app:elevation="6dp" />
+                        <Button
+                            android:id="@+id/btn_add_post"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackground"
+                            android:elevation="10dp"
+                            android:fontFamily="@font/lato_bold"
+                            android:text="POST LINK"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold"
+                            app:cornerRadius="@dimen/margin_24"
+                            app:elevation="6dp" />
 
-                       </FrameLayout>
+                    </FrameLayout>
+
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 

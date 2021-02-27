@@ -1,7 +1,6 @@
 package com.linksofficial.links.data.repository
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -12,6 +11,7 @@ import com.linksofficial.links.data.model.User
 import com.linksofficial.links.data.preferences.Prefs
 import com.linksofficial.links.utils.ConstantsHelper
 import com.linksofficial.links.utils.LinkPreview
+import com.linksofficial.links.utils.LinkProperties
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
@@ -107,9 +107,19 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
             getImageUrl = LinkPreview(url).getImageUrl()
             Timber.d("imURL: $getImageUrl")
         } catch (exception: Exception) {
-            Log.d("Exception", "getImageFromURL: $exception")
+            Timber.e(exception)
         }
         return getImageUrl
+    }
+
+    suspend fun getLinkPrevFromURL(url:String):LinkProperties{
+        var linkProperties: LinkProperties = LinkProperties()
+        try{
+            linkProperties = LinkPreview(url).getLinkProperties()
+        }catch (e:Exception){
+            Timber.e(e)
+        }
+        return linkProperties
     }
 
 }

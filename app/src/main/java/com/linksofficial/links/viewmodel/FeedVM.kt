@@ -14,12 +14,17 @@ import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.ConstantsHelper
+import com.linksofficial.links.utils.LinkProperties
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
+
+    private var _linkPreview = MutableLiveData<LinkProperties>()
+    val linkPreview: LiveData<LinkProperties>
+        get() = _linkPreview
 
     private var _postItem = MutableLiveData<Post>()
     val postItem: LiveData<Post>
@@ -72,6 +77,13 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
                         .into(v)
                 }
             }
+        }
+    }
+
+    fun getLinkPrevFromUrl(url: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            var linkPreviewResult = mainRepository?.getLinkPrevFromURL(url)
+            _linkPreview.postValue(linkPreviewResult)
         }
     }
 

@@ -8,6 +8,8 @@
         <variable
             name="vm"
             type="com.linksofficial.links.viewmodel.FeedVM" />
+        
+        <import type="android.view.View"/>
 
     </data>
 
@@ -163,12 +165,18 @@
                     android:layout_marginEnd="@dimen/margin_8"
                     android:layout_weight="1"
                     android:fontFamily="@font/lato_bold"
-                    android:gravity="start"
-                    android:maxLength="80"
                     android:text="@{vm.postItem.title}"
                     android:textColor="@color/black"
+                    android:ellipsize="end"
                     android:textSize="16sp"
-                    android:layout_marginTop="@dimen/margin_8"
+                    android:freezesText="true"
+                    android:gravity="start"
+                    android:scrollHorizontally="true"
+                    android:singleLine="false"
+                    android:maxLines="2"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_post_image"
                     app:layout_constraintTop_toTopOf="@+id/iv_post_image" />
@@ -181,6 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8"
                     android:layout_marginEnd="@dimen/margin_8"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:layout_weight="1"
                     android:text="@{vm.postItem.link}"
                     android:textColor="@color/primaryColor"
@@ -191,8 +200,6 @@
                     android:fontFamily="@font/lato_regular"
                     android:freezesText="true"
                     android:gravity="start"
-                    android:maxLength="90"
-                    android:minLines="2"
                     android:scrollHorizontally="true"
                     android:singleLine="false"
                     android:maxLines="2"
@@ -213,8 +220,9 @@
                     android:text="@{vm.postItem.caption}"
                     android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:visibility="visible"
+                    android:visibility="@{vm.postItem.caption==null || vm.postItem.caption==`` ? View.GONE:View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    tools:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_post_image"
                     tools:text="asdihasdhasasldasld" />
@@ -223,7 +231,7 @@
                     android:id="@+id/iv_like"
                     android:layout_width="@dimen/margin_24"
                     android:layout_height="@dimen/margin_24"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:src="@drawable/ic_like_outline"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -247,7 +255,7 @@
                     android:id="@+id/iv_share"
                     android:layout_width="@dimen/margin_24"
                     android:layout_height="@dimen/margin_24"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:layout_marginEnd="@dimen/margin_8"
                     android:src="@drawable/ic_whatsapp"
                     android:visibility="visible"

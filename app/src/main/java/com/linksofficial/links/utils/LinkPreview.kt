@@ -7,6 +7,9 @@ import org.jsoup.select.Elements
 import java.net.URI
 import java.net.URISyntaxException
 
+/**
+ * Created by Harish
+ */
 data class LinkProperties(
     var url: String? = null,
     var imageUrl: String? = null,
