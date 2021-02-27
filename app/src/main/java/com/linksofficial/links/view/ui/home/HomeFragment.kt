@@ -10,15 +10,12 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.linksofficial.links.R
 import com.linksofficial.links.databinding.FragmentHomeBinding
-import com.linksofficial.links.view.ui.home.bottomNav.FeedFragment
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var navController: NavController
-
-    private val feedFragment: FeedFragment = FeedFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +26,8 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         init()
         onDestinationChange()
     }
