@@ -26,6 +26,7 @@ class LinkMainActivity : AppCompatActivity() {
 
         linkActivityVM.getUserDetails(Firebase.auth.currentUser?.uid)
 
+        linkActivityVM.writeLinkCopied(true)
     }
 
 

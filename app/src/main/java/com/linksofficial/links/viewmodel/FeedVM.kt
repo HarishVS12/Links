@@ -1,10 +1,7 @@
 package com.linksofficial.links.viewmodel
 
 import android.widget.ImageView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -14,17 +11,12 @@ import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.ConstantsHelper
-import com.linksofficial.links.utils.LinkProperties
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
-
-    private var _linkPreview = MutableLiveData<LinkProperties>()
-    val linkPreview: LiveData<LinkProperties>
-        get() = _linkPreview
 
     private var _postItem = MutableLiveData<Post>()
     val postItem: LiveData<Post>
@@ -80,10 +72,11 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
         }
     }
 
-    fun getLinkPrevFromUrl(url: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            var linkPreviewResult = mainRepository?.getLinkPrevFromURL(url)
-            _linkPreview.postValue(linkPreviewResult)
+    fun readLinkCopied() = mainRepository.readCopiedLink().asLiveData()
+
+    fun writeLinkCopied(isLinkCopied:Boolean){
+        viewModelScope.launch {
+            mainRepository.writeCopiedLink(isLinkCopied)
         }
     }
 

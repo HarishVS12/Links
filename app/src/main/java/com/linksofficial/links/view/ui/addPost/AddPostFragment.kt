@@ -1,5 +1,7 @@
 package com.linksofficial.links.view.ui.addPost
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Timestamp
 import com.linksofficial.links.R
@@ -16,6 +19,7 @@ import com.linksofficial.links.databinding.FragmentAddPostBinding
 import com.linksofficial.links.utils.ConstantsHelper
 import com.linksofficial.links.utils.NetworkHelper
 import com.linksofficial.links.view.adapter.TagsAddPostAdapter
+import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import com.linksofficial.links.viewmodel.AddPostVM
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.delay
@@ -28,6 +32,8 @@ class AddPostFragment : Fragment() {
     private lateinit var tagAdapter: TagsAddPostAdapter
 
     private val addPostViewModel: AddPostVM by viewModel()
+
+    private val feedLinkArgs by navArgs<AddPostFragmentArgs>()
 
     private var isPublic = true
 
@@ -80,6 +86,12 @@ class AddPostFragment : Fragment() {
         checkBoxInit()
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.etLink.setText(feedLinkArgs.link ?: "")
+        checkClipData()
+    }
+
     private fun checkBoxInit() {
         updateCheckBox(false)
         binding.checkbox.isChecked = false
@@ -97,7 +109,7 @@ class AddPostFragment : Fragment() {
         }
     }
 
-    private fun addPost(v:View){
+    private fun addPost(v: View) {
         if (NetworkHelper(requireActivity()).isNetConnected())
             checkSubmission(v)
         else
@@ -122,7 +134,9 @@ class AddPostFragment : Fragment() {
         val etTitle = binding.etTitle.text.toString()
         val etCaption = binding.etCaption.text.toString()
 
-        if (!Patterns.WEB_URL.matcher(etLink).matches() && etTitle.isNullOrBlank() && binding.etTitle.isEnabled ) {
+        if (!Patterns.WEB_URL.matcher(etLink)
+                .matches() && etTitle.isNullOrBlank() && binding.etTitle.isEnabled
+        ) {
             binding.textinputTitle.error = getString(R.string.enter_title)
             binding.textinputLink.error = getString(R.string.enter_url)
         } else {
@@ -133,9 +147,9 @@ class AddPostFragment : Fragment() {
                     binding.textinputTitle.error = getString(R.string.enter_title)
                 } else {
                     binding.textinputTitle.error = null
-                    if(!binding.etTitle.isEnabled){
+                    if (!binding.etTitle.isEnabled) {
                         fetchTitleAndCaption(etLink.toString())
-                    }else{
+                    } else {
                         postLink(etLink, etTitle, etCaption)
                     }
                 }
@@ -147,12 +161,12 @@ class AddPostFragment : Fragment() {
         }
     }
 
-    private fun fetchTitleAndCaption(url:String){
+    private fun fetchTitleAndCaption(url: String) {
         addPostViewModel.getTitleAndCaption(url)
         lifecycleScope.launch {
             delay(timeMillis = 500)
-            addPostViewModel.linkProperties.observe(viewLifecycleOwner,{
-                postLink(url,it.title?:"",it.description)
+            addPostViewModel.linkProperties.observe(viewLifecycleOwner, {
+                postLink(url, it.title ?: "", it.description)
             })
         }
     }
@@ -171,6 +185,24 @@ class AddPostFragment : Fragment() {
         )
         addPostViewModel.postLink(post)
         findNavController().popBackStack()
+    }
+
+    private fun checkClipData() {
+        val clipBoard =
+            (context as LinkMainActivity).getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        if (clipBoard.hasPrimaryClip()) {
+            val primaryClip = clipBoard.primaryClip?.getItemAt(0)
+            val copiedText = primaryClip?.text
+
+            if (Patterns.WEB_URL.matcher(copiedText).matches()) {
+                binding.etLink.setText(copiedText)
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        addPostViewModel.writeLinkCopied(false)
     }
 
     // region ObservePostStatus

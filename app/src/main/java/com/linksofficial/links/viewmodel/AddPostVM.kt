@@ -64,4 +64,10 @@ class AddPostVM(val context: Application, private val mainRepo: MainRepository) 
             .navigate(R.id.action_addPostFragment_to_postVisibilityBottomSheet)
     }
 
+    fun writeLinkCopied(isLinkCopied: Boolean) {
+        viewModelScope.launch {
+            mainRepo.writeCopiedLink(isLinkCopied)
+        }
+    }
+
 }

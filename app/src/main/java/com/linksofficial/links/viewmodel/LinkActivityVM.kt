@@ -25,6 +25,12 @@ open class LinkActivityVM(private val mainRepo: MainRepository) : ViewModel() {
         }
     }
 
+    fun writeLinkCopied(isLinkCopied:Boolean){
+        viewModelScope.launch {
+            mainRepo.writeCopiedLink(isLinkCopied)
+        }
+    }
+
     fun writeUserDetail(user: User) {
         viewModelScope.launch {
             mainRepo.writeUserDetails(user)
@@ -47,6 +53,8 @@ open class LinkActivityVM(private val mainRepo: MainRepository) : ViewModel() {
             }
 
     }
+
+
 
 
 }

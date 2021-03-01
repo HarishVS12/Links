@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.data.preferences.Prefs.PreferencesKeys.BIO
+import com.linksofficial.links.data.preferences.Prefs.PreferencesKeys.COPIED_LINK
 import com.linksofficial.links.data.preferences.Prefs.PreferencesKeys.EMAIL
 import com.linksofficial.links.data.preferences.Prefs.PreferencesKeys.FAV_TAGS
 import com.linksofficial.links.data.preferences.Prefs.PreferencesKeys.FIRST_APP_OPEN
@@ -27,6 +28,7 @@ class Prefs(private val context: Context) {
         //Name of the preferences
         const val firstAppOpen = "first_app_open"
         const val userpreference = "user_preference"
+        const val copiedlink = "copied_link"
 
         //User Details
         const val userName = "user_name"
@@ -47,6 +49,7 @@ class Prefs(private val context: Context) {
         val BIO = preferencesKey<String>(bio)
         val FAV_TAGS = preferencesKey<String>(favTags)
 
+        val COPIED_LINK = preferencesKey<Boolean>(copiedlink)
     }
 
     private fun createDataStore(): DataStore<Preferences> {
@@ -64,6 +67,18 @@ class Prefs(private val context: Context) {
     suspend fun writeFirstAppOpen(isFirstAppOpen: Boolean) {
         createDataStore().edit {
             it[FIRST_APP_OPEN] = isFirstAppOpen
+        }
+    }
+
+    fun readCopiedLink():Flow<Boolean>{
+        return createDataStore().data.map{
+            it[COPIED_LINK] ?: false
+        }
+    }
+
+    suspend fun writeCopiedLink(isLinkCopied:Boolean){
+        createDataStore().edit {
+            it[COPIED_LINK] = isLinkCopied
         }
     }
 

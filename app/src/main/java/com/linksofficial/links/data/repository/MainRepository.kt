@@ -45,6 +45,15 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
     fun readUserDetails(): Flow<User> {
         return prefs.readUserDetail()
     }
+
+    suspend fun writeCopiedLink(isLinkCopied:Boolean){
+        prefs.writeCopiedLink(
+            isLinkCopied
+        )
+    }
+
+    fun readCopiedLink() = prefs.readCopiedLink()
+
     //endregion
 
     //region Firestore writes and reads

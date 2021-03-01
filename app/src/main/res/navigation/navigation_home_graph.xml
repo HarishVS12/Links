@@ -66,6 +66,11 @@
         <action
             android:id="@+id/action_addPostFragment_to_postVisibilityBottomSheet"
             app:destination="@id/postVisibilityBottomSheet" />
+        <argument
+            android:name="link"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <dialog
         android:id="@+id/postVisibilityBottomSheet"
