@@ -71,9 +71,20 @@
                         android:text="Title asdha asdhw qwert"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="@id/guideline"
+                        app:layout_constraintEnd_toStartOf="@id/iv_popup"
                         app:layout_constraintStart_toEndOf="@id/card_thumb"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_popup"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="@dimen/margin_8"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:src="@drawable/ic_options"
+                        android:layout_marginEnd="@dimen/margin_8"
+                        />
 
                     <TextView
                         android:id="@+id/tv_caption"

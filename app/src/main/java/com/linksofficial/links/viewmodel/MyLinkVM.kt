@@ -1,6 +1,10 @@
 package com.linksofficial.links.viewmodel
 
+import android.app.AlertDialog
+import android.content.Context
+import android.view.View
 import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -42,7 +46,7 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
         val source = Source.CACHE
         docRef
             .whereEqualTo("user_id", Firebase.auth.currentUser?.uid)
-            .get()
+            .get(source)
             .addOnSuccessListener { result ->
                 var postList = mutableListOf<Post>()
                 for (document in result) {
@@ -72,6 +76,40 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
                 }
             }
         }
+    }
+
+    //Delete the post
+    private fun deletePost(context: Context, document: String) {
+        viewModelScope.launch {
+            mainRepo.deletePost(context, document)
+        }
+    }
+
+     fun openPopUp(v: View, document: String, isPublic:Boolean) {
+        val popUp = PopupMenu(v.context, v)
+        popUp.inflate(R.menu.my_link_menu)
+        popUp.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.deleteLink -> {
+                    Timber.d("PopupShow = Delete clicked")
+                    alert(v.context, document, if(isPublic)"public" else "private")
+                    true
+                }
+                else -> true
+            }
+        }
+        popUp.show()
+    }
+
+    private fun alert(context: Context,document:String,isPublic:String){
+        val builder = AlertDialog.Builder(context)
+            .setTitle("Are you sure?")
+            .setMessage("It is a $isPublic post. Do you want to delete this post?")
+            .setPositiveButton("Yes"){ _,_ ->
+                deletePost(context,document)
+            }
+            .setNegativeButton("Nope"){_,_ ->}
+        builder.show()
     }
 
 

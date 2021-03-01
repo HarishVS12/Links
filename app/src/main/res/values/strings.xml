@@ -43,5 +43,6 @@
     <string name="dev_mail">linksofficial28@gmail.com</string>
     <string name="enter_title">Please enter the title</string>
     <string name="enter_url">Please enter a valid URL</string>
+    <string name="post_deleted">Post deleted</string>
 
 </resources>

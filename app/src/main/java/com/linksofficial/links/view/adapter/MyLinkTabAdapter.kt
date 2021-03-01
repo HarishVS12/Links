@@ -3,7 +3,6 @@ package com.linksofficial.links.view.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,19 +27,19 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
             binding.apply {
                 tvTitle.text = post.title
                 tvCaption.text = post.caption
-                tvLink.text = "\u2022 ${post.link}"
+                tvLink.text = "${post.link}"
             }
 
             binding.constraintMain.setOnClickListener {
                 val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
-                intent.putExtra("url",post.link!!)
+                intent.putExtra("url", post.link!!)
                 Timber.d("UrlForWeb: ${post.link!!}")
                 it.context.startActivity(intent)
             }
 
-            binding.constraintMain.setOnLongClickListener{
-                Toast.makeText((it.context as LinkMainActivity), "LONG PRESSED", Toast.LENGTH_SHORT).show()
-                return@setOnLongClickListener true
+            binding.ivPopup.setOnClickListener {
+                val document = post.user_id + "_" + post.id
+                vm.openPopUp(it, document, post.is_public)
             }
 
         }

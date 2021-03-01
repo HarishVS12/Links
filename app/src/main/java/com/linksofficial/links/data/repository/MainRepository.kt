@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.linksofficial.links.R
 import com.linksofficial.links.data.local.dao.PostLocalDao
 import com.linksofficial.links.data.local.model.PostLocal
 import com.linksofficial.links.data.model.Post
@@ -107,9 +108,20 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
                 ).show()
             }
     }
+
+    //Delete Data
+    suspend fun deletePost(context: Context, document:String){
+        database.collection(ConstantsHelper.POST)
+            .document(document)
+            .delete()
+            .addOnSuccessListener {
+                Toasty.normal(context,context.getString(R.string.post_deleted)).show()
+            }
+    }
+
     //endregion
 
-    //Get Image from Link Preview
+    //region Link Preview
     suspend fun getImageFromURL(url: String): String {
         var getImageUrl = ""
         try {
@@ -130,5 +142,6 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
         }
         return linkProperties
     }
+    //endregion
 
 }
