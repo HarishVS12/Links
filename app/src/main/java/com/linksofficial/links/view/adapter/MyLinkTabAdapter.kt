@@ -21,7 +21,7 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
 
 
         fun bind(post: Post) {
-            vm.getImageFromURL(binding.ivThumbnail, post.link!!)
+            vm.getImageFromURL(binding.ivThumbnail, post.link!!, binding.ivShimmerThumb)
 
 
             binding.apply {

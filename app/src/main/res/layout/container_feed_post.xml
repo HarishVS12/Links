@@ -8,8 +8,8 @@
         <variable
             name="vm"
             type="com.linksofficial.links.viewmodel.FeedVM" />
-        
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
     </data>
 
@@ -115,46 +115,31 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <!--                app:putImage="@{vm.postItem.link}"-->
-              <!--  <LinearLayout
-                    android:id="@+id/linear_middle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/frame_profile_image">
--->
-<!--
-                    <ImageView
-                        android:id="@+id/iv_post_image"
-                        android:layout_width="100dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="@dimen/margin_8"
-                        android:src="@drawable/ic_icon_links"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/frame_profile_image" />
--->
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/iv_post_image"
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/iv_thumb_shimmer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="6dp"
-                    android:layout_marginTop="@dimen/margin_8"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frame_profile_image" >
+                    app:layout_constraintTop_toBottomOf="@+id/frame_profile_image">
 
-                <ImageView
-                    android:id="@+id/iv_thumbnail"
-                    android:layout_width="110dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_icon_links"
-                    />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8"
+                        app:cardCornerRadius="6dp">
 
-                </androidx.cardview.widget.CardView>
+
+                        <ImageView
+                            android:id="@+id/iv_thumbnail"
+                            android:layout_width="110dp"
+                            android:layout_height="80dp"
+                            android:scaleType="centerCrop"
+                            android:src="#dddddd" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                 <TextView
@@ -162,50 +147,50 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="@dimen/margin_8"
                     android:layout_weight="1"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="@{vm.postItem.title}"
-                    android:textColor="@color/black"
                     android:ellipsize="end"
-                    android:textSize="16sp"
-                    android:freezesText="true"
-                    android:gravity="start"
-                    android:scrollHorizontally="true"
-                    android:singleLine="false"
-                    android:maxLines="2"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:freezesText="true"
+                    android:gravity="start"
+                    android:maxLines="2"
+                    android:scrollHorizontally="true"
+                    android:singleLine="false"
+                    android:text="@{vm.postItem.title}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_post_image"
-                    app:layout_constraintTop_toTopOf="@+id/iv_post_image" />
+                    app:layout_constraintStart_toEndOf="@id/iv_thumb_shimmer"
+                    app:layout_constraintTop_toTopOf="@+id/iv_thumb_shimmer" />
 
-<!--                </LinearLayout>-->
+                <!--                </LinearLayout>-->
 
                 <TextView
                     android:id="@+id/tv_link"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8"
-                    android:layout_marginEnd="@dimen/margin_8"
                     android:layout_marginTop="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
                     android:layout_weight="1"
-                    android:text="@{vm.postItem.link}"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="10sp"
                     android:ellipsize="end"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/lato_regular"
                     android:freezesText="true"
                     android:gravity="start"
+                    android:maxLines="2"
                     android:scrollHorizontally="true"
                     android:singleLine="false"
-                    android:maxLines="2"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_post_image"
+                    android:text="@{vm.postItem.link}"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_thumb_shimmer"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_post_image"
+                    app:layout_constraintStart_toEndOf="@id/iv_thumb_shimmer"
                     app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
 
@@ -222,10 +207,10 @@
                     android:textSize="12sp"
                     android:visibility="@{vm.postItem.caption==null || vm.postItem.caption==`` ? View.GONE:View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_post_image"
-                    tools:text="asdihasdhasasldasld" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_thumb_shimmer"
+                    tools:text="asdihasdhasasldasld"
+                    tools:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_like"

@@ -44,23 +44,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_thumb"
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/iv_shimmer_thumb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="6dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/iv_thumbnail"
-                            android:layout_width="100dp"
-                            android:layout_height="70dp"
-                            android:scaleType="centerCrop"
-                            android:src="#C4C4C4" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="6dp">
 
-                    </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/iv_thumbnail"
+                                android:layout_width="100dp"
+                                android:layout_height="70dp"
+                                android:scaleType="centerCrop"
+                                android:src="#C4C4C4" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
                         android:id="@+id/tv_title"
@@ -74,7 +80,7 @@
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="@id/guideline"
-                        app:layout_constraintStart_toEndOf="@id/card_thumb"
+                        app:layout_constraintStart_toEndOf="@id/iv_shimmer_thumb"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -157,12 +163,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_8"
-                        android:visibility="gone"
                         android:src="@drawable/ic_arrow_forward"
-                        app:layout_constraintBottom_toBottomOf="@id/card_thumb"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_shimmer_thumb"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/guideline"
-                        app:layout_constraintTop_toTopOf="@id/card_thumb" />
+                        app:layout_constraintTop_toTopOf="@id/iv_shimmer_thumb" />
 
 
                     <androidx.constraintlayout.widget.Guideline

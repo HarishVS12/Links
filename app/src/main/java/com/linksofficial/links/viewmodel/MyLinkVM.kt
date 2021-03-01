@@ -9,6 +9,7 @@ import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
@@ -61,7 +62,7 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
     }
 
     //TODO: Try catching the error
-    fun getImageFromURL(v: ImageView, url: String) {
+    fun getImageFromURL(v: ImageView, url: String, shimmer: ShimmerFrameLayout) {
         viewModelScope.launch(Dispatchers.IO) {
             var imageURL = mainRepo?.getImageFromURL(url)
             withContext(Dispatchers.Main) {
@@ -74,6 +75,7 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
                         .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(v)
                 }
+                shimmer.hideShimmer()
             }
         }
     }
@@ -85,14 +87,14 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
         }
     }
 
-     fun openPopUp(v: View, document: String, isPublic:Boolean) {
+    fun openPopUp(v: View, document: String, isPublic: Boolean) {
         val popUp = PopupMenu(v.context, v)
         popUp.inflate(R.menu.my_link_menu)
         popUp.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.deleteLink -> {
                     Timber.d("PopupShow = Delete clicked")
-                    alert(v.context, document, if(isPublic)"public" else "private")
+                    alert(v.context, document, if (isPublic) "public" else "private")
                     true
                 }
                 else -> true
@@ -101,14 +103,14 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
         popUp.show()
     }
 
-    private fun alert(context: Context,document:String,isPublic:String){
+    private fun alert(context: Context, document: String, isPublic: String) {
         val builder = AlertDialog.Builder(context)
             .setTitle("Are you sure?")
             .setMessage("It is a $isPublic post. Do you want to delete this post?")
-            .setPositiveButton("Yes"){ _,_ ->
-                deletePost(context,document)
+            .setPositiveButton("Yes") { _, _ ->
+                deletePost(context, document)
             }
-            .setNegativeButton("Nope"){_,_ ->}
+            .setNegativeButton("Nope") { _, _ -> }
         builder.show()
     }
 

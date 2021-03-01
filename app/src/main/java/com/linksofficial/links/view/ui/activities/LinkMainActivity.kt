@@ -45,4 +45,9 @@ class LinkMainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
 }

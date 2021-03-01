@@ -56,8 +56,7 @@ class MyAccountFragment() : Fragment() {
         builder
             .setTitle("Logout")
             .setMessage("Do you really want to sign out of the application?")
-            .setIcon(R.drawable.ic_log_out)
-            .setPositiveButton("Yes") { dialogInterface, which ->
+            .setPositiveButton("Yes") { _,_ ->
                 signOut()
             }
             .setNegativeButton("No") { _, _ ->

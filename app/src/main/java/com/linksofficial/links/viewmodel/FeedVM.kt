@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.linksofficial.links.R
@@ -55,7 +56,7 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
             }
     }
 
-    fun getImageFromURL(url: String, v: ImageView) {
+    fun getImageFromURL(url: String, v: ImageView, shimmer:ShimmerFrameLayout) {
         viewModelScope.launch(Dispatchers.IO) {
             var imageURL = mainRepository?.getImageFromURL(url)
             withContext(Dispatchers.Main) {
@@ -68,6 +69,7 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
                         .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(v)
                 }
+                shimmer.hideShimmer()
             }
         }
     }
