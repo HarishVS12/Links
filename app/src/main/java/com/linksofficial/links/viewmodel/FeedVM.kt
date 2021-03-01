@@ -56,12 +56,13 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
             }
     }
 
-    fun getImageFromURL(url: String, v: ImageView, shimmer:ShimmerFrameLayout) {
+    fun getImageFromURL(url: String, v: ImageView, shimmer: ShimmerFrameLayout) {
         viewModelScope.launch(Dispatchers.IO) {
             var imageURL = mainRepository?.getImageFromURL(url)
             withContext(Dispatchers.Main) {
                 if (imageURL.isNullOrBlank()) {
-                    v.setImageResource(R.drawable.ic_icon_links)
+//                    v.visibility = View.INVISIBLE
+                    v.setImageResource(R.mipmap.ic_launcher)
                 } else {
                     Glide.with(v.context)
                         .load(imageURL)
@@ -76,7 +77,7 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
 
     fun readLinkCopied() = mainRepository.readCopiedLink().asLiveData()
 
-    fun writeLinkCopied(isLinkCopied:Boolean){
+    fun writeLinkCopied(isLinkCopied: Boolean) {
         viewModelScope.launch {
             mainRepository.writeCopiedLink(isLinkCopied)
         }

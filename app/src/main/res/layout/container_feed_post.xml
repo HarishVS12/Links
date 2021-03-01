@@ -120,6 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintHorizontal_bias="0"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frame_profile_image">
 
@@ -132,8 +133,8 @@
 
                         <ImageView
                             android:id="@+id/iv_thumbnail"
-                            android:layout_width="110dp"
-                            android:layout_height="80dp"
+                            android:layout_width="100dp"
+                            android:layout_height="70dp"
                             android:scaleType="centerCrop"
                             android:src="#dddddd" />
 
@@ -173,7 +174,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8"
-                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintVertical_bias="0.1"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="@dimen/margin_8"
                     android:layout_weight="1"
                     android:ellipsize="end"
@@ -182,7 +184,7 @@
                     android:fontFamily="@font/lato_regular"
                     android:freezesText="true"
                     android:gravity="start"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:scrollHorizontally="true"
                     android:singleLine="false"
                     android:text="@{vm.postItem.link}"
@@ -212,6 +214,7 @@
                     tools:text="asdihasdhasasldasld"
                     tools:visibility="gone" />
 
+<!--
                 <ImageView
                     android:id="@+id/iv_like"
                     android:layout_width="@dimen/margin_24"
@@ -235,6 +238,7 @@
                     android:visibility="visible"
                     app:layout_constraintStart_toEndOf="@id/iv_like"
                     app:layout_constraintTop_toTopOf="@id/iv_like" />
+-->
 
                 <ImageView
                     android:id="@+id/iv_share"
@@ -242,11 +246,12 @@
                     android:layout_height="@dimen/margin_24"
                     android:layout_marginTop="@dimen/margin_8"
                     android:layout_marginEnd="@dimen/margin_8"
+                    android:layout_marginBottom="@dimen/margin_8"
                     android:src="@drawable/ic_whatsapp"
                     android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@id/tv_caption"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_caption" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <!--
                                 <androidx.constraintlayout.widget.Guideline
