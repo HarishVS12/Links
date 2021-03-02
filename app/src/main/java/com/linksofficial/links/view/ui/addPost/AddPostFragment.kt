@@ -175,7 +175,7 @@ class AddPostFragment : Fragment() {
         val post = Post(
             user_name = userName,
             user_photo_url = userPhotoURL,
-            link = etLink.toString().toLowerCase(),
+            link = etLink.toString(),
             tag = ConstantsHelper.getTagList()[addPostViewModel.tagPosition.value!!].tagName,
             title = etTitle,
             caption = etCaption,

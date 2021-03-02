@@ -1,7 +1,9 @@
 package com.linksofficial.links.view.adapter
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +17,6 @@ import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import com.linksofficial.links.view.ui.activities.WebViewActivity
 import com.linksofficial.links.view.ui.home.bottomNav.FeedFragmentDirections
 import com.linksofficial.links.viewmodel.FeedVM
-import timber.log.Timber
 
 class FeedContainerAdapter(private val feedVM: FeedVM) :
     ListAdapter<Post, FeedContainerAdapter.FeedContainerVH>(FeedContainerDiffUTIL()) {
@@ -33,17 +34,13 @@ class FeedContainerAdapter(private val feedVM: FeedVM) :
             feedVM.getImageFromURL(post.link ?: "", binding.ivThumbnail, binding.ivThumbShimmer)
 
             binding.cardPost.setOnClickListener {
-                val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
-                intent.putExtra("url", post.link!!)
-                Timber.d("UrlForWeb: ${post.link!!}")
-
-/*              val url = post.link
-                val builder = CustomTabsIntent.Builder()
-                builder.setUrlBarHidingEnabled(true)
-                val customTabsIntent = builder.build()
-                customTabsIntent.launchUrl(it.context, url!!.toUri())
-*/
-                it.context.startActivity(intent)
+                var link = post.link!!
+                if(!checkIfYoutube(it,link)) {
+                    val intent =
+                        Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
+                    intent.putExtra("url", link.trim())
+                    it.context.startActivity(intent)
+                }
             }
 
             binding.ivShare.setOnClickListener {
@@ -61,11 +58,19 @@ class FeedContainerAdapter(private val feedVM: FeedVM) :
 
     }
 
+    private fun checkIfYoutube(v: View, link:String):Boolean{
+        if(link.contains("youtu.be")){
+            v.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+            return true
+        }
+        return false
+    }
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FeedContainerVH {
+    ): FeedContainerAdapter.FeedContainerVH {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ContainerFeedPostBinding.inflate(inflater, parent, false)
         return FeedContainerVH(binding)

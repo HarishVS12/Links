@@ -101,7 +101,8 @@ class FeedFragment : Fragment() {
     }
 
     private fun showSnackBar(text: String) {
-        val mSnackbar = Snackbar.make(binding.root, "Post Copied link?", Snackbar.LENGTH_INDEFINITE)
+        val mSnackbar = Snackbar.make(binding.root, "Post Copied link?", Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
             .setAction("Post") {
                 val action = FeedFragmentDirections.actionFeedFragmentToAddPostFragment(text)
                 findNavController().navigate(action)

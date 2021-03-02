@@ -28,9 +28,6 @@ class WebViewActivity : AppCompatActivity() {
 
         val url = intent.getStringExtra("url")
         Timber.d("UrlForWeb: $url")
-        if (url != null) {
-            binding.webView.loadUrl(url)
-        }
 
         binding.webView.apply {
             settings.apply {
@@ -41,6 +38,9 @@ class WebViewActivity : AppCompatActivity() {
                 cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
             }
             webViewClient = MyWebViewClient()
+        }
+        if (url != null) {
+            binding.webView.loadUrl(url)
         }
 
 
