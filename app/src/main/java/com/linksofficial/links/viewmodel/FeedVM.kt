@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.linksofficial.links.data.local.model.PostLocal
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.ConstantsHelper
@@ -83,4 +84,10 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
         }
     }
 
+    fun postLinkLocal(postLocal: PostLocal) {
+        viewModelScope.launch {
+            Timber.d("localDB: VM called")
+            mainRepository.postLocalPost(postLocal)
+        }
+    }
 }
