@@ -35,7 +35,7 @@ class FeedContainerAdapter(private val feedVM: FeedVM) :
 
             binding.cardPost.setOnClickListener {
                 var link = post.link!!
-                if(!checkIfYoutube(it,link)) {
+                if (!checkIfYoutube(it, link)) {
                     val intent =
                         Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
                     intent.putExtra("url", link.trim())
@@ -54,12 +54,13 @@ class FeedContainerAdapter(private val feedVM: FeedVM) :
                     .navigate(postDirections)
             }
 
+
         }
 
     }
 
-    private fun checkIfYoutube(v: View, link:String):Boolean{
-        if(link.contains("youtu.be")){
+    private fun checkIfYoutube(v: View, link: String): Boolean {
+        if (link.contains("youtu.be") || link.contains("youtube.com")) {
             v.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
             return true
         }

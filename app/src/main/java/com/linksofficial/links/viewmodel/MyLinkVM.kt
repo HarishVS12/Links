@@ -38,7 +38,6 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
 
     val readAllLocalPosts = mainRepo.readAllLocalPosts.asLiveData()
 
-
     //Get Link
     fun getAllPosts() {
         var i = 0

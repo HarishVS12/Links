@@ -10,12 +10,11 @@ import com.linksofficial.links.databinding.FragmentTabSavedLinkBinding
 import com.linksofficial.links.view.adapter.MySavedLinkTabAdapter
 import com.linksofficial.links.viewmodel.MyLinkVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 
 class TabSavedLinkFragment : Fragment() {
 
-    private lateinit var binding:FragmentTabSavedLinkBinding
+    private lateinit var binding: FragmentTabSavedLinkBinding
     private val mySavedLinkVM: MyLinkVM by sharedViewModel()
     private lateinit var mySavedLinkTabAdapter: MySavedLinkTabAdapter
 
@@ -32,13 +31,17 @@ class TabSavedLinkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mySavedLinkTabAdapter = MySavedLinkTabAdapter(mySavedLinkVM)
-        binding.rvMySavedLink.apply{
+        binding.rvMySavedLink.apply {
             adapter = mySavedLinkTabAdapter
             layoutManager = LinearLayoutManager(requireActivity())
         }
 
-        mySavedLinkVM.readAllLocalPosts.observe(viewLifecycleOwner,{
-            Timber.d(it.toString())
+        mySavedLinkVM.readAllLocalPosts.observe(viewLifecycleOwner, {
+            if (it.isEmpty()) {
+                binding.lottieAnim.visibility = View.VISIBLE
+            } else {
+                binding.lottieAnim.visibility = View.GONE
+            }
             mySavedLinkTabAdapter.submitList(it)
         })
 

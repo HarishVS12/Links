@@ -56,14 +56,6 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="#C4C4C4"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            />
 
         <LinearLayout
             android:id="@+id/linear_copy"
@@ -95,14 +87,6 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="#C4C4C4"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            />
 
         <LinearLayout
             android:id="@+id/linear_save_link"

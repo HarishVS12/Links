@@ -1,7 +1,9 @@
 package com.linksofficial.links.view.adapter
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,7 +15,6 @@ import com.linksofficial.links.databinding.ContainerMySavedLinksBinding
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import com.linksofficial.links.view.ui.activities.WebViewActivity
 import com.linksofficial.links.viewmodel.MyLinkVM
-import timber.log.Timber
 
 class MySavedLinkTabAdapter(val vm: MyLinkVM) :
     ListAdapter<PostLocal, MySavedLinkTabAdapter.MyLinkTabViewHolder>(MySavedLinkDiffUtil()) {
@@ -30,7 +31,7 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
                 tvTitle.text = post.postTitle
                 tvCaption.text = post.postCaption
                 tvUserName.text = "Posted by ${post.userName}"
-                tvLink.text = "\u2022 ${post.postLink}"
+                tvLink.text = "${post.postLink}"
 
 
                 Glide.with(ivUserPhoto.context)
@@ -41,15 +42,27 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
             }
 
             binding.constraintMain.setOnClickListener {
-                val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
-                intent.putExtra("url", post.postLink!!)
-                Timber.d("UrlForWeb: ${post.postLink!!}")
-                it.context.startActivity(intent)
+                var link = post.postLink!!
+                if (!checkIfYoutube(it, link)) {
+                    val intent =
+                        Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
+                    intent.putExtra("url", link.trim())
+                    it.context.startActivity(intent)
+                }
             }
 
         }
 
     }
+
+    private fun checkIfYoutube(v: View, link: String): Boolean {
+        if (link.contains("youtu.be") || link.contains("youtube.com")) {
+            v.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+            return true
+        }
+        return false
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyLinkTabViewHolder {
         val inflater = LayoutInflater.from(parent.context)

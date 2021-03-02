@@ -27,6 +27,7 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
     val focusTagPosition: LiveData<Int>
         get() = _focusTagPosition
 
+
     fun setPostItem(postItem: Post) {
         Timber.d("postBro : $postItem")
         _postItem.value = postItem

@@ -11,7 +11,8 @@ import com.linksofficial.links.view.adapter.MyLinkTabAdapter
 import com.linksofficial.links.viewmodel.MyLinkVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class TabMyLinkFragment : Fragment() {
+class
+TabMyLinkFragment : Fragment() {
 
     private lateinit var binding: FragmentTabMyLinkBinding
     private val myLinkVM: MyLinkVM by sharedViewModel()
@@ -33,6 +34,11 @@ class TabMyLinkFragment : Fragment() {
         binding.rvMyLink.layoutManager = LinearLayoutManager(requireContext())
 
         myLinkVM.postDetails.observe(viewLifecycleOwner, { it ->
+            if(it.isEmpty()){
+                binding.lottieAnim.visibility = View.VISIBLE
+            }else{
+                binding.lottieAnim.visibility = View.GONE
+            }
             adapter.submitList(it)
         })
     }

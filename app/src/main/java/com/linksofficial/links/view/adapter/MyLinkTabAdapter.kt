@@ -1,7 +1,9 @@
 package com.linksofficial.links.view.adapter
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +13,6 @@ import com.linksofficial.links.databinding.ContainerMyLinksBinding
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import com.linksofficial.links.view.ui.activities.WebViewActivity
 import com.linksofficial.links.viewmodel.MyLinkVM
-import timber.log.Timber
 
 class MyLinkTabAdapter(val vm: MyLinkVM) :
     ListAdapter<Post, MyLinkTabAdapter.MyLinkTabViewHolder>(MyLinkDiffUtil()) {
@@ -31,10 +32,13 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
             }
 
             binding.constraintMain.setOnClickListener {
-                val intent = Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
-                intent.putExtra("url", post.link!!)
-                Timber.d("UrlForWeb: ${post.link!!}")
-                it.context.startActivity(intent)
+                var link = post.link!!
+                if (!checkIfYoutube(it, link)) {
+                    val intent =
+                        Intent((it.context as LinkMainActivity), WebViewActivity::class.java)
+                    intent.putExtra("url", link.trim())
+                    it.context.startActivity(intent)
+                }
             }
 
             binding.ivPopup.setOnClickListener {
@@ -45,6 +49,16 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
         }
 
     }
+
+
+    private fun checkIfYoutube(v: View, link: String): Boolean {
+        if (link.contains("youtu.be") || link.contains("youtube.com")) {
+            v.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+            return true
+        }
+        return false
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyLinkTabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
