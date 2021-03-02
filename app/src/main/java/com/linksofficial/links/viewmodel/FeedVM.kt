@@ -1,5 +1,6 @@
 package com.linksofficial.links.viewmodel
 
+import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.*
 import com.bumptech.glide.Glide
@@ -8,7 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.ConstantsHelper
@@ -29,7 +29,6 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
 
 
     fun setPostItem(postItem: Post) {
-        Timber.d("postBro : $postItem")
         _postItem.value = postItem
     }
 
@@ -62,12 +61,12 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
             var imageURL = mainRepository?.getImageFromURL(url)
             withContext(Dispatchers.Main) {
                 if (imageURL.isNullOrBlank()) {
-//                    v.visibility = View.INVISIBLE
-                    v.setImageResource(R.mipmap.ic_launcher)
+                    v.visibility = View.GONE
+//                    v.setImageResource(R.mipmap.ic_launcher)
                 } else {
+                    Timber.d("ImageUrl = $imageURL")
                     Glide.with(v.context)
                         .load(imageURL)
-                        .thumbnail(0.5f)
                         .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(v)
                 }

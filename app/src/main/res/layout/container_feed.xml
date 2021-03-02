@@ -23,6 +23,6 @@
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"
         android:visibility="visible"
-        tools:listitem="@layout/container_feed_post" />
+        tools:listitem="@layout/container_post_feed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
