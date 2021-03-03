@@ -147,6 +147,8 @@ class AddPostFragment : Fragment() {
                     binding.textinputTitle.error = getString(R.string.enter_title)
                 } else {
                     binding.textinputTitle.error = null
+                    binding.cardProgress.visibility = View.VISIBLE
+
                     if (!binding.etTitle.isEnabled) {
                         fetchTitleAndCaption(etLink.toString())
                     } else {

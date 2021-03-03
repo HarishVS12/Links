@@ -40,6 +40,8 @@ TabMyLinkFragment : Fragment() {
                 binding.lottieAnim.visibility = View.GONE
             }
             adapter.submitList(it)
+            binding.cardProgress.visibility = View.GONE
+
         })
     }
 

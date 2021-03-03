@@ -74,7 +74,7 @@ class WebViewActivity : AppCompatActivity() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            binding.progressBar.visibility = View.GONE
+            binding.cardProgress.visibility = View.GONE
         }
 
         override fun shouldInterceptRequest(view: WebView?, url: String?): WebResourceResponse? {
