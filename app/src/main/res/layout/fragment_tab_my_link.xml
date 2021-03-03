@@ -31,17 +31,23 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/no_content_animation" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_my_link"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="5"
-            tools:listitem="@layout/container_my_links" />
+            android:layout_height="match_parent">
 
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_link"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="5"
+                tools:listitem="@layout/container_my_links" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardProgress"

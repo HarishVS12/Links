@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.ContainerFeedBinding
 import com.linksofficial.links.utils.ConstantsHelper
 import com.linksofficial.links.view.adapter.FeedContainerAdapter
@@ -33,15 +34,20 @@ class FeedObjectFragment() : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-
+        var tagName = Tags()
 
         arguments?.takeIf { it.containsKey(ConstantsHelper.FEED_VP_ARG) }.apply {
             this?.getInt(ConstantsHelper.FEED_VP_ARG)?.let {
                 Timber.d("Posts:(POS) = $it")
-                val tagName = ConstantsHelper.getTagList()[it]
+                tagName = ConstantsHelper.getTagList()[it]
                 tagName.tagName?.let { it1 -> updateUI(it1) }
             }
 
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            tagName.tagName?.let{it->updateUI(it)}
+            binding.swipeRefreshLayout.isRefreshing=false
         }
 
         feedVM.postList.observe(viewLifecycleOwner, {

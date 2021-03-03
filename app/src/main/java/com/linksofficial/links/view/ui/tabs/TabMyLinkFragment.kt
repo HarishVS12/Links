@@ -43,6 +43,11 @@ TabMyLinkFragment : Fragment() {
             binding.cardProgress.visibility = View.GONE
 
         })
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            myLinkVM.getAllPosts()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
 
