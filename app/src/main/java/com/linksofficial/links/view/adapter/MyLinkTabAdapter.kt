@@ -24,12 +24,18 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
         fun bind(post: Post) {
             vm.getImageFromURL(binding.ivThumbnail, post.link!!, binding.ivShimmerThumb)
 
+            if(post.caption.isNullOrEmpty()){
+                binding.tvCaption.visibility = View.GONE
+            }else{
+                binding.tvCaption.visibility = View.VISIBLE
+            }
 
             binding.apply {
                 tvTitle.text = post.title
                 tvCaption.text = post.caption
                 tvLink.text = "${post.link}"
             }
+
 
             binding.constraintMain.setOnClickListener {
                 var link = post.link!!

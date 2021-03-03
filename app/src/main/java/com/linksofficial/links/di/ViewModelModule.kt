@@ -37,8 +37,4 @@ val viewModelModule = module {
         FeedVM(get())
     }
 
-    viewModel {
-        MySavedLinkTabVM(get())
-    }
-
 }

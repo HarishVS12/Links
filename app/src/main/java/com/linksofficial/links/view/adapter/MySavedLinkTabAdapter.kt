@@ -27,6 +27,12 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
             vm.getImageFromURL(binding.ivThumbnail, post.postLink!!, binding.ivShimmerThumb)
 
 
+            if (post.postCaption.isNullOrEmpty()) {
+                binding.tvCaption.visibility = View.GONE
+            } else {
+                binding.tvCaption.visibility = View.VISIBLE
+            }
+
             binding.apply {
                 tvTitle.text = post.postTitle
                 tvCaption.text = post.postCaption

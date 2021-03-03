@@ -66,7 +66,7 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
             var imageURL = mainRepo?.getImageFromURL(url)
             withContext(Dispatchers.Main) {
                 if (imageURL.isNullOrBlank()) {
-                    v.setImageResource(R.drawable.ic_icon_links)
+                    v.visibility = View.GONE
                 } else {
                     Glide.with(v.context)
                         .load(imageURL)
