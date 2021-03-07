@@ -94,7 +94,7 @@ class FeedFragment : Fragment() {
     }
 
     private fun showSnackBar(text: String) {
-        val mSnackbar = Snackbar.make(binding.root, "Post Copied link?", Snackbar.LENGTH_LONG)
+        val mSnackbar = Snackbar.make(binding.coordinatorLayout, "Post Copied link?", Snackbar.LENGTH_LONG)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
             .setAction("Post") {
                 val action = FeedFragmentDirections.actionFeedFragmentToAddPostFragment(text)
@@ -108,6 +108,7 @@ class FeedFragment : Fragment() {
         val snackAction = (mSnackbar.view).findViewById<TextView>(R.id.snackbar_action)
         snackAction.typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato_black)
 
+        mSnackbar.view.translationZ = 10f
         mSnackbar.show()
         feedViewModel.writeLinkCopied(false)
     }

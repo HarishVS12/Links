@@ -17,13 +17,10 @@
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#23C4C4C4">
+        android:background="#23C4C4C4"
+        android:fitsSystemWindows="true">
 
-        <!--  <androidx.constraintlayout.widget.ConstraintLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              tools:context=".view.ui.home.bottomNav.FeedFragment">
-      -->
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
@@ -85,13 +82,6 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <!--<androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">-->
-
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -101,16 +91,11 @@
             app:layout_constraintTop_toBottomOf="@id/appBar" />
 
 
-        <!--        </androidx.core.widget.NestedScrollView>-->
-
-        <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_16"
             android:backgroundTint="@color/primaryColor"
@@ -119,9 +104,8 @@
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white"
-
-            />
+            app:layout_dodgeInsetEdges="bottom"
+            app:tint="@color/white" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
