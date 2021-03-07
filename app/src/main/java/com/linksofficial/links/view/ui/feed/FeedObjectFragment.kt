@@ -30,6 +30,7 @@ class FeedObjectFragment() : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         adapter = FeedContainerAdapter(feedVM)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -39,15 +40,16 @@ class FeedObjectFragment() : Fragment() {
         arguments?.takeIf { it.containsKey(ConstantsHelper.FEED_VP_ARG) }.apply {
             this?.getInt(ConstantsHelper.FEED_VP_ARG)?.let {
                 Timber.d("Posts:(POS) = $it")
-                tagName = ConstantsHelper.getTagList()[it]
+                val tagName = ConstantsHelper.getTagList()[it]
                 tagName.tagName?.let { it1 -> updateUI(it1) }
             }
 
         }
 
+
         binding.swipeRefreshLayout.setOnRefreshListener {
-            tagName.tagName?.let{it->updateUI(it)}
-            binding.swipeRefreshLayout.isRefreshing=false
+            tagName.tagName?.let { it -> updateUI(it) }
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         feedVM.postList.observe(viewLifecycleOwner, {

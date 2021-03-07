@@ -70,13 +70,6 @@ class FeedFragment : Fragment() {
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = FeedVPAdapter(this)
 
-        binding.nestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY > oldScrollY) {
-                binding.fab.hide()
-            } else {
-                binding.fab.show()
-            }
-        }
 
 
         feedViewModel.focusTagPosition.observe(viewLifecycleOwner, {

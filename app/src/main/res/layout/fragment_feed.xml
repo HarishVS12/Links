@@ -85,23 +85,23 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.core.widget.NestedScrollView
+        <!--<androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:fillViewport="true">-->
 
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appBar" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBar" />
 
 
-        </androidx.core.widget.NestedScrollView>
+        <!--        </androidx.core.widget.NestedScrollView>-->
 
         <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
@@ -116,9 +116,12 @@
             android:backgroundTint="@color/primaryColor"
             android:src="@drawable/ic_fab_add"
             app:elevation="8dp"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+
+            />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -185,7 +185,7 @@
                     android:layout_marginTop="@dimen/margin_8"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="start"
-                    android:maxLength="160"
+                    android:maxLength="240"
                     android:text="@{vm.postItem.caption}"
                     android:textColor="@color/black"
                     android:textSize="11sp"
