@@ -71,7 +71,6 @@ class FeedFragment : Fragment() {
         binding.viewPager.adapter = FeedVPAdapter(this)
 
 
-
         feedViewModel.focusTagPosition.observe(viewLifecycleOwner, {
             Timber.d("Posts:(POS_VM) = $it")
             binding.viewPager.setCurrentItem(it, true)

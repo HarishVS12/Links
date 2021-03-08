@@ -69,6 +69,14 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
         return false
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyLinkTabViewHolder {
         val inflater = LayoutInflater.from(parent.context)

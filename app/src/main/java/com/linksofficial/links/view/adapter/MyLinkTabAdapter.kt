@@ -56,6 +56,14 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
 
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 
     private fun checkIfYoutube(v: View, link: String): Boolean {
         if (link.contains("youtu.be") || link.contains("youtube.com")) {

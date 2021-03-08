@@ -55,6 +55,14 @@ class TagsFeedAdapter(val context:Context, val viewModel: FeedVM) :
         }
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsAddPostViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ContainerFeedTagsBinding.inflate(inflater)
