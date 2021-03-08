@@ -124,7 +124,6 @@ class FeedObjectFragment() : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             }
-
     }
 
 

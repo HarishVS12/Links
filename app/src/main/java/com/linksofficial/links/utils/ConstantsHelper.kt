@@ -23,14 +23,17 @@ object ConstantsHelper {
     fun getTagList() =
         mutableListOf(
             Tags("Technology"),
+            Tags("Arts & Entertainment"),
+            Tags("Programming"),
+            Tags("Cricket"),
+            Tags("Cinema"),
+            Tags("Personal Development"),
             Tags("Science"),
             Tags("Space"),
             Tags("Politics"),
             Tags("Sports"),
-            Tags("Cinema"),
-            Tags("Entertainment"),
             Tags("Music"),
-            Tags("Cricket")
+            Tags("Health")
         )
 
 }
