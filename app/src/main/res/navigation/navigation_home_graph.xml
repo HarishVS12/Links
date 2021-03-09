@@ -68,6 +68,10 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="isIntent"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <dialog
         android:id="@+id/postVisibilityBottomSheet"

@@ -84,12 +84,19 @@ class AddPostFragment : Fragment() {
 
         observePostStatus()
         checkBoxInit()
+
+
     }
 
     override fun onResume() {
         super.onResume()
-        binding.etLink.setText(feedLinkArgs.link ?: "")
-        checkClipData()
+        if (!feedLinkArgs.isIntent) {
+            binding.etLink.setText(feedLinkArgs.link ?: "")
+            checkClipData()
+        } else {
+            checkClipData()
+            binding.etLink.setText(feedLinkArgs.link ?: "")
+        }
     }
 
     private fun checkBoxInit() {
@@ -186,7 +193,11 @@ class AddPostFragment : Fragment() {
             is_public = isPublic
         )
         addPostViewModel.postLink(post)
-        findNavController().popBackStack()
+        if(feedLinkArgs.isIntent){
+            requireActivity().finish()
+        }else {
+            findNavController().popBackStack()
+        }
     }
 
     private fun checkClipData() {
