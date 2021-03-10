@@ -11,7 +11,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.linksofficial.links.data.local.model.PostLocal
+import com.linksofficial.links.data.local.model.SavedPosts
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.repository.MainRepository
 import com.linksofficial.links.utils.ConstantsHelper
@@ -90,10 +90,10 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
         }
     }
 
-    fun postLinkLocal(postLocal: PostLocal) {
+    fun postLinkLocal(savedPosts: SavedPosts) {
         viewModelScope.launch {
             Timber.d("localDB: VM called")
-            mainRepository.postLocalPost(postLocal)
+            mainRepository.postSavedPosts(savedPosts)
         }
     }
 }

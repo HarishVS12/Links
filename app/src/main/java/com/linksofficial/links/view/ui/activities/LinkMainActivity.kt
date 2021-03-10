@@ -24,6 +24,8 @@ class LinkMainActivity : AppCompatActivity() {
         setWindow()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        linkActivityVM.getAllPosts()
+
         linkActivityVM.getUserDetails(Firebase.auth.currentUser?.uid)
 
         linkActivityVM.writeLinkCopied(true)

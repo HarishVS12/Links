@@ -5,8 +5,9 @@ import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.linksofficial.links.R
-import com.linksofficial.links.data.local.dao.PostLocalDao
-import com.linksofficial.links.data.local.model.PostLocal
+import com.linksofficial.links.data.local.dao.PostsDao
+import com.linksofficial.links.data.local.model.PostsLocal
+import com.linksofficial.links.data.local.model.SavedPosts
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.data.model.User
 import com.linksofficial.links.data.preferences.Prefs
@@ -17,16 +18,26 @@ import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 
-class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
+class MainRepository(private val prefs: Prefs, val postsDao: PostsDao) {
 
     val database = Firebase.firestore
 
     //region local DB
-    val readAllLocalPosts: Flow<List<PostLocal>> = postLocalDao.getAllPosts()
+    val readAllSavedPosts: Flow<List<SavedPosts>> = postsDao.getAllSavedPosts()
 
-    suspend fun postLocalPost(post: PostLocal) {
+    suspend fun postSavedPosts(post: SavedPosts) {
         Timber.d("localDB: MainRepo Called")
-        postLocalDao.insertPost(post)
+        postsDao.insertSavedPost(post)
+    }
+
+    suspend fun deleteSavedPost(postId: String) {
+        postsDao.deletePost(postId)
+    }
+
+    val readAllLocalPosts: Flow<List<PostsLocal>> = postsDao.getAllLocalPosts()
+
+    suspend fun insertAllPostsLocal(postsLocal: PostsLocal) {
+        postsDao.insertAllLocalPosts(postsLocal)
     }
     //endregion
 
@@ -47,7 +58,7 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
         return prefs.readUserDetail()
     }
 
-    suspend fun writeCopiedLink(isLinkCopied:Boolean){
+    suspend fun writeCopiedLink(isLinkCopied: Boolean) {
         prefs.writeCopiedLink(
             isLinkCopied
         )
@@ -110,12 +121,12 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
     }
 
     //Delete Data
-    suspend fun deletePost(context: Context, document:String){
+    suspend fun deletePost(context: Context, document: String) {
         database.collection(ConstantsHelper.POST)
             .document(document)
             .delete()
             .addOnSuccessListener {
-                Toasty.normal(context,context.getString(R.string.post_deleted)).show()
+                Toasty.normal(context, context.getString(R.string.post_deleted)).show()
             }
     }
 
@@ -133,11 +144,11 @@ class MainRepository(private val prefs: Prefs, val postLocalDao: PostLocalDao) {
         return getImageUrl
     }
 
-    suspend fun getLinkPrevFromURL(url:String):LinkProperties{
+    suspend fun getLinkPrevFromURL(url: String): LinkProperties {
         var linkProperties: LinkProperties = LinkProperties()
-        try{
+        try {
             linkProperties = LinkPreview(url).getLinkProperties()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             Timber.e(e)
         }
         return linkProperties

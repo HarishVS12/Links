@@ -21,12 +21,12 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(post: Post) {
+        fun bind(post: Post, position: Int) {
             vm.getImageFromURL(binding.ivThumbnail, post.link!!, binding.ivShimmerThumb)
 
-            if(post.caption.isNullOrEmpty()){
+            if (post.caption.isNullOrEmpty()) {
                 binding.tvCaption.visibility = View.GONE
-            }else{
+            } else {
                 binding.tvCaption.visibility = View.VISIBLE
             }
 
@@ -82,7 +82,7 @@ class MyLinkTabAdapter(val vm: MyLinkVM) :
 
     override fun onBindViewHolder(holder: MyLinkTabViewHolder, position: Int) {
         val post = getItem(position)
-        holder.bind(post)
+        holder.bind(post, position)
     }
 }
 

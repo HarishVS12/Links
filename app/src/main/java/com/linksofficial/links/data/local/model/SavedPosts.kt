@@ -9,7 +9,7 @@ Created by Harish on 13-02-2021
  **/
 
 @Entity(tableName = "post_table")
-data class PostLocal(
+data class SavedPosts(
     @PrimaryKey
     @ColumnInfo(name = "post_id")
     val postID: String,

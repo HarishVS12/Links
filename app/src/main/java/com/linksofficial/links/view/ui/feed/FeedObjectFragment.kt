@@ -68,6 +68,7 @@ class FeedObjectFragment() : Fragment() {
         }
 
         feedVM.postList.observe(viewLifecycleOwner, {
+            binding.cardProgress.visibility = View.GONE
             adapter.submitList(it)
         })
 

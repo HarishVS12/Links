@@ -36,7 +36,14 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
         get() = _imageURL
 
 
-    val readAllLocalPosts = mainRepo.readAllLocalPosts.asLiveData()
+    val readAllLocalPosts = mainRepo.readAllSavedPosts.asLiveData()
+
+    //Delete Saved Post
+    fun deleteSavedPost(postId: String) {
+        viewModelScope.launch {
+            mainRepo.deleteSavedPost(postId)
+        }
+    }
 
     //Get Link
     fun getAllPosts() {
@@ -84,6 +91,7 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
         viewModelScope.launch {
             mainRepo.deletePost(context, document)
         }
+        getAllPosts()
     }
 
     fun openPopUp(v: View, document: String, isPublic: Boolean) {

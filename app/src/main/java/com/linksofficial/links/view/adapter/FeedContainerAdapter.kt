@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.linksofficial.links.R
-import com.linksofficial.links.data.local.model.PostLocal
+import com.linksofficial.links.data.local.model.SavedPosts
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.databinding.ContainerPostFeedBinding
 import com.linksofficial.links.utils.Share
@@ -49,7 +49,7 @@ class FeedContainerAdapter(private val feedVM: FeedVM) :
             }
 
             binding.frameSave.setOnClickListener {
-                val postLocal = PostLocal(
+                val postLocal = SavedPosts(
                     postTitle = post?.title ?: "",
                     postCaption = post?.caption ?: "",
                     postLink = post?.link ?: "",

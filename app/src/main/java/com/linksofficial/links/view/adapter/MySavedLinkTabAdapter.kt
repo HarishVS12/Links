@@ -5,25 +5,27 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.linksofficial.links.data.local.model.PostLocal
+import com.linksofficial.links.R
+import com.linksofficial.links.data.local.model.SavedPosts
 import com.linksofficial.links.databinding.ContainerMySavedLinksBinding
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import com.linksofficial.links.view.ui.activities.WebViewActivity
 import com.linksofficial.links.viewmodel.MyLinkVM
 
 class MySavedLinkTabAdapter(val vm: MyLinkVM) :
-    ListAdapter<PostLocal, MySavedLinkTabAdapter.MyLinkTabViewHolder>(MySavedLinkDiffUtil()) {
+    ListAdapter<SavedPosts, MySavedLinkTabAdapter.MyLinkTabViewHolder>(MySavedLinkDiffUtil()) {
 
     inner class MyLinkTabViewHolder(val binding: ContainerMySavedLinksBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(post: PostLocal) {
+        fun bind(post: SavedPosts) {
             vm.getImageFromURL(binding.ivThumbnail, post.postLink!!, binding.ivShimmerThumb)
 
 
@@ -31,6 +33,11 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
                 binding.tvCaption.visibility = View.GONE
             } else {
                 binding.tvCaption.visibility = View.VISIBLE
+            }
+
+            binding.ivPopup.setOnClickListener {
+                val postId = post.postID
+                openPopUp(it, postId)
             }
 
             binding.apply {
@@ -59,6 +66,21 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
 
         }
 
+    }
+
+    private fun openPopUp(v: View, postId: String) {
+        val popUp = PopupMenu(v.context, v)
+        popUp.inflate(R.menu.my_link_menu)
+        popUp.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.deleteLink -> {
+                    vm.deleteSavedPost(postId)
+                    true
+                }
+                else -> true
+            }
+        }
+        popUp.show()
     }
 
     private fun checkIfYoutube(v: View, link: String): Boolean {
@@ -90,13 +112,13 @@ class MySavedLinkTabAdapter(val vm: MyLinkVM) :
     }
 }
 
-class MySavedLinkDiffUtil() : DiffUtil.ItemCallback<PostLocal>() {
+class MySavedLinkDiffUtil() : DiffUtil.ItemCallback<SavedPosts>() {
 
-    override fun areItemsTheSame(oldItem: PostLocal, newItem: PostLocal): Boolean {
+    override fun areItemsTheSame(oldItem: SavedPosts, newItem: SavedPosts): Boolean {
         return oldItem.postID == newItem.postID
     }
 
-    override fun areContentsTheSame(oldItem: PostLocal, newItem: PostLocal): Boolean {
+    override fun areContentsTheSame(oldItem: SavedPosts, newItem: SavedPosts): Boolean {
         return oldItem == newItem
     }
 

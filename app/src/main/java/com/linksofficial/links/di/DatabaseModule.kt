@@ -3,7 +3,7 @@ package com.linksofficial.links.di
 import android.app.Application
 import androidx.room.Room
 import com.linksofficial.links.data.local.PostLocalDatabase
-import com.linksofficial.links.data.local.dao.PostLocalDao
+import com.linksofficial.links.data.local.dao.PostsDao
 import com.linksofficial.links.utils.ConstantsHelper
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
@@ -13,8 +13,8 @@ Created by Harish on 13-02-2021
  **/
 val databaseModule = module {
 
-    fun providePostDB(database: PostLocalDatabase): PostLocalDao {
-        return database.postLocalDao()
+    fun provideSavedPostDB(database: PostLocalDatabase): PostsDao {
+        return database.savedPostsDao()
     }
 
     fun provideDatabase(application: Application) =
@@ -31,7 +31,7 @@ val databaseModule = module {
     }
 
     single {
-        providePostDB(get())
+        provideSavedPostDB(get())
     }
 
 }

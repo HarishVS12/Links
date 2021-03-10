@@ -7,6 +7,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -84,8 +85,19 @@ class AddPostFragment : Fragment() {
 
         observePostStatus()
         checkBoxInit()
+        handleBackPress()
+    }
 
-
+    private fun handleBackPress() {
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (feedLinkArgs.isIntent)
+                        requireActivity().finish()
+                    else
+                        findNavController().popBackStack()
+                }
+            })
     }
 
     override fun onResume() {
@@ -193,9 +205,9 @@ class AddPostFragment : Fragment() {
             is_public = isPublic
         )
         addPostViewModel.postLink(post)
-        if(feedLinkArgs.isIntent){
+        if (feedLinkArgs.isIntent) {
             requireActivity().finish()
-        }else {
+        } else {
             findNavController().popBackStack()
         }
     }
