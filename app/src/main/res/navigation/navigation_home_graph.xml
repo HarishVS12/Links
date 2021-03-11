@@ -72,10 +72,19 @@
             android:name="isIntent"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_addPostFragment_to_addTagBottomSheet"
+            app:destination="@id/addTagBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/postVisibilityBottomSheet"
         android:name="com.linksofficial.links.view.ui.addPost.PostVisibilityBottomSheet"
         android:label="fragment_post_visibility_bottom_sheet"
         tools:layout="@layout/fragment_post_visibility_bottom_sheet" />
+    <dialog
+        android:id="@+id/addTagBottomSheet"
+        android:name="com.linksofficial.links.view.ui.addPost.AddTagBottomSheet"
+        android:label="AddTagBottomSheet"
+        tools:layout="@layout/fragment_add_tag_bottom_sheet"
+        />
 </navigation>

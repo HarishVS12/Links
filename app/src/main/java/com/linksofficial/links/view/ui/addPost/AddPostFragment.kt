@@ -12,14 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Timestamp
 import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Post
 import com.linksofficial.links.databinding.FragmentAddPostBinding
 import com.linksofficial.links.utils.ConstantsHelper
 import com.linksofficial.links.utils.NetworkHelper
-import com.linksofficial.links.view.adapter.TagsAddPostAdapter
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
 import com.linksofficial.links.viewmodel.AddPostVM
 import es.dmoral.toasty.Toasty
@@ -30,8 +28,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AddPostFragment : Fragment() {
 
     private lateinit var binding: FragmentAddPostBinding
-    private lateinit var tagAdapter: TagsAddPostAdapter
-
     private val addPostViewModel: AddPostVM by viewModel()
 
     private val feedLinkArgs by navArgs<AddPostFragmentArgs>()
@@ -40,6 +36,8 @@ class AddPostFragment : Fragment() {
 
     private var userName = ""
     private var userPhotoURL = ""
+
+    private var selectedTagName = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,14 +57,6 @@ class AddPostFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        tagAdapter = TagsAddPostAdapter(addPostViewModel)
-
-        binding.rvTags.apply {
-            adapter = tagAdapter
-            layoutManager = LinearLayoutManager(requireContext()).apply {
-                this.orientation = LinearLayoutManager.HORIZONTAL
-            }
-        }
 
         binding.btnAddPost.setOnClickListener {
             addPost(it)
@@ -75,18 +65,23 @@ class AddPostFragment : Fragment() {
             addPost(it)
         }
 
+        binding.constraintTags.setOnClickListener {
+            /*val addTagBottomSheet = AddTagBottomSheet()
+            addTagBottomSheet.show(parentFragmentManager,"add_tag")*/
+            findNavController().navigate(R.id.action_addPostFragment_to_addTagBottomSheet)
+        }
+
 
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        tagAdapter.submitList(ConstantsHelper.getTagList())
-
         observePostStatus()
         checkBoxInit()
         handleBackPress()
     }
+
 
     private fun handleBackPress() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,
@@ -102,6 +97,8 @@ class AddPostFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        observeTagName()
+
         if (!feedLinkArgs.isIntent) {
             binding.etLink.setText(feedLinkArgs.link ?: "")
             checkClipData()
@@ -115,7 +112,23 @@ class AddPostFragment : Fragment() {
         updateCheckBox(false)
         binding.checkbox.isChecked = false
         binding.checkbox.setOnCheckedChangeListener { _, isChecked ->
-            if (!isChecked) updateCheckBox(false) else updateCheckBox(true)
+            if (!isChecked) {
+                updateCheckBox(false)
+                binding.apply {
+                    textinputTitle.visibility = View.GONE
+                    etTitle.visibility = View.GONE
+                    textinputCaption.visibility = View.GONE
+                    etCaption.visibility = View.GONE
+                }
+            } else {
+                updateCheckBox(true)
+                binding.apply {
+                    textinputTitle.visibility = View.VISIBLE
+                    etTitle.visibility = View.VISIBLE
+                    textinputCaption.visibility = View.VISIBLE
+                    etCaption.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
@@ -169,9 +182,28 @@ class AddPostFragment : Fragment() {
                     binding.cardProgress.visibility = View.VISIBLE
 
                     if (!binding.etTitle.isEnabled) {
-                        fetchTitleAndCaption(etLink.toString())
+                        if (binding.chip.visibility == View.VISIBLE)
+                            fetchTitleAndCaption(etLink.toString())
+                        else {
+                            Toasty.error(
+                                requireContext(),
+                                "Please select a tag",
+                                Toasty.LENGTH_SHORT
+                            ).show()
+                            binding.cardProgress.visibility = View.INVISIBLE
+                        }
+
                     } else {
-                        postLink(etLink, etTitle, etCaption)
+                        if (binding.chip.visibility == View.VISIBLE)
+                            postLink(etLink, etTitle, etCaption)
+                        else {
+                            Toasty.error(
+                                requireContext(),
+                                "Please select a tag",
+                                Toasty.LENGTH_SHORT
+                            ).show()
+                            binding.cardProgress.visibility = View.INVISIBLE
+                        }
                     }
                 }
 
@@ -197,7 +229,7 @@ class AddPostFragment : Fragment() {
             user_name = userName,
             user_photo_url = userPhotoURL,
             link = etLink.toString(),
-            tag = ConstantsHelper.getTagList()[addPostViewModel.tagPosition.value!!].tagName,
+            tag = selectedTagName,
             title = etTitle,
             caption = etCaption,
             created_at = Timestamp.now(),
@@ -242,6 +274,16 @@ class AddPostFragment : Fragment() {
                 isPublic = it
                 postStatusVisibility(R.string.status_private, R.drawable.ic_add_link_private)
             }
+        })
+    }
+
+    private fun observeTagName() {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
+            ConstantsHelper.TAG_NAME
+        )?.observe(viewLifecycleOwner, {
+            binding.chip.text = it
+            selectedTagName = it
+            binding.chip.visibility = View.VISIBLE
         })
     }
 

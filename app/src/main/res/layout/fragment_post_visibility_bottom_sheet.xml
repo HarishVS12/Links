@@ -20,8 +20,8 @@
         tools:context=".view.ui.addPost.PostVisibilityBottomSheet">
 
         <View
-            android:layout_width="50dp"
-            android:layout_height="6dp"
+            android:layout_width="30dp"
+            android:layout_height="4dp"
             android:layout_gravity="center"
             android:background="#C4C4C4"
             android:text="@string/hello_blank_fragment" />

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -62,6 +63,10 @@ class FeedFragment : Fragment() {
 
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = FeedVPAdapter(this)
+
+        binding.ivInfo.setOnClickListener {
+            requireActivity().findNavController(R.id.nav_host_frag).navigate(R.id.action_homeFragment_to_onboardingFragment)
+        }
 
     }
 

@@ -18,6 +18,7 @@ object ConstantsHelper {
 
     //SavedStateHandlerKeys
     const val POST_STATUS = "post_status"
+    const val TAG_NAME = "tag_name"
 
     //Get tag list
     fun getTagList() =

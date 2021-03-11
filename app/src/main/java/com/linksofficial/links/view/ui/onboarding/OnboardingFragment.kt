@@ -48,10 +48,10 @@ class OnboardingFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        onBoardingVM.readFirstAppOpen().observe(this, {
+       /* onBoardingVM.readFirstAppOpen().observe(this, {
             if (it)
                 findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
-        })
+        })*/
     }
 
     private fun updateUI(linearVisibility: Int, buttonVisibility: Int, subImage: Int) {

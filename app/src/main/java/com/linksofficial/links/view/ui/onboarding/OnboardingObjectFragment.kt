@@ -32,12 +32,12 @@ class OnboardingObjectFragment() : Fragment() {
 
                 2 -> updateUI(
                     getString(R.string.onboard_main_2), getString(R.string.onboard_sub_2),
-                    R.drawable.ic_onboarding_main2
+                    R.drawable.ic_onboarding_main3
                 )
 
                 3 -> updateUI(
                     getString(R.string.onboard_main_3), getString(R.string.onboard_sub_3),
-                    R.drawable.ic_onboarding_main3
+                    R.drawable.ic_onboarding_main2
                 )
             }
         }
