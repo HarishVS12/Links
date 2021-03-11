@@ -5,19 +5,19 @@
         android:id="@+id/feedFragment"
         android:title="Feed"
         android:orderInCategory="1"
-        android:icon="@drawable/ic_menu_home_outline"
+        android:icon="@drawable/ic_homes"
         />
 
     <item
         android:id="@+id/myLinkFragment"
         android:title="My Links"
         android:orderInCategory="2"
-        android:icon="@drawable/ic_menu_link"/>
+        android:icon="@drawable/ic_bookmark"/>
 
     <item
         android:id="@+id/myAccountFragment"
         android:title="My Account"
         android:orderInCategory="3"
-        android:icon="@drawable/ic_menu_account"/>
+        android:icon="@drawable/ic_user"/>
 
 </menu>

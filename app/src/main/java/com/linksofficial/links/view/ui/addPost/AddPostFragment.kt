@@ -58,28 +58,22 @@ class AddPostFragment : Fragment() {
         }
 
 
-        binding.btnAddPost.setOnClickListener {
-            addPost(it)
-        }
-        binding.ivCheckPost.setOnClickListener {
-            addPost(it)
-        }
 
-        binding.constraintTags.setOnClickListener {
-            /*val addTagBottomSheet = AddTagBottomSheet()
-            addTagBottomSheet.show(parentFragmentManager,"add_tag")*/
-            findNavController().navigate(R.id.action_addPostFragment_to_addTagBottomSheet)
-        }
-
-
-
-        binding.ivBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
+        onClicks()
         observePostStatus()
         checkBoxInit()
         handleBackPress()
+    }
+
+    private fun onClicks() {
+        binding.btnAddPost.setOnClickListener { addPost(it) }
+        binding.ivCheckPost.setOnClickListener { addPost(it) }
+        binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+
+        binding.constraintTags.setOnClickListener {
+            findNavController().navigate(R.id.action_addPostFragment_to_addTagBottomSheet)
+        }
+
     }
 
 
@@ -262,7 +256,7 @@ class AddPostFragment : Fragment() {
         addPostViewModel.writeLinkCopied(false)
     }
 
-    // region ObservePostStatus
+    // region ObservePostStatus and ObserveTagName
     private fun observePostStatus() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
             ConstantsHelper.POST_STATUS

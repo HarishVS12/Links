@@ -20,6 +20,7 @@ class OnboardingFragment : Fragment() {
     private lateinit var binding: FragmentOnboardingBinding
     private val onBoardingVM: LinkActivityVM by sharedViewModel()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +35,6 @@ class OnboardingFragment : Fragment() {
         initVP()
         clickListeners()
         handleBackPress()
-
     }
 
     private fun clickListeners() {
@@ -48,10 +48,10 @@ class OnboardingFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-       /* onBoardingVM.readFirstAppOpen().observe(this, {
-            if (it)
-                findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
-        })*/
+        /* onBoardingVM.readFirstAppOpen().observe(this, {
+             if (it)
+                 findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
+         })*/
     }
 
     private fun updateUI(linearVisibility: Int, buttonVisibility: Int, subImage: Int) {
@@ -88,7 +88,7 @@ class OnboardingFragment : Fragment() {
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (binding.viewPager.currentItem == 0)
-                        activity?.finish()
+                        findNavController().popBackStack()
                     binding.viewPager.setCurrentItem(binding.viewPager.currentItem - 1, true)
                 }
             })

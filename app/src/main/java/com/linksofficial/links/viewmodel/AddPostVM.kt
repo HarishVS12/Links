@@ -28,18 +28,6 @@ class AddPostVM(val context: Application, private val mainRepo: MainRepository) 
     val userDetails: LiveData<User>
         get() = _userDetails
 
-    private var _tagPosition = MutableLiveData(0)
-    val tagPosition: LiveData<Int>
-        get() = _tagPosition
-
-    private var _postDetails = MutableLiveData<Post>()
-    val postDetails: LiveData<Post>
-        get() = _postDetails
-
-    fun postPosition(position: Int) {
-        _tagPosition.value = position
-    }
-
     fun readUserDetail() {
         _userDetails = mainRepo.readUserDetails().asLiveData() as MutableLiveData<User>
     }

@@ -83,8 +83,8 @@
 
                     <ImageView
                         android:id="@+id/iv_info"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
                         android:layout_gravity="center"
                         android:elevation="20dp"
                         android:src="@drawable/ic_help"

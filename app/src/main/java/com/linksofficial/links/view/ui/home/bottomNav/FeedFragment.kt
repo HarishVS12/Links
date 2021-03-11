@@ -21,12 +21,13 @@ import com.linksofficial.links.utils.ConstantsHelper
 import com.linksofficial.links.view.adapter.FeedVPAdapter
 import com.linksofficial.links.view.adapter.TagsFeedAdapter
 import com.linksofficial.links.view.ui.activities.LinkMainActivity
+import com.linksofficial.links.view.ui.home.HomeFragmentDirections
 import com.linksofficial.links.viewmodel.FeedVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
-class FeedFragment : Fragment() {
+class FeedFragment() : Fragment() {
 
     lateinit var binding: FragmentFeedBinding
     private lateinit var adapter: TagsFeedAdapter
@@ -65,7 +66,9 @@ class FeedFragment : Fragment() {
         binding.viewPager.adapter = FeedVPAdapter(this)
 
         binding.ivInfo.setOnClickListener {
-            requireActivity().findNavController(R.id.nav_host_frag).navigate(R.id.action_homeFragment_to_onboardingFragment)
+            val home = HomeFragmentDirections.actionHomeFragmentToOnboardingFragment(true)
+            requireActivity().findNavController(R.id.nav_host_frag)
+                .navigate(home)
         }
 
     }
@@ -96,7 +99,6 @@ class FeedFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
-
 
     private fun checkClipData() {
         val clipBoard =
