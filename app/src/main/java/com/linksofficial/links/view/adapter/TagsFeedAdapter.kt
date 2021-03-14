@@ -11,6 +11,7 @@ import com.linksofficial.links.R
 import com.linksofficial.links.data.model.Tags
 import com.linksofficial.links.databinding.ContainerFeedTagsBinding
 import com.linksofficial.links.viewmodel.FeedVM
+import timber.log.Timber
 
 class TagsFeedAdapter(val context:Context, val viewModel: FeedVM) :
     ListAdapter<Tags, TagsFeedAdapter.TagsAddPostViewHolder>(TagFeedDiffUtil()) {
@@ -37,8 +38,9 @@ class TagsFeedAdapter(val context:Context, val viewModel: FeedVM) :
                 if(selectedPosition!=adapterPosition){
                     notifyItemChanged(selectedPosition)
                     selectedPosition = adapterPosition
+                    viewModel.setTagPosition(selectedPosition)
+                    Timber.d("FeedObjPositions(TAGSELECT)= $selectedPosition")
                 }
-                viewModel.setTagPosition(adapterPosition)
             }
 
         }

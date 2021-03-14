@@ -80,7 +80,7 @@ class LoginFragment : Fragment() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Timber.e("${e.message}")
+                Timber.e("Error: ${e.message}")
             }
         }
     }
@@ -95,7 +95,7 @@ class LoginFragment : Fragment() {
                 }
             }
             .addOnFailureListener {
-                Timber.e("${it.message}")
+                Timber.e("Error: ${it.message}")
             }
     }
 
@@ -114,10 +114,12 @@ class LoginFragment : Fragment() {
         val uniqueId = currentUser?.uid
         linkActivityVM.readFirstAppOpen().observe(viewLifecycleOwner, {
             if (it == false) {
+                Timber.d("Error: False is here")
                 loginVM.writeUserLogin(createUser(uniqueId, currentUser), uniqueId)
                 writeUserDetails(createUser(uniqueId,currentUser))
                 findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
             }else{
+                Timber.d("Error: True is here")
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         })

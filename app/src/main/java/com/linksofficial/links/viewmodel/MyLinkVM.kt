@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -53,6 +54,7 @@ class MyLinkVM(private val mainRepo: MainRepository) : ViewModel() {
         val source = Source.CACHE
         docRef
             .whereEqualTo("user_id", Firebase.auth.currentUser?.uid)
+            .orderBy("created_at",Query.Direction.DESCENDING)
             .get(source)
             .addOnSuccessListener { result ->
                 var postList = mutableListOf<Post>()

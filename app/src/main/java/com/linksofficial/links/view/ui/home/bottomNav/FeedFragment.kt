@@ -63,6 +63,7 @@ class FeedFragment() : Fragment() {
         adapter.submitList(ConstantsHelper.getTagList())
 
         binding.viewPager.isUserInputEnabled = false
+        binding.viewPager.offscreenPageLimit = 10
         binding.viewPager.adapter = FeedVPAdapter(this)
 
         binding.ivInfo.setOnClickListener {
@@ -85,9 +86,10 @@ class FeedFragment() : Fragment() {
         })
 
         feedViewModel.focusTagPosition.observe(viewLifecycleOwner, {
-            Timber.d("Posts:(POS_VM) = $it")
+            Timber.d("FeedObjPositions(tag) = $it")
             binding.viewPager.setCurrentItem(it, true)
         })
+
 
     }
 

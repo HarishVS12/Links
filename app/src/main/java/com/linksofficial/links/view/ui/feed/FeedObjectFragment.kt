@@ -52,6 +52,7 @@ class FeedObjectFragment() : Fragment() {
 
         arguments?.takeIf { it.containsKey(ConstantsHelper.FEED_VP_ARG) }.apply {
             this?.getInt(ConstantsHelper.FEED_VP_ARG)?.let {
+                Timber.d("FeedObjectFrag = ${ConstantsHelper.getTagList()[it]}")
                 var tagName = ConstantsHelper.getTagList()[it]
                 tagName.tagName?.let { it1 ->
                     updateUI(it1)

@@ -55,6 +55,12 @@ class WebViewActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.webView.removeAllViews()
+        binding.webView.destroy()
+    }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && binding.webView.canGoBack()) {
             binding.webView.goBack()
@@ -130,6 +136,7 @@ class WebViewActivity : AppCompatActivity() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             return false
         }
+
 
     }
 }

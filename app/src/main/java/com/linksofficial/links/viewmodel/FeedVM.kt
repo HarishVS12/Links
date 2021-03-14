@@ -34,7 +34,7 @@ class FeedVM(private val mainRepository: MainRepository) : ViewModel() {
 
     fun setPostItem(postItem: Post) {
         _postItem.value = postItem
-    }
+    } 
 
     fun setTagPosition(position: Int) {
         _focusTagPosition.value = position
